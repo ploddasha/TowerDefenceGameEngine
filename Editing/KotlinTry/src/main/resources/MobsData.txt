@@ -1,0 +1,3 @@
+Mobs Data:
+Cost: 900, Damage: 0, Health: 0, Type: Walk, AttackRange: 0
+Cost: 0, Damage: 800, Health: 0, Type: Walk, AttackRange: 0

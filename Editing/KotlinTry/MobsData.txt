@@ -1,2 +1,0 @@
-Mobs Data:
-Cost: 0, Damage: 800, Health: 0, Type: Walk

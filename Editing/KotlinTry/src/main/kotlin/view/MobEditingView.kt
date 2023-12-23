@@ -13,37 +13,51 @@ class MobEditingView: View() {
     override val root = vbox {
         label("Редактирование моба")
 
-        form {
-            fieldset("Редактировать") {
-                field("Стоимость") {
-                    textfield(mobModel.cost)
-                }
-                field("Урон") {
-                    textfield(mobModel.damage)
-                }
-                field("Здоровье") {
-                    textfield(mobModel.health)
-                }
-                field("Тип") {
-                    combobox(mobModel.type, mobTypes)
-                }
-                button("Сохранить") {
-                    enableWhen(mobModel.dirty)
-                    action {
-                        save()
+        scrollpane {
+            form {
+                fieldset("Редактировать") {
+                    field("Стоимость") {
+                        textfield(mobModel.cost)
                     }
-                }
-                button("Сбросить").action {
-                    mobModel.rollback()
-                }
+                    field("Урон") {
+                        textfield(mobModel.damage)
+                    }
+                    field("Здоровье") {
+                        textfield(mobModel.health)
+                    }
+                    field("Скорость") {
+                        textfield(mobModel.speed)
+                    }
+                    field("Тип") {
+                        combobox(mobModel.type, mobTypes)
+                    }
+                    //field("Может атаковать") {
+                    //    checkbox("Может атаковать", mobModel.canAttack)
+                    //}
+                    field("Область атаки") {
+                        textfield(mobModel.attackRange)
+                    }
 
-            }
-            button("Вернуться") {
-                action {
-                    replaceWith(MobsEditingView::class)
+                    button("Сохранить") {
+                        enableWhen(mobModel.dirty)
+                        action {
+                            save()
+                        }
+                    }
+                    button("Сбросить").action {
+                        mobModel.rollback()
+                    }
+
+                }
+                button("Вернуться") {
+                    action {
+                        replaceWith(MobsEditingView::class)
+                    }
                 }
             }
         }
+
+
 
         alignment = javafx.geometry.Pos.CENTER
     }
