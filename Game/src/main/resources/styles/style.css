@@ -1,0 +1,18 @@
+.startMenu-stack-pane {
+  -fx-background-image: url("/styles/backgroundStartMenu.jpg");
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center center;
+  -fx-background-size: cover;
+}
+
+.game-stack-pane {
+  -fx-background-image: url("/configs/gameBackground.jpg");
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center center;
+  -fx-background-size: cover;
+}
+
+.bordered.label .text {
+  -fx-stroke: black;
+  -fx-stroke-width: 1px;
+}
