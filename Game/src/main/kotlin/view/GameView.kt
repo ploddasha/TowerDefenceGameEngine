@@ -4,6 +4,7 @@ import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
 import tornadofx.*
+import viewModel.loadMobDataJson
 
 class GameView : View("Bashenki") {
     override val root = stackpane {
@@ -15,6 +16,9 @@ class GameView : View("Bashenki") {
             paddingTop = 10.0
             paddingRight = 7.0
             alignment = Pos.TOP_RIGHT
+
+            //to show that read json works
+            label(text = loadMobDataJson()[0].cost.toString())
 
             button("Shop") {
                 style {
