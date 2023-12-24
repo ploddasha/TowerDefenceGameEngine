@@ -1,7 +1,6 @@
 package view
 
-import model.towers.TowerModel
-import model.towers.TowerType
+import model.towers.*
 import tornadofx.*
 
 class TowerEditingView: View() {
@@ -11,15 +10,18 @@ class TowerEditingView: View() {
 
 
     override val root = vbox {
-        label("Редактирование башню")
+        label("Редактирование башни")
 
         form {
             fieldset("Редактировать") {
-                field("Стоимость") {
-                    textfield(TowerModel.cost)
+                field("Имя башни"){
+                    textfield(TowerModel.name)
                 }
                 field("Урон") {
                     textfield(TowerModel.damage)
+                }
+                field("Стоимость") {
+                    textfield(TowerModel.cost)
                 }
                 field("Здоровье") {
                     textfield(TowerModel.health)
@@ -27,19 +29,17 @@ class TowerEditingView: View() {
                 field("Тип") {
                     combobox(TowerModel.type, TowerTypes)
                 }
-                field("Радиус атаки") {
-                    textfield(TowerModel.range)
+
+                button("Сбросить").action {
+                    TowerModel.rollback()
                 }
+
                 button("Сохранить") {
                     enableWhen(TowerModel.dirty)
                     action {
                         save()
                     }
                 }
-                button("Сбросить").action {
-                    TowerModel.rollback()
-                }
-
             }
             button("Вернуться") {
                 action {

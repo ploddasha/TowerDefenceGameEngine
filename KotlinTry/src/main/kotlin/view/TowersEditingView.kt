@@ -1,9 +1,7 @@
 package view
 
-import model.towers.Tower
-import model.towers.TowerModel
-import model.towers.TowerType
-import model.towers.TowersModel
+import model.Mob
+import model.towers.*
 import tornadofx.*
 
 class TowersEditingView: View() {
@@ -19,12 +17,13 @@ class TowersEditingView: View() {
 
         button("Добавить башню") {
             action {
-                val newTower = Tower(0, 0, 0, TowerType.Walk, 0)
+                val newTower = Tower("имя", 0, 0, 0, TowerType.Walk)
                 TowersModel.addTower(newTower)
                 TowerModel.item = newTower
                 replaceWith(TowerEditingView::class)
             }
         }
+
         button("Редактировать") {
             action {
                 replaceWith(TowerEditingView::class)
@@ -45,14 +44,13 @@ class TowersEditingView: View() {
 
         tableview (TowersModel.TowersList){
             title = "Towers"
+            column("Имя", Tower::nameProperty).contentWidth(padding = 50.0)
             column("Урон", Tower::damageProperty).contentWidth(padding = 50.0)
             column("Стоимость", Tower::costProperty).contentWidth(padding = 50.0)
             column("Здоровье", Tower::healthProperty).contentWidth(padding = 50.0)
             column("Тип", Tower::typeProperty).contentWidth(padding = 50.0)
-            column("Радиус атаки", Tower::rangeProperty).contentWidth(padding = 50.0)
             bindSelected(TowerModel)
             columnResizePolicy = SmartResize.POLICY
-
         }
 
         alignment = javafx.geometry.Pos.CENTER
