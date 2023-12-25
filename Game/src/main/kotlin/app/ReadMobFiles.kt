@@ -4,14 +4,18 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import model.fromEditing.MobType
+import model.fromEditing.MobsModel
 //import model.fromEditing.Mob
 //import model.fromEditing.MobType
 import java.io.File
 
+/*
 @Serializable
 enum class MobType {
     Fly, Walk
 }
+ */
 
 @Serializable
 data class Mob(
@@ -29,4 +33,21 @@ fun loadMobDataJson(): List<Mob> {
     val result =  Json.decodeFromString<List<Mob>>(file.readText())
 
     return result
+}
+
+
+fun createMobModel(mobsModel: MobsModel) {
+
+    val listOfMobs = loadMobDataJson()
+    for (i in listOfMobs.indices) {
+        mobsModel.addMob(model.fromEditing.Mob(
+            cost = listOfMobs[i].cost,
+            damage = listOfMobs[i].damage,
+            health = listOfMobs[i].damage,
+            speed = listOfMobs[i].speed,
+            attackRange = listOfMobs[i].attackRange,
+            type = listOfMobs[i].type
+        ))
+    }
+
 }

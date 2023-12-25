@@ -15,4 +15,8 @@ class MobsModel : ViewModel() {
     fun addMob(mob: Mob) {
         mobsList.add(mob)
     }
+
+    fun addMobs(mobList: List<Mob>) {
+        this.mobsList.addAll(mobList)
+    }
 }

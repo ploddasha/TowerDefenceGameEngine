@@ -7,9 +7,11 @@ import javafx.beans.property.SimpleObjectProperty
 import kotlinx.serialization.Serializable
 import tornadofx.ItemViewModel
 
+@Serializable
 enum class MobType {
     Fly, Walk
 }
+
 
 class Mob (
     cost: Int? = null,
