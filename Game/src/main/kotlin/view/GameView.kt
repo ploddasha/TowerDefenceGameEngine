@@ -1,20 +1,28 @@
 package view
 
-import app.createMapModel
-import app.createMobModel
+import app.loadFiles.createMapModel
+import app.loadFiles.createMobModel
 import javafx.geometry.Pos
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.input.KeyCode
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
 import model.fromEditing.MapModel
+import model.fromEditing.Mob
 import model.fromEditing.MobsModel
+import model.fromEditing.TileType
 import tornadofx.*
+import viewModel.real.GameController
+import viewModel.real.RealMob
 
 class GameView : View("Bashenki") {
 
     val mobsModel: MobsModel by inject()
     val mapModel: MapModel by inject()
+
+    val gameController: GameController by inject()
+
 
     private val tileMap = mutableMapOf<Pair<Int, Int>, String>()
 
@@ -22,6 +30,7 @@ class GameView : View("Bashenki") {
     val sand = "/configs/fromEditing/map/sand.png"
     val water = "/configs/fromEditing/map/water.png"
     val city = "/configs/fromEditing/map/city.jpg"
+    val mobImage = "/configs/fromEditing/map/mushroom.png"
 
     private val tiles = listOf(
         grass, sand, water, city
@@ -32,6 +41,13 @@ class GameView : View("Bashenki") {
     private val tileSize = 20.0
     private val numRows = 10
     private val numCols = 10
+
+    init {
+        gameController.startMobMovement()
+    }
+    private val newMob = RealMob(0, 0)
+
+
 
 
     override val root = stackpane {
@@ -80,55 +96,49 @@ class GameView : View("Bashenki") {
             }
         }
 
-
         gridpane {
+
             hgap = 1.0
             vgap = 1.0
             paddingAll = 0.0
 
-            repeat(20) { row ->
-                repeat(20) { col ->
-                    val cellImageView = ImageView(Image(resources.url(grass).toString()))
+            repeat(numRows) { row ->
+                repeat(numCols) { col ->
+                    val tile = mapModel.tiles.find { it.row == row && it.col == col }
+
+                    val cellImageView = when (tile?.type) {
+                        TileType.ROAD -> ImageView(Image(resources.url(sand).toString()))
+                        TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
+                        TileType.WATER -> ImageView(Image(resources.url(water).toString()))
+                        TileType.CITY -> ImageView(Image(resources.url(city).toString()))
+                        null -> ImageView(Image(resources.url(grass).toString()))
+                    }
+
                     cellImageView.isPreserveRatio = true
                     cellImageView.fitWidth = 20.0
                     cellImageView.fitHeight = 20.0
-                    cellImageView.opacity = 0.6
-                    tileMap[Pair(row, col)] = grass
 
-
-                    cellImageView.setOnMouseClicked {
-                        handleTileClick(cellImageView, col, row)
-                    }
 
                     add(cellImageView, col, row)
                 }
             }
-            alignment = javafx.geometry.Pos.CENTER
+
+            //gameController.addMob(newMob.x, newMob.y)
+
+            // Отображаем мобов
+            val cellImageView = ImageView(Image(resources.url(mobImage).toString()))
+            cellImageView.isPreserveRatio = true
+            cellImageView.fitWidth = 20.0
+            cellImageView.fitHeight = 20.0
+            add(cellImageView, newMob.x, newMob.y)
 
         }
 
-    /*
-        gridpane {
-            hgap = 1.0
-            vgap = 1.0
-            paddingAll = 0.0
-
-            repeat(rowCount) { row ->
-                repeat(columnCount) { col ->
-                    val tile = Tile(row, col, tileSize, tileSize)
-                    val tileImageView = ImageView() // Create an empty ImageView
-                    tileImageView.fitWidth = tile.width
-                    tileImageView.fitHeight = tile.height
-                    tileImageView.style = "-fx-border-color: black;" // Set the border color
-                    add(tileImageView, col, row)
-                }
-            }
-            alignment = javafx.geometry.Pos.CENTER
-        } */
 
     }
 
     private fun handleTileClick(cellImageView: ImageView, col: Int, row: Int) {
 
     }
+
 }
