@@ -1,4 +1,4 @@
-package viewModel
+package app
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

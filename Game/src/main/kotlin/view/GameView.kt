@@ -1,17 +1,20 @@
 package view
 
+import app.createMapModel
+import app.createMobModel
 import javafx.geometry.Pos
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
+import model.fromEditing.MapModel
 import model.fromEditing.MobsModel
 import tornadofx.*
-import viewModel.createMobModel
 
 class GameView : View("Bashenki") {
 
     val mobsModel: MobsModel by inject()
+    val mapModel: MapModel by inject()
 
     private val tileMap = mutableMapOf<Pair<Int, Int>, String>()
 
@@ -19,6 +22,7 @@ class GameView : View("Bashenki") {
     val sand = "/configs/fromEditing/map/sand.png"
     val water = "/configs/fromEditing/map/water.png"
     val city = "/configs/fromEditing/map/city.jpg"
+
     private val tiles = listOf(
         grass, sand, water, city
     )
@@ -40,9 +44,11 @@ class GameView : View("Bashenki") {
             paddingRight = 7.0
             alignment = Pos.TOP_RIGHT
 
-            createMobModel(mobsModel)
             //to show that read json works
+            createMobModel(mobsModel)
             label(text = mobsModel.mobsList[0].cost.toString())
+            createMapModel(mapModel)
+            label(text = mapModel.tiles[0].type.toString())
 
             button("Shop") {
                 style {
@@ -74,7 +80,7 @@ class GameView : View("Bashenki") {
             }
         }
 
-        /*
+
         gridpane {
             hgap = 1.0
             vgap = 1.0
@@ -100,8 +106,8 @@ class GameView : View("Bashenki") {
             alignment = javafx.geometry.Pos.CENTER
 
         }
-        */
 
+    /*
         gridpane {
             hgap = 1.0
             vgap = 1.0
@@ -110,18 +116,15 @@ class GameView : View("Bashenki") {
             repeat(rowCount) { row ->
                 repeat(columnCount) { col ->
                     val tile = Tile(row, col, tileSize, tileSize)
-                    //val cellImageView = ImageView()
-                    //cellImageView.
-                    val tileRectangle = rectangle(tile.width, tile.height) {
-                        stroke = Color.BLACK
-                        fill = Color.TRANSPARENT
-
-                    }
-                    add(tileRectangle, col, row)
+                    val tileImageView = ImageView() // Create an empty ImageView
+                    tileImageView.fitWidth = tile.width
+                    tileImageView.fitHeight = tile.height
+                    tileImageView.style = "-fx-border-color: black;" // Set the border color
+                    add(tileImageView, col, row)
                 }
             }
             alignment = javafx.geometry.Pos.CENTER
-        }
+        } */
 
     }
 
