@@ -4,13 +4,8 @@ import model.Mob
 import model.MobModel
 import model.MobType
 import model.MobsModel
+import model.towers.Tower
 import tornadofx.*
-
-/*
-    должно быть отображение всех созданных мобов
-    с кнопкой создать уровень
-    и возможностью редактировать уровень
- */
 
 class MobsEditingView: View() {
 
@@ -25,20 +20,10 @@ class MobsEditingView: View() {
 
         button("Добавить моба") {
             action {
-                val newMob = Mob(0, 0, 0, MobType.Walk)
+                val newMob = Mob(0, 0, 0, 100, 0, MobType.Walk, "fileName")
                 mobsModel.addMob(newMob)
                 mobModel.item = newMob
                 replaceWith(MobEditingView::class)
-            }
-        }
-        button("Редактировать") {
-            action {
-                replaceWith(MobEditingView::class)
-            }
-        }
-        button("Удалить") {
-            action {
-                mobsModel.mobsList.remove(mobModel.item)
             }
         }
 
@@ -54,8 +39,26 @@ class MobsEditingView: View() {
             column("Урон", Mob::damageProperty).contentWidth(padding = 50.0)
             column("Стоимость", Mob::costProperty).contentWidth(padding = 50.0)
             column("Здоровье", Mob::healthProperty).contentWidth(padding = 50.0)
+            column("Скорость", Mob::speedProperty).contentWidth(padding = 50.0)
             column("Тип", Mob::typeProperty).contentWidth(padding = 50.0)
+            //column("Атаковать", Mob::canAttack).contentWidth(padding = 50.0)
+            column("Область атаки", Mob::attackRange).contentWidth(padding = 50.0)
+            column("Имя файла", Mob::fileNameProperty).contentWidth(padding = 50.0)
             bindSelected(mobModel)
+
+            contextmenu {
+                item("Редактировать").action {
+                    selectedItem?.apply {
+                        replaceWith(MobEditingView::class)
+                    }
+                }
+                item("Удалить").action {
+                    selectedItem?.apply {
+                        mobsModel.mobsList.remove(mobModel.item)
+                    }
+                }
+            }
+
             columnResizePolicy = SmartResize.POLICY
 
         }

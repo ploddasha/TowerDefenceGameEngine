@@ -24,6 +24,7 @@ dependencies {
     implementation("no.tornado:tornadofx:1.7.20")
     implementation("org.openjfx:javafx-controls:19.0.2.1")
     implementation("org.openjfx:javafx-fxml:19.0.2.1")
+    implementation("org.json:json:20230227")
 }
 
 

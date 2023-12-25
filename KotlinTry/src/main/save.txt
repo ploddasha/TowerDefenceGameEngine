@@ -1,0 +1,27 @@
+button("Добавить изображение") {
+            action {
+                val fileChooser = FileChooser()
+                fileChooser.title = "Выберите изображение"
+                fileChooser.extensionFilters.addAll(
+                    FileChooser.ExtensionFilter("Изображения", "*.png", "*.jpg"),
+                    FileChooser.ExtensionFilter("Все файлы", "*.*")
+                )
+
+                val selectedFile = fileChooser.showOpenDialog(currentWindow)
+
+                if (selectedFile != null) {
+                    println("Selected file: ${selectedFile.absolutePath}")
+
+                    val newFileName = "MapImage.png"
+                    val destinationDirectory = File("./src/main/resources")
+                    imageManager.copyFileToProject(selectedFile, destinationDirectory, newFileName)
+
+                    //selectedImage = Image(resources.url("/MapImage.png").toString())
+                    //updateImageView(selectedImage!!)
+
+                } else {
+                    println("File selection canceled.")
+                }
+
+            }
+        }
