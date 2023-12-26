@@ -15,8 +15,16 @@ import model.fromEditing.TileType
 import tornadofx.*
 import viewModel.real.GameController
 import viewModel.real.RealMob
+import viewModel.MusicController
+
 
 class GameView : View("Bashenki") {
+
+    private val musicController: MusicController  by inject()
+    init {
+        musicController.playMusic("D:/game2/TowerDefenceGameEngine22222/Game/src/main/resources/music/game_music.mp3")
+
+    }
 
     val mobsModel: MobsModel by inject()
     val mapModel: MapModel by inject()
@@ -69,6 +77,27 @@ class GameView : View("Bashenki") {
             label(text = mapModel.tiles[0].type.toString())
 
 
+
+
+
+
+            button("Pause") {
+                style {
+                    fontSize = 14.px
+                    padding = box(5.px, 10.px)
+                    backgroundColor += Color.rgb(255, 152, 0)
+                    textFill = Color.WHITE
+                    fontWeight = FontWeight.BOLD
+                }
+                vboxConstraints {
+                    marginBottom = 10.0
+                }
+                action {
+                    //pauseMenuView.root.isVisible = true
+                    replaceWith(PauseMenuView::class)
+                }
+            }
+
             button("Shop") {
                 style {
                     fontSize = 14.px
@@ -78,26 +107,13 @@ class GameView : View("Bashenki") {
                     textFill = Color.WHITE
                     fontWeight = FontWeight.BOLD
                 }
-
+                vboxConstraints {
+                    marginBottom = 10.0
+                }
                 action {
                     replaceWith(ShopView::class)
                 }
             }
-            button("Pause") {
-                style {
-                    fontSize = 14.px
-                    padding = box(5.px, 10.px)
-                    backgroundColor += Color.rgb(255, 152, 0)
-                    textFill = Color.WHITE
-                    fontWeight = FontWeight.BOLD
-                }
-                action {
-                    //pauseMenuView.root.isVisible = true
-                    replaceWith(PauseMenuView::class)
-                }
-            }
-
-
             gridpane {
                 hgap = 1.0
                 vgap = 1.0

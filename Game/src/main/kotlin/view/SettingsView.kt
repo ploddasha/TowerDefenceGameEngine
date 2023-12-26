@@ -3,9 +3,15 @@ package view
 import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
+import javafx.geometry.Orientation
+import javafx.scene.control.Slider
 import tornadofx.*
+import viewModel.MusicController
 
 class SettingsView : View("Settings") {
+
+
+
     private val startMenuView: StartMenuView by inject()
 
     override val root = stackpane {
@@ -23,6 +29,7 @@ class SettingsView : View("Settings") {
             vbox {
                 alignment = Pos.TOP_CENTER
                 label("Settings") {
+                    styleClass.add("bordered");
                     style {
                         fontSize = 25.px
                         fontWeight = FontWeight.BOLD
@@ -31,6 +38,7 @@ class SettingsView : View("Settings") {
                     }
                 }
             }
+
 
             label("*здесь будет настройка звука*") {
                 style {

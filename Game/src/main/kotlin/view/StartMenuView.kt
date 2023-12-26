@@ -12,7 +12,7 @@ class StartMenuView : View("Bashenki!") {
     private val musicController: MusicController by inject()
     init {
         importStylesheet("/styles/style.css")
-        musicController.playMusic("/music/game_music.mp3")
+        musicController.playMusic("D:/game2/TowerDefenceGameEngine22222/Game/src/main/resources/music/start_music.mp3")
     }
 
 
@@ -75,7 +75,6 @@ class StartMenuView : View("Bashenki!") {
                         fontWeight = FontWeight.BOLD
                     }
                     action {
-                        musicController.playMusic("/music/game_music.mp3")
                         replaceWith(GameView::class)
                     }
                 }
