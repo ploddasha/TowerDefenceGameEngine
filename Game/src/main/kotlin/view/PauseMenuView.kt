@@ -4,8 +4,12 @@ import tornadofx.*
 import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
+import javafx.geometry.Orientation
+import javafx.scene.control.Slider
+import viewModel.MusicController
 
 class PauseMenuView : View("Pause Menu") {
+
     /*
     override val root = stackpane {
         // Контейнер для меню паузы
@@ -25,9 +29,15 @@ class PauseMenuView : View("Pause Menu") {
         }
     }
 */
+
+
     private val gameView: GameView by inject()
 
+
+
     override val root = stackpane {
+
+        addClass("pause")
         rectangle {
             width = 500.0
             height = 350.0
@@ -42,6 +52,7 @@ class PauseMenuView : View("Pause Menu") {
             vbox {
                 alignment = Pos.TOP_CENTER
                 label("Pause Menu") {
+                    styleClass.add("bordered");
                     style {
                         fontSize = 25.px
                         fontWeight = FontWeight.BOLD
@@ -50,13 +61,15 @@ class PauseMenuView : View("Pause Menu") {
                     }
                 }
             }
-
+            /*
             label("*здесь будет настройка звука*") {
                 style {
                     paddingTop = 35.0
                     paddingBottom = 55.0
                 }
-            }
+            }*/
+
+
 
             button("Back") {
                 style {
