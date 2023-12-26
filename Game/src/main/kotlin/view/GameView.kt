@@ -22,7 +22,7 @@ class GameView : View("Bashenki") {
 
     private val musicController: MusicController  by inject()
     init {
-        musicController.playMusic("D:/game2/TowerDefenceGameEngine22222/Game/src/main/resources/music/game_music.mp3")
+        //musicController.playMusic("D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/game_music.mp3")
 
     }
 
@@ -115,24 +115,41 @@ class GameView : View("Bashenki") {
                 }
             }
             gridpane {
+
                 hgap = 1.0
                 vgap = 1.0
                 paddingAll = 0.0
 
-                repeat(rowCount) { row ->
-                    repeat(columnCount) { col ->
-                        val tile = Tile(row, col, tileSize, tileSize)
-                        //val cellImageView = ImageView()
-                        //cellImageView.
-                        val tileRectangle = rectangle(tile.width, tile.height) {
-                            stroke = Color.BLACK
-                            fill = Color.TRANSPARENT
+                repeat(numRows) { row ->
+                    repeat(numCols) { col ->
+                        val tile = mapModel.tiles.find { it.row == row && it.col == col }
 
+                        val cellImageView = when (tile?.type) {
+                            TileType.ROAD -> ImageView(Image(resources.url(sand).toString()))
+                            TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
+                            TileType.WATER -> ImageView(Image(resources.url(water).toString()))
+                            TileType.CITY -> ImageView(Image(resources.url(city).toString()))
+                            null -> ImageView(Image(resources.url(grass).toString()))
                         }
-                        add(tileRectangle, col, row)
+
+                        cellImageView.isPreserveRatio = true
+                        cellImageView.fitWidth = 20.0
+                        cellImageView.fitHeight = 20.0
+
+
+                        add(cellImageView, col, row)
                     }
                 }
-                alignment = javafx.geometry.Pos.CENTER
+
+                //gameController.addMob(newMob.x, newMob.y)
+
+                // Отображаем мобов
+                val cellImageView = ImageView(Image(resources.url(mobImage).toString()))
+                cellImageView.isPreserveRatio = true
+                cellImageView.fitWidth = 20.0
+                cellImageView.fitHeight = 20.0
+                add(cellImageView, newMob.x, newMob.y)
+
             }
         }
     }
