@@ -23,7 +23,6 @@ class MapEditingView: View() {
 
     val imageManager = ImageManager()
 
-
     private val tiles = listOf(
         "/map/grass.png",
         "/map/sand.png",

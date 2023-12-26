@@ -10,6 +10,9 @@ import java.io.File
 
 import org.json.JSONObject
 
+enum class tileType {
+    GRASS, SAND, WATER, CITY
+}
 
 class MenuView: View() {
     val mobsModel: MobsModel by inject()
@@ -139,11 +142,21 @@ class MenuView: View() {
             val jsonObject = JSONObject()
             jsonObject.put("Row", tile.row)
             jsonObject.put("Col", tile.col)
-            jsonObject.put("Type", tile.type)
+            jsonObject.put("Type", tileConvert(tile.type))
             jsonArray.put(jsonObject)
         }
         file.writeText(jsonArray.toString())
         println("Tile data saved to MapTilesData.json")
+    }
+
+    private fun tileConvert(tile: String): tileType {
+        when (tile) {
+            "/map/grass.png" -> return tileType.GRASS
+            "/map/sand.png" -> return tileType.SAND
+            "/map/water.png" -> return tileType.WATER
+            "/map/city.jpg" -> return tileType.CITY
+            else -> return tileType.GRASS
+        }
     }
 
 
