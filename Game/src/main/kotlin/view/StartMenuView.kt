@@ -12,7 +12,7 @@ class StartMenuView : View("Bashenki!") {
     private val musicController: MusicController by inject()
     init {
         importStylesheet("/styles/style.css")
-        musicController.playMusic("D:/game2/TowerDefenceGameEngine22222/Game/src/main/resources/music/start_music.mp3")
+        //musicController.playMusic("D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/start_music.mp3")
     }
 
 

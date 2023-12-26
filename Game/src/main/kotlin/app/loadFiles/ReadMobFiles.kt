@@ -1,4 +1,4 @@
-package viewModel
+package app.loadFiles
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
