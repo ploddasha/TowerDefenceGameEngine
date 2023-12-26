@@ -2,16 +2,14 @@ package view
 
 import app.loadFiles.createMapModel
 import app.loadFiles.createMobModel
+import app.loadFiles.createTowersModel
 import javafx.geometry.Pos
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.input.KeyCode
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
-import model.fromEditing.MapModel
-import model.fromEditing.Mob
-import model.fromEditing.MobsModel
-import model.fromEditing.TileType
+import model.fromEditing.*
 import tornadofx.*
 import viewModel.real.GameController
 import viewModel.real.RealMob
@@ -28,6 +26,8 @@ class GameView : View("Bashenki") {
 
     val mobsModel: MobsModel by inject()
     val mapModel: MapModel by inject()
+    val towersModel: TowersModel by inject()
+
 
     val gameController: GameController by inject()
 
@@ -50,8 +50,8 @@ class GameView : View("Bashenki") {
     data class Tile(val x: Int, val y: Int, val width: Double, val height: Double)
 
     private val tileSize = 20.0
-    private val numRows = 10
-    private val numCols = 10
+    private val numRows = 20
+    private val numCols = 20
 
     init {
         gameController.startMobMovement()
@@ -75,8 +75,8 @@ class GameView : View("Bashenki") {
             label(text = mobsModel.mobsList[0].cost.toString())
             createMapModel(mapModel)
             label(text = mapModel.tiles[0].type.toString())
-
-
+            createTowersModel(towersModel)
+            label(text = towersModel.towersList[0].type.toString())
 
 
 
@@ -114,43 +114,61 @@ class GameView : View("Bashenki") {
                     replaceWith(ShopView::class)
                 }
             }
-            gridpane {
 
-                hgap = 1.0
-                vgap = 1.0
-                paddingAll = 0.0
+        }
 
-                repeat(numRows) { row ->
-                    repeat(numCols) { col ->
-                        val tile = mapModel.tiles.find { it.row == row && it.col == col }
+        gridpane {
 
-                        val cellImageView = when (tile?.type) {
-                            TileType.ROAD -> ImageView(Image(resources.url(sand).toString()))
-                            TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
-                            TileType.WATER -> ImageView(Image(resources.url(water).toString()))
-                            TileType.CITY -> ImageView(Image(resources.url(city).toString()))
-                            null -> ImageView(Image(resources.url(grass).toString()))
-                        }
+            hgap = 1.0
+            vgap = 1.0
+            paddingAll = 0.0
 
-                        cellImageView.isPreserveRatio = true
-                        cellImageView.fitWidth = 20.0
-                        cellImageView.fitHeight = 20.0
+            repeat(numRows) { row ->
+                repeat(numCols) { col ->
+                    val tile = mapModel.tiles.find { it.row == row && it.col == col }
 
-
-                        add(cellImageView, col, row)
+                    val cellImageView = when (tile?.type) {
+                        TileType.ROAD -> ImageView(Image(resources.url(sand).toString()))
+                        TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
+                        TileType.WATER -> ImageView(Image(resources.url(water).toString()))
+                        TileType.CITY -> ImageView(Image(resources.url(city).toString()))
+                        null -> ImageView(Image(resources.url(grass).toString()))
                     }
+
+                    cellImageView.isPreserveRatio = true
+                    cellImageView.fitWidth = 20.0
+                    cellImageView.fitHeight = 20.0
+
+                    cellImageView.setOnMouseClicked {
+                        handleTileClick(cellImageView, col, row)
+                    }
+
+                    add(cellImageView, col, row)
                 }
-
-                //gameController.addMob(newMob.x, newMob.y)
-
-                // Отображаем мобов
-                val cellImageView = ImageView(Image(resources.url(mobImage).toString()))
-                cellImageView.isPreserveRatio = true
-                cellImageView.fitWidth = 20.0
-                cellImageView.fitHeight = 20.0
-                add(cellImageView, newMob.x, newMob.y)
-
             }
+
+            //gameController.addMob(newMob.x, newMob.y)
+
+            // Отображаем мобов
+            val cellImageView = ImageView(Image(resources.url(mobImage).toString()))
+            cellImageView.isPreserveRatio = true
+            cellImageView.fitWidth = 20.0
+            cellImageView.fitHeight = 20.0
+            add(cellImageView, newMob.x, newMob.y)
+
+            alignment = javafx.geometry.Pos.CENTER
+
+        }
+    }
+
+    private fun handleTileClick(cellImageView: ImageView, col: Int, row: Int) {
+        var purchasedTower = towersModel.selectedTower
+        //cellImageView.image = Image(javaClass.getResourceAsStream(purchasedTower.fileName))
+        //println("Tile changed at position ($col, $row) to $purchasedTower")
+
+        if (purchasedTower != null) {
+            cellImageView.image = Image(javaClass.getResourceAsStream(purchasedTower.fileName!!))
+            println("Tower changed at position ($col, $row) to ${purchasedTower.fileName}")
         }
     }
 

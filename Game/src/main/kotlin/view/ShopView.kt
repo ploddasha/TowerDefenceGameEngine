@@ -3,8 +3,13 @@ package view
 import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
+import model.fromEditing.TowerType
+import model.fromEditing.TowersModel
 import tornadofx.*
 class ShopView : View("Bashenki") {
+
+    val towersModel: TowersModel by inject()
+
     override val root = stackpane {
         addClass("shop")
 
@@ -46,6 +51,11 @@ class ShopView : View("Bashenki") {
                 action {
                     //тут списать деньги и создать башню
                     //+ добавить ее на экран
+                    for (i in 0 until towersModel.towersList.size) {
+                        if (towersModel.towersList[i].type == TowerType.Walk) {
+                            towersModel.selectTower(towersModel.towersList[i])
+                        }
+                    }
                 }
             }
             button("Buy Flying Tower") {
