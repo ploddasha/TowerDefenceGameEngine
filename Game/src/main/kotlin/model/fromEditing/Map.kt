@@ -19,6 +19,7 @@ data class Tile(
     @SerialName("Column") val col: Int,
     @SerialName("Type") var type: TileType,
 )
+
 class Map(list: List<Tile>? = null)  {
 
     val listOfTilesProperty = SimpleListProperty(this, "Tiles", list!!.observable())
@@ -28,7 +29,6 @@ class Map(list: List<Tile>? = null)  {
 
 class MapModel : ViewModel() {
     val tiles = observableListOf<Tile>().toObservable()
-
 
     fun saveInformation(tileMap: MutableMap<Pair<Int, Int>, TileType>) {
         val tileList = tileMap.entries.map { (position, type) ->
@@ -40,4 +40,5 @@ class MapModel : ViewModel() {
     fun addTiles(tiles: List<Tile>) {
         this.tiles.addAll(tiles)
     }
+
 }

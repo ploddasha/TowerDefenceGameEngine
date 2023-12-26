@@ -29,7 +29,8 @@ dependencies {
     implementation("org.json:json:20230227")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation(kotlin("stdlib-jdk8"))
-
+    implementation("org.openjfx:javafx-media:14.0.2")
+    implementation("javazoom:jlayer:1.0.1")
 }
 
 tasks.test {

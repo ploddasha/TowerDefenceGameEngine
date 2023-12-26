@@ -48,6 +48,7 @@ class SettingsView : View("Settings") {
                     fontWeight = FontWeight.BOLD
                 }
                 action {
+                    //find(StartMenuView::class).openWindow()
                     replaceWith(StartMenuView())
                 }
             }

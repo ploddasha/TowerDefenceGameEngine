@@ -26,6 +26,9 @@ class GameView : View("Bashenki") {
 
     private val tileMap = mutableMapOf<Pair<Int, Int>, String>()
 
+
+    private val pauseMenuView = PauseMenuView()
+
     val grass = "/configs/fromEditing/map/grass.png"
     val sand = "/configs/fromEditing/map/sand.png"
     val water = "/configs/fromEditing/map/water.png"
@@ -49,7 +52,6 @@ class GameView : View("Bashenki") {
 
 
 
-
     override val root = stackpane {
 
         addClass("game-stack-pane")
@@ -66,6 +68,7 @@ class GameView : View("Bashenki") {
             createMapModel(mapModel)
             label(text = mapModel.tiles[0].type.toString())
 
+
             button("Shop") {
                 style {
                     fontSize = 14.px
@@ -77,68 +80,46 @@ class GameView : View("Bashenki") {
                 }
 
                 action {
-                    add(ShopView())
+                    replaceWith(ShopView::class)
                 }
             }
             button("Pause") {
                 style {
                     fontSize = 14.px
                     padding = box(5.px, 10.px)
-                    paddingAll = 5.0
                     backgroundColor += Color.rgb(255, 152, 0)
                     textFill = Color.WHITE
                     fontWeight = FontWeight.BOLD
                 }
-
                 action {
-                    add(PauseMenuView())
+                    //pauseMenuView.root.isVisible = true
+                    replaceWith(PauseMenuView::class)
                 }
             }
-        }
 
-        gridpane {
 
-            hgap = 1.0
-            vgap = 1.0
-            paddingAll = 0.0
+            gridpane {
+                hgap = 1.0
+                vgap = 1.0
+                paddingAll = 0.0
 
-            repeat(numRows) { row ->
-                repeat(numCols) { col ->
-                    val tile = mapModel.tiles.find { it.row == row && it.col == col }
+                repeat(rowCount) { row ->
+                    repeat(columnCount) { col ->
+                        val tile = Tile(row, col, tileSize, tileSize)
+                        //val cellImageView = ImageView()
+                        //cellImageView.
+                        val tileRectangle = rectangle(tile.width, tile.height) {
+                            stroke = Color.BLACK
+                            fill = Color.TRANSPARENT
 
-                    val cellImageView = when (tile?.type) {
-                        TileType.ROAD -> ImageView(Image(resources.url(sand).toString()))
-                        TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
-                        TileType.WATER -> ImageView(Image(resources.url(water).toString()))
-                        TileType.CITY -> ImageView(Image(resources.url(city).toString()))
-                        null -> ImageView(Image(resources.url(grass).toString()))
+                        }
+                        add(tileRectangle, col, row)
                     }
-
-                    cellImageView.isPreserveRatio = true
-                    cellImageView.fitWidth = 20.0
-                    cellImageView.fitHeight = 20.0
-
-
-                    add(cellImageView, col, row)
                 }
+                alignment = javafx.geometry.Pos.CENTER
             }
-
-            //gameController.addMob(newMob.x, newMob.y)
-
-            // Отображаем мобов
-            val cellImageView = ImageView(Image(resources.url(mobImage).toString()))
-            cellImageView.isPreserveRatio = true
-            cellImageView.fitWidth = 20.0
-            cellImageView.fitHeight = 20.0
-            add(cellImageView, newMob.x, newMob.y)
-
         }
-
-
     }
 
-    private fun handleTileClick(cellImageView: ImageView, col: Int, row: Int) {
-
-    }
 
 }

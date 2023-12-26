@@ -5,12 +5,17 @@ import javafx.scene.layout.Border
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
 import tornadofx.*
+import viewModel.MusicController
 
 class StartMenuView : View("Bashenki!") {
 
+    private val musicController: MusicController by inject()
     init {
         importStylesheet("/styles/style.css")
+        musicController.playMusic("/music/game_music.mp3")
     }
+
+
 
     private val settingsView = SettingsView()
 
@@ -70,6 +75,7 @@ class StartMenuView : View("Bashenki!") {
                         fontWeight = FontWeight.BOLD
                     }
                     action {
+                        musicController.playMusic("/music/game_music.mp3")
                         replaceWith(GameView::class)
                     }
                 }
