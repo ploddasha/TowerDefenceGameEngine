@@ -1,2 +1,2 @@
 # TowerDefenceGameEngine
-Project for NSU course Software design
+Project for NSU course "Software design"
