@@ -1,1 +1,0 @@
-Wave count: IntegerProperty [bean: model.mode.ModeModel@2709aaf4, value: 0]
