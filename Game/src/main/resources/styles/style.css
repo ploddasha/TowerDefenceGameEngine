@@ -1,0 +1,33 @@
+.startMenu-stack-pane {
+  -fx-background-image: url("/styles/backgroundStartMenu.jpg");
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center center;
+  -fx-background-size: cover;
+}
+
+
+.game-stack-pane {
+  -fx-background-image: url("/configs/fromEditing/gameBackground2.jpg");
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center center;
+  -fx-background-size: cover;
+}
+
+.shop {
+  -fx-background-image: url("/styles/shop_background.jpg");
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center center;
+  -fx-background-size: cover;
+}
+
+.pause {
+-fx-background-image: url("/styles/pauseBack.jpg");
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center center;
+  -fx-background-size: cover;
+}
+
+.bordered.label .text {
+  -fx-stroke: black;
+  -fx-stroke-width: 1px;
+}
