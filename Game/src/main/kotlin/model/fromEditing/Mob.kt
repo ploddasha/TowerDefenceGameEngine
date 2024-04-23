@@ -9,7 +9,7 @@ import tornadofx.ItemViewModel
 
 @Serializable
 enum class MobType {
-    Fly, Walk
+    Fly, Walk, Both
 }
 
 

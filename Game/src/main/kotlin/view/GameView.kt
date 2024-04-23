@@ -1,63 +1,30 @@
 package view
 
-import app.loadFiles.createMapModel
-import app.loadFiles.createMobModel
 import javafx.geometry.Pos
-import javafx.scene.image.Image
-import javafx.scene.image.ImageView
-import javafx.scene.input.KeyCode
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
-import model.fromEditing.MapModel
-import model.fromEditing.Mob
-import model.fromEditing.MobsModel
 import model.fromEditing.TileType
 import tornadofx.*
-import viewModel.real.GameController
-import viewModel.real.RealMob
-import viewModel.MusicController
+import viewModel.GameController
 
 
 class GameView : View("Bashenki") {
-
-    private val musicController: MusicController  by inject()
-    init {
-        //musicController.playMusic("D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/game_music.mp3")
-
-    }
-
-    val mobsModel: MobsModel by inject()
-    val mapModel: MapModel by inject()
-
-    val gameController: GameController by inject()
-
-
-    private val tileMap = mutableMapOf<Pair<Int, Int>, String>()
-
-
-    private val pauseMenuView = PauseMenuView()
-
-    val grass = "/configs/fromEditing/map/grass.png"
-    val sand = "/configs/fromEditing/map/sand.png"
-    val water = "/configs/fromEditing/map/water.png"
-    val city = "/configs/fromEditing/map/city.jpg"
-    val mobImage = "/configs/fromEditing/map/mushroom.png"
-
-    private val tiles = listOf(
-        grass, sand, water, city
-    )
-
-    data class Tile(val x: Int, val y: Int, val width: Double, val height: Double)
-
-    private val tileSize = 20.0
-    private val numRows = 10
-    private val numCols = 10
+    val mapView = find<MapView>()
+    val gameController = GameController(mapView)
 
     init {
-        gameController.startMobMovement()
     }
-    private val newMob = RealMob(0, 0)
+    data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)
 
+
+    /*
+       private val pauseMenuView = PauseMenuView()
+
+       private val musicController: MusicController  by inject()
+
+       init {
+           musicController.playMusic("D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/game_music.mp3")
+       } */
 
 
     override val root = stackpane {
@@ -70,13 +37,22 @@ class GameView : View("Bashenki") {
             paddingRight = 7.0
             alignment = Pos.TOP_RIGHT
 
-            //to show that read json works
-            createMobModel(mobsModel)
-            label(text = mobsModel.mobsList[0].cost.toString())
-            createMapModel(mapModel)
-            label(text = mapModel.tiles[0].type.toString())
-
-
+            button("Start Game") {
+                style {
+                    fontSize = 14.px
+                    padding = box(5.px, 10.px)
+                    paddingAll = 5.0
+                    backgroundColor += Color.BLUE
+                    textFill = Color.WHITE
+                    fontWeight = FontWeight.BOLD
+                }
+                vboxConstraints {
+                    marginBottom = 10.0
+                }
+                action {
+                    startGame()
+                }
+            }
 
 
 
@@ -114,17 +90,23 @@ class GameView : View("Bashenki") {
                     replaceWith(ShopView::class)
                 }
             }
-            gridpane {
+            add(mapView)
 
+            /*
+            gridpane {
                 hgap = 1.0
                 vgap = 1.0
                 paddingAll = 0.0
 
-                repeat(numRows) { row ->
-                    repeat(numCols) { col ->
-                        val tile = mapModel.tiles.find { it.row == row && it.col == col }
+                val tilesArray  = mapModel.getArray(numRows, numCols)
 
-                        val cellImageView = when (tile?.type) {
+
+                for (row in 0 until numRows) {
+                    for (col in 0 until numCols) {
+                        val tile = tilesArray[row][col]
+                        //val tile = mapModel.tiles.find { it.row == row && it.col == col }
+
+                        val cellImageView = when (tile.tileType) {
                             TileType.ROAD -> ImageView(Image(resources.url(sand).toString()))
                             TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
                             TileType.WATER -> ImageView(Image(resources.url(water).toString()))
@@ -141,17 +123,23 @@ class GameView : View("Bashenki") {
                     }
                 }
 
-                //gameController.addMob(newMob.x, newMob.y)
+                //gameController.startMobMovement()
 
                 // Отображаем мобов
                 val cellImageView = ImageView(Image(resources.url(mobImage).toString()))
                 cellImageView.isPreserveRatio = true
                 cellImageView.fitWidth = 20.0
                 cellImageView.fitHeight = 20.0
-                add(cellImageView, newMob.x, newMob.y)
 
+                add(cellImageView, newMob.x, newMob.y)
             }
+
+             */
         }
+    }
+
+    private fun startGame() {
+        gameController.startGame()
     }
 
 
