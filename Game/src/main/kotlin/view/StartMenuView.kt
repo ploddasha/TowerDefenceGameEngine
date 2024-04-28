@@ -75,7 +75,7 @@ class StartMenuView : View("Bashenki!") {
                         fontWeight = FontWeight.BOLD
                     }
                     action {
-                        replaceWith(GameView::class)
+                        replaceWith(AllGamesView::class)
                     }
                 }
             }

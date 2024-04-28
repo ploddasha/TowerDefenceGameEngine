@@ -13,6 +13,13 @@
   -fx-background-size: cover;
 }
 
+.all-games-stack-pane {
+  -fx-background-image: url("/configs/backgrounds/beforeGameBackground.jpg");
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center center;
+  -fx-background-size: cover;
+}
+
 .shop {
   -fx-background-image: url("/styles/shop_background.jpg");
   -fx-background-repeat: no-repeat;
