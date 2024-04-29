@@ -43,7 +43,7 @@ fun createMobModel(mobsModel: MobsModel) {
         mobsModel.addMob(model.fromEditing.Mob(
             cost = listOfMobs[i].cost,
             damage = listOfMobs[i].damage,
-            health = listOfMobs[i].damage,
+            health = listOfMobs[i].health,
             speed = listOfMobs[i].speed,
             attackRange = listOfMobs[i].attackRange,
             type = listOfMobs[i].type

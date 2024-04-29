@@ -12,6 +12,7 @@ import viewModel.towerControllers.FlyingTowerController
 import viewModel.towerControllers.GroundTowerController
 
 class ShopView(
+    private val gameController: GameController,
     private val moneyController: MoneyController,
     private val groundTowerController: GroundTowerController,
     private val flyingTowerController: FlyingTowerController,
@@ -65,8 +66,7 @@ class ShopView(
                     } else {
                         moneyController.writeOffMoney(groundTowerController.getPrice());
                         val tower = groundTowerController.createTower();
-
-                        //+ добавить башню на экран
+                        gameController.setTowerToPut(tower)
                     }
                 }
             }
@@ -92,8 +92,7 @@ class ShopView(
                     } else {
                         moneyController.writeOffMoney(flyingTowerController.getPrice());
                         val tower = flyingTowerController.createTower();
-
-                        //+ добавить башню на экран
+                        gameController.setTowerToPut(tower)
                     }
                 }
             }
@@ -129,7 +128,8 @@ class ShopView(
                     marginBottom = 10.0
                 }
                 action {
-                    replaceWith(GameView())
+                    //replaceWith(GameView())
+                    replaceWith(find<GameView>())
                 }
             }
         }

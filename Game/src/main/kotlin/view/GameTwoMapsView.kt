@@ -9,8 +9,9 @@ import viewModel.GameController
 
 
 class GameTwoMapsView : View() {
-    val mapView = find<MapView>()
-    val gameController = GameController(mapView)
+    val gameController = GameController()
+
+    val mapView = MapView(gameController)
 
     init {
     }
@@ -140,6 +141,7 @@ class GameTwoMapsView : View() {
     }
 
     private fun startGame() {
+        gameController.setMyMapView(mapView)
         gameController.startGame()
     }
 

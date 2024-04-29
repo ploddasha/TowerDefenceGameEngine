@@ -10,15 +10,20 @@ import model.fromEditing.TileType
 import tornadofx.View
 import tornadofx.gridpane
 import tornadofx.paddingAll
+import viewModel.GameController
 import viewModel.real.RealMob
 
-class MapView : View() {
+class MapView(
+    private val gameController: GameController
+    ) : View() {
 
     private val grass = "/configs/fromEditing/map/grass.png"
     private val sand = "/configs/fromEditing/map/sand.png"
     private val water = "/configs/fromEditing/map/water.png"
     private val city = "/configs/fromEditing/map/city.jpg"
     private val mobImage = "/configs/fromEditing/map/mushroom.png"
+    private val tower2Image = "/configs/tower2.png"
+
 
     private val numRows = 10
     private val numCols = 10
@@ -54,6 +59,10 @@ class MapView : View() {
                 cellImageView.fitHeight = 20.0
 
                 add(cellImageView, col, row)
+
+                cellImageView.setOnMouseClicked {
+                    handleTileClick(col, row)
+                }
             }
         }
     }
@@ -71,15 +80,15 @@ class MapView : View() {
 
         val tilesArray  = mapModel.getArray(numRows, numCols)
         val nextTile = tilesArray[mob.row + 1][mob.col]
-        if (canMoveTo(nextTile.tileType)) {
-            mob.move(1, 0)
-            println("can move and move down ${mob.row} ${mob.col}")
-        } else {
-            mob.move(0, 1)
-            println("can move and move right ${mob.row} ${mob.col}")
-
+        if (mob.health > 0) {
+            if (canMoveTo(nextTile.tileType)) {
+                mob.move(1, 0)
+                println("can move and move down ${mob.row} ${mob.col}")
+            } else {
+                mob.move(0, 1)
+                println("can move and move right ${mob.row} ${mob.col}")
+            }
         }
-
 
         if (mob.id in mobPredPositions) {
             val predPair = mobPredPositions[mob.id]
@@ -109,7 +118,44 @@ class MapView : View() {
         mobPredPositions[mob.id] = Pair(mob.col, mob.row)
     }
 
+    private fun handleTileClick(col: Int, row: Int) {
+        val gridPane = root as GridPane
 
+        val tower = gameController.getTowerToPut()
+        if (tower != null) {
+            //TODO тип башни и норальное добавление башни
+            gameController.createRealTower(tower, col, row)
+            println("Ставим башню")
+            val cellImageView = ImageView(Image(resources.url(tower2Image).toString()))
+            cellImageView.isPreserveRatio = true
+            cellImageView.fitWidth = 20.0
+            cellImageView.fitHeight = 20.0
+            gridPane.add(cellImageView, col, row)
+
+            gameController.removeTowerToPut()
+        }
+    }
+
+    fun deleteMobFromMap(row: Int, col: Int) {
+        val gridPane = root as GridPane
+        println("Удаляем")
+
+        val tilesArray  = mapModel.getArray(numRows, numCols)
+        val tile = tilesArray[row][col]
+
+        val cellImageView = when (tile.tileType) {
+            TileType.ROAD -> ImageView(Image(resources.url(sand).toString()))
+            TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
+            TileType.WATER -> ImageView(Image(resources.url(water).toString()))
+            TileType.CITY -> ImageView(Image(resources.url(city).toString()))
+            null -> ImageView(Image(resources.url(grass).toString()))
+        }
+        cellImageView.isPreserveRatio = true
+        cellImageView.fitWidth = 20.0
+        cellImageView.fitHeight = 20.0
+        gridPane.add(cellImageView, col, row)
+
+    }
 
 
 }

@@ -13,17 +13,19 @@ import viewModel.towerControllers.GroundTowerController
 
 
 class GameView : View("Bashenki") {
-    val mapView = find<MapView>()
+    val gameController = GameController()
 
+    val mapView = MapView(gameController)
 
-    val gameController = GameController(mapView)
+    //val gameController = GameController(mapView)
+
     val moneyController = MoneyController()
     val groundTowerController = GroundTowerController()
     val flyingTowerController = FlyingTowerController()
 
     val cityModel = CityModel()
 
-    val shopView = ShopView(moneyController, groundTowerController, flyingTowerController, cityModel)
+    val shopView = ShopView(gameController, moneyController, groundTowerController, flyingTowerController, cityModel)
 
 
     init {
@@ -106,54 +108,11 @@ class GameView : View("Bashenki") {
                 }
             }
             add(mapView)
-
-            /*
-            gridpane {
-                hgap = 1.0
-                vgap = 1.0
-                paddingAll = 0.0
-
-                val tilesArray  = mapModel.getArray(numRows, numCols)
-
-
-                for (row in 0 until numRows) {
-                    for (col in 0 until numCols) {
-                        val tile = tilesArray[row][col]
-                        //val tile = mapModel.tiles.find { it.row == row && it.col == col }
-
-                        val cellImageView = when (tile.tileType) {
-                            TileType.ROAD -> ImageView(Image(resources.url(sand).toString()))
-                            TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
-                            TileType.WATER -> ImageView(Image(resources.url(water).toString()))
-                            TileType.CITY -> ImageView(Image(resources.url(city).toString()))
-                            null -> ImageView(Image(resources.url(grass).toString()))
-                        }
-
-                        cellImageView.isPreserveRatio = true
-                        cellImageView.fitWidth = 20.0
-                        cellImageView.fitHeight = 20.0
-
-
-                        add(cellImageView, col, row)
-                    }
-                }
-
-                //gameController.startMobMovement()
-
-                // Отображаем мобов
-                val cellImageView = ImageView(Image(resources.url(mobImage).toString()))
-                cellImageView.isPreserveRatio = true
-                cellImageView.fitWidth = 20.0
-                cellImageView.fitHeight = 20.0
-
-                add(cellImageView, newMob.x, newMob.y)
-            }
-
-             */
         }
     }
 
     private fun startGame() {
+        gameController.setMyMapView(mapView)
         gameController.startGame()
     }
 

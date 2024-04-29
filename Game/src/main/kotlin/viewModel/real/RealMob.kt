@@ -18,5 +18,9 @@ data class RealMob(
         col = (col + dcol).coerceIn(0, 9)
     }
 
+    fun takeHealth(damage: Int) {
+        health -= damage
+    }
+
 }
 
