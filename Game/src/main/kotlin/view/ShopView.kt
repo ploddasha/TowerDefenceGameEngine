@@ -56,7 +56,7 @@ class ShopView(
                     marginBottom = 10.0
                 }
                 action {
-                    if (groundTowerController.getPrice >= moneyController.getCurrentMoneyAmount()) {
+                    if (groundTowerController.getPrice() >= moneyController.getCurrentMoneyAmount()) {
                         val alert = Alert(Alert.AlertType.ERROR)
                         alert.title = "Ошибка"
                         alert.headerText = "Недостаточно средств!"
@@ -83,7 +83,7 @@ class ShopView(
                     marginBottom = 10.0
                 }
                 action {
-                    if (flyingTowerController.getPrice >= moneyController.getCurrentMoneyAmount()) {
+                    if (flyingTowerController.getPrice() >= moneyController.getCurrentMoneyAmount()) {
                         val alert = Alert(Alert.AlertType.ERROR)
                         alert.title = "Ошибка"
                         alert.headerText = "Недостаточно средств!"

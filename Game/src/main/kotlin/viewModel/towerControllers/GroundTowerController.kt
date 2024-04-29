@@ -4,9 +4,10 @@ import model.tower.GroundTower
 
 class GroundTowerController : TowerController {
 
-    override fun getPrice() {
+    override fun getPrice(): Int {
         // тут нужно брать из конфигов
         // для этого надо согласовать формат конфигов
+        return 100
     }
 
     override fun createTower(): GroundTower {

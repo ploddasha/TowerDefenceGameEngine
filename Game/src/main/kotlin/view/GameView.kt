@@ -3,14 +3,28 @@ package view
 import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
+import model.CityModel
 import model.fromEditing.TileType
 import tornadofx.*
 import viewModel.GameController
+import viewModel.MoneyController
+import viewModel.towerControllers.FlyingTowerController
+import viewModel.towerControllers.GroundTowerController
 
 
 class GameView : View("Bashenki") {
     val mapView = find<MapView>()
+
+
     val gameController = GameController(mapView)
+    val moneyController = MoneyController()
+    val groundTowerController = GroundTowerController()
+    val flyingTowerController = FlyingTowerController()
+
+    val cityModel = CityModel()
+
+    val shopView = ShopView(moneyController, groundTowerController, flyingTowerController, cityModel)
+
 
     init {
     }
@@ -87,7 +101,8 @@ class GameView : View("Bashenki") {
                     marginBottom = 10.0
                 }
                 action {
-                    replaceWith(ShopView::class)
+                    replaceWith(shopView)
+                    //replaceWith(ShopView::class)
                 }
             }
             add(mapView)
