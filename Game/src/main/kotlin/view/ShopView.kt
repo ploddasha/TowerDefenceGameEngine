@@ -14,6 +14,7 @@ import viewModel.towerControllers.GroundTowerController
 class ShopView(
     private val gameController: GameController,
     private val moneyController: MoneyController,
+    private val cityController: CityController,
     private val groundTowerController: GroundTowerController,
     private val flyingTowerController: FlyingTowerController,
     private val cityModel: CityModel
@@ -112,6 +113,7 @@ class ShopView(
                 action {
                     moneyController.writeOffMoney(cityModel.getCostOfHealthPoint());
                     cityModel.setHealth(cityModel.getHealth() + 1);
+                    cityController.addCityHealth(1)
                 }
             }
 

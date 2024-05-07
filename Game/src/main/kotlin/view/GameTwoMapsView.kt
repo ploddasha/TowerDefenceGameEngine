@@ -5,11 +5,16 @@ import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
 import model.fromEditing.TileType
 import tornadofx.*
+import viewModel.CityController
 import viewModel.GameController
+import viewModel.MoneyController
 
 
 class GameTwoMapsView : View() {
-    val gameController = GameController()
+    val moneyController = MoneyController()
+    val cityController = CityController()
+
+    val gameController = GameController(moneyController, cityController)
 
     val mapView = MapView(gameController)
 

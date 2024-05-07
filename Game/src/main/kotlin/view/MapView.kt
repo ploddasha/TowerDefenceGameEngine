@@ -12,6 +12,8 @@ import tornadofx.gridpane
 import tornadofx.paddingAll
 import viewModel.GameController
 import viewModel.real.RealMob
+import viewModel.towerControllers.FlyingTowerController
+import viewModel.towerControllers.GroundTowerController
 
 class MapView(
     private val gameController: GameController
@@ -126,7 +128,12 @@ class MapView(
             //TODO тип башни и норальное добавление башни
             gameController.createRealTower(tower, col, row)
             println("Ставим башню")
-            val cellImageView = ImageView(Image(resources.url(tower2Image).toString()))
+            //val isFlyingTower = tower is FlyingTowerController
+            //val isGroundTower = tower is GroundTowerController
+
+            val imageOfTowerToPut: String = tower2Image
+
+            val cellImageView = ImageView(Image(resources.url(imageOfTowerToPut).toString()))
             cellImageView.isPreserveRatio = true
             cellImageView.fitWidth = 20.0
             cellImageView.fitHeight = 20.0

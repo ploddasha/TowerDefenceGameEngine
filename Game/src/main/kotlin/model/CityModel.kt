@@ -1,8 +1,8 @@
 package model
 
 class CityModel {
-    private var health: Int = 0
-    private var costOfHealthPoint: Int = 0
+    private var health: Int = 10
+    private var costOfHealthPoint: Int = 150
 
     fun setHealth(health: Int) {
         this.health = health

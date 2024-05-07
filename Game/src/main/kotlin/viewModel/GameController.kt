@@ -1,11 +1,9 @@
 package viewModel
 
-import model.fromEditing.MobType
+import app.loadFiles.createMobModel
 import model.fromEditing.MobsModel
-import model.fromEditing.TileType
 import model.tower.Tower
 import tornadofx.Controller
-import tornadofx.View
 import tornadofx.runLater
 import view.MapView
 import viewModel.real.RealMob
@@ -15,7 +13,8 @@ import java.util.*
 
 
 class GameController(
-    //private val mapView: MapView
+    val moneyController: MoneyController,
+    cityController: CityController
 ) : Controller() {
 
     var mapView: MapView? = null
@@ -35,8 +34,7 @@ class GameController(
     private fun createRealMobs() {
         for (i in 0 until mobsModel.mobsList.size) {
             val toCopy = mobsModel.mobsList[i];
-            println("Здоровье моба: ${toCopy.health}")
-            mobs.add(RealMob(id = i, row = 0, col = 0, type = toCopy.type, health = toCopy.health, speed = toCopy.speed, damage = toCopy.damage, attackRange = toCopy.attackRange))
+            mobs.add(RealMob(id = i, row = 0, col = 0, type = toCopy.type, health = toCopy.health, speed = toCopy.speed, damage = toCopy.damage, attackRange = toCopy.attackRange, value = toCopy.cost))
         }
     }
 
@@ -72,6 +70,7 @@ class GameController(
         if (mob.health <= 0) {
             mobs.remove(mob)
             runLater {
+                moneyController.addMoney(mob.value)
                 mapView?.deleteMobFromMap(mob.row, mob.col)
             }
             timer?.cancel()

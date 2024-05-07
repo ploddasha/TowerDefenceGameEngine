@@ -2,7 +2,7 @@ package viewModel.towerControllers
 
 import model.tower.GroundTower
 
-class GroundTowerController : TowerController {
+class GroundTowerController() : TowerController {
 
     override fun getPrice(): Int {
         // тут нужно брать из конфигов

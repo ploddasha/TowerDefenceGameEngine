@@ -10,7 +10,9 @@ data class RealMob(
     var health: Int,
     var speed: Int,
     var damage: Int,
-    var attackRange: Int
+    var attackRange: Int,
+    var value: Int
+
 ) {
 
     fun move(drow: Int, dcol: Int) {

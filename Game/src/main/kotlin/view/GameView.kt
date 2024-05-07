@@ -1,11 +1,14 @@
 package view
 
 import javafx.geometry.Pos
+import javafx.scene.image.Image
+import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
 import model.CityModel
 import model.fromEditing.TileType
 import tornadofx.*
+import viewModel.CityController
 import viewModel.GameController
 import viewModel.MoneyController
 import viewModel.towerControllers.FlyingTowerController
@@ -13,22 +16,56 @@ import viewModel.towerControllers.GroundTowerController
 
 
 class GameView : View("Bashenki") {
-    val gameController = GameController()
+
+    val moneyController = MoneyController()
+    val cityController = CityController()
+
+    val groundTowerController = GroundTowerController()
+    val flyingTowerController = FlyingTowerController()
+
+    val gameController = GameController(moneyController, cityController)
 
     val mapView = MapView(gameController)
 
     //val gameController = GameController(mapView)
 
-    val moneyController = MoneyController()
-    val groundTowerController = GroundTowerController()
-    val flyingTowerController = FlyingTowerController()
 
     val cityModel = CityModel()
 
-    val shopView = ShopView(gameController, moneyController, groundTowerController, flyingTowerController, cityModel)
+    val shopView = ShopView(gameController, moneyController, cityController, groundTowerController, flyingTowerController, cityModel)
+
+    val moneyLabel = label()
+    val moneyBackground = stackpane {
+        rectangle {
+            width = 100.0
+            height = 30.0
+            fill = Color.WHITE
+        }
+        add(moneyLabel)
+        alignment = Pos.CENTER_RIGHT
+    }
+    val moneyIcon = ImageView(Image(resources.url("/configs/coin.jpg").toString()))
+
+
+    val cityLabel = label()
+    val cityBackground = stackpane {
+        rectangle {
+            width = 100.0
+            height = 30.0
+            fill = Color.WHITE
+        }
+        add(cityLabel)
+        alignment = Pos.CENTER_RIGHT
+    }
 
 
     init {
+        moneyLabel.textProperty().bind(moneyController.moneyAmountProperty().asString("Money: %d"))
+        moneyIcon.fitWidth = 35.0
+        moneyIcon.fitHeight = 35.0
+
+        cityLabel.textProperty().bind(cityController.cityProperty().asString("City: %d"))
+
     }
     data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)
 
@@ -89,6 +126,14 @@ class GameView : View("Bashenki") {
                     replaceWith(PauseMenuView::class)
                 }
             }
+
+            hbox(){
+                add(moneyBackground)
+                add(moneyIcon)
+                alignment = Pos.TOP_RIGHT
+            }
+            add(cityBackground)
+
 
             button("Shop") {
                 style {
