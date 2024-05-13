@@ -9,10 +9,11 @@ import view.GameView
 
 @Serializable
 enum class TileType {
+    START,
     ROAD,
     GRASS,
     WATER,
-    CITY
+    CITY,
 }
 @Serializable
 data class Tile(
@@ -49,7 +50,7 @@ class MapModel : ViewModel() {
 
         for (tile in tiles) {
             array[tile.row][tile.col] = GameView.GameTile(tile.row, tile.col, 1.0, 1.0, tile.type)
-            if (tile.type == TileType.ROAD) {
+            if (tile.type == TileType.ROAD || tile.type == TileType.CITY || tile.type == TileType.START) {
                 roadCoords.add(Pair(tile.row, tile.col))
             }
         }

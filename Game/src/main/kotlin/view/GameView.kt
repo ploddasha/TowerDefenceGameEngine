@@ -22,15 +22,15 @@ class GameView : View("Bashenki") {
 
     val groundTowerController = GroundTowerController()
     val flyingTowerController = FlyingTowerController()
+    val cityModel = CityModel()
 
-    val gameController = GameController(moneyController, cityController)
+    val gameController = GameController(moneyController, cityController, cityModel)
 
     val mapView = MapView(gameController)
 
     //val gameController = GameController(mapView)
 
 
-    val cityModel = CityModel()
 
     val shopView = ShopView(gameController, moneyController, cityController, groundTowerController, flyingTowerController, cityModel)
 
@@ -70,6 +70,15 @@ class GameView : View("Bashenki") {
     data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)
 
 
+    val gameOverText = text("Game Over") {
+        style {
+            fontSize = 48.px
+            fill = Color.RED
+            fontWeight = FontWeight.BOLD
+        }
+        visibleProperty().bind(gameController.gameOverProperty()) // Привязываем видимость к свойству gameOver
+    }
+
     /*
        private val pauseMenuView = PauseMenuView()
 
@@ -83,6 +92,9 @@ class GameView : View("Bashenki") {
     override val root = stackpane {
 
         addClass("game-stack-pane")
+
+        add(gameOverText)
+
 
         vbox {
 

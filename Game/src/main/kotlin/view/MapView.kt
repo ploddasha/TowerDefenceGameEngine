@@ -50,12 +50,20 @@ class MapView(
                 val tile = tilesArray[row][col]
 
                 val cellImageView = when (tile.tileType) {
+                    TileType.START -> ImageView(Image(resources.url(city).toString()))
                     TileType.ROAD -> ImageView(Image(resources.url(sand).toString()))
                     TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
                     TileType.WATER -> ImageView(Image(resources.url(water).toString()))
                     TileType.CITY -> ImageView(Image(resources.url(city).toString()))
-                    null -> ImageView(Image(resources.url(grass).toString()))
+                    else -> ImageView(Image(resources.url(grass).toString()))
                 }
+                if (tile.tileType == TileType.START) {
+                    gameController.addStart(tile.x, tile.y)
+                }
+                if (tile.tileType == TileType.CITY) {
+                    gameController.addCity(tile.x, tile.y)
+                }
+
                 cellImageView.isPreserveRatio = true
                 cellImageView.fitWidth = 20.0
                 cellImageView.fitHeight = 20.0
@@ -70,38 +78,65 @@ class MapView(
     }
 
 
-    private val mobPredPositions = mutableMapOf<Int, Pair<Int, Int>>()
+    //private val mobPredPositions = mutableMapOf<Int, Pair<Int, Int>>()
+    //private val visited = mutableSetOf<TilePair>()
+
+    fun clearPredMob() {
+
+    }
 
 
-    fun canMoveTo(tileType: TileType): Boolean {
-        return tileType == TileType.ROAD
+    private fun getTileToMove(tilesArray: Array<Array<GameView.GameTile>>, mob: RealMob): TilePair? {
+        val possible = mutableListOf<TilePair>()
+        if ((tilesArray[mob.row + 1][mob.col].tileType == TileType.ROAD ||
+            tilesArray[mob.row + 1][mob.col].tileType == TileType.CITY) &&
+            !mob.visited.contains(TilePair(mob.row + 1, mob.col))) {
+            possible.add(TilePair(mob.row + 1, mob.col))
+        } else if ((tilesArray[mob.row][mob.col + 1].tileType == TileType.ROAD ||
+            tilesArray[mob.row][mob.col + 1].tileType == TileType.ROAD) &&
+            !mob.visited.contains(TilePair(mob.row, mob.col + 1))) {
+            possible.add(TilePair(mob.row, mob.col + 1))
+        } else if ((tilesArray[mob.row - 1][mob.col].tileType == TileType.ROAD ||
+            tilesArray[mob.row - 1][mob.col].tileType == TileType.ROAD) &&
+            !mob.visited.contains(TilePair(mob.row - 1, mob.col))) {
+            possible.add(TilePair(mob.row - 1, mob.col))
+        } else if ((tilesArray[mob.row][mob.col - 1].tileType == TileType.ROAD ||
+            tilesArray[mob.row][mob.col - 1].tileType == TileType.ROAD) &&
+            !mob.visited.contains(TilePair(mob.row, mob.col - 1))) {
+            possible.add(TilePair(mob.row, mob.col - 1))
+        }
+        if (possible.isNotEmpty()) {
+            return possible[(0 until possible.size).random()]
+        }
+        return null
     }
 
     fun add(mob: RealMob) {
         val gridPane = root as GridPane
 
         val tilesArray  = mapModel.getArray(numRows, numCols)
-        val nextTile = tilesArray[mob.row + 1][mob.col]
+
         if (mob.health > 0) {
-            if (canMoveTo(nextTile.tileType)) {
-                mob.move(1, 0)
-                println("can move and move down ${mob.row} ${mob.col}")
-            } else {
-                mob.move(0, 1)
-                println("can move and move right ${mob.row} ${mob.col}")
+            val tileToMove = getTileToMove(tilesArray, mob)
+            tileToMove?.let { mob.moveTo(tileToMove.first, tileToMove.second) }
+            if (tileToMove != null) {
+                mob.visited.add(TilePair(tileToMove.first, tileToMove.second))
+                println("mob moves to ${mob.row} ${mob.col}")
             }
+
         }
 
-        if (mob.id in mobPredPositions) {
-            val predPair = mobPredPositions[mob.id]
+        if (mob.id in mob.mobPredPositions) {
+            val predPair = mob.mobPredPositions[mob.id]
             val tile = tilesArray[predPair?.second!!][predPair.first]
 
             val cellImageView = when (tile.tileType) {
+                TileType.START -> ImageView(Image(resources.url(city).toString()))
                 TileType.ROAD -> ImageView(Image(resources.url(sand).toString()))
                 TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
                 TileType.WATER -> ImageView(Image(resources.url(water).toString()))
                 TileType.CITY -> ImageView(Image(resources.url(city).toString()))
-                null -> ImageView(Image(resources.url(grass).toString()))
+                else -> ImageView(Image(resources.url(grass).toString()))
             }
             cellImageView.isPreserveRatio = true
             cellImageView.fitWidth = 20.0
@@ -117,7 +152,7 @@ class MapView(
 
         gridPane.add(cellImageView, mob.col, mob.row)
 
-        mobPredPositions[mob.id] = Pair(mob.col, mob.row)
+        mob.mobPredPositions[mob.id] = Pair(mob.col, mob.row)
     }
 
     private fun handleTileClick(col: Int, row: Int) {
@@ -125,7 +160,7 @@ class MapView(
 
         val tower = gameController.getTowerToPut()
         if (tower != null) {
-            //TODO тип башни и норальное добавление башни
+            //TODO тип башни и нормальное добавление башни
             gameController.createRealTower(tower, col, row)
             println("Ставим башню")
             //val isFlyingTower = tower is FlyingTowerController
@@ -155,7 +190,7 @@ class MapView(
             TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
             TileType.WATER -> ImageView(Image(resources.url(water).toString()))
             TileType.CITY -> ImageView(Image(resources.url(city).toString()))
-            null -> ImageView(Image(resources.url(grass).toString()))
+            else -> ImageView(Image(resources.url(grass).toString()))
         }
         cellImageView.isPreserveRatio = true
         cellImageView.fitWidth = 20.0
@@ -164,5 +199,16 @@ class MapView(
 
     }
 
+}
 
+data class TilePair(val first: Int, val second: Int) {
+    override fun hashCode(): Int {
+        return first.hashCode() * 31 + second.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is TilePair) return false
+        return this.first == other.first && this.second == other.second
+    }
 }

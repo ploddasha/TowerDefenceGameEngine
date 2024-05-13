@@ -1,6 +1,7 @@
 package viewModel.real
 
 import model.fromEditing.MobType
+import view.TilePair
 
 data class RealMob(
     var id: Int,
@@ -15,6 +16,10 @@ data class RealMob(
 
 ) {
 
+    val mobPredPositions = mutableMapOf<Int, Pair<Int, Int>>()
+    val visited = mutableSetOf<TilePair>()
+
+
     fun move(drow: Int, dcol: Int) {
         row = (row + drow).coerceIn(0, 9)
         col = (col + dcol).coerceIn(0, 9)
@@ -22,6 +27,11 @@ data class RealMob(
 
     fun takeHealth(damage: Int) {
         health -= damage
+    }
+
+    fun moveTo(first: Int, second: Int) {
+        row = first
+        col = second
     }
 
 }
