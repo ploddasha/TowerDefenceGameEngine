@@ -4,6 +4,7 @@ import app.loadFiles.createMobModel
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.value.ObservableValue
 import model.CityModel
+import model.fromEditing.MobType
 import model.fromEditing.MobsModel
 import model.tower.Tower
 import tornadofx.Controller
@@ -25,6 +26,7 @@ class GameController(
 
     private val mobsModel: MobsModel by inject()
     private var timer: Timer? = null
+    private var waves: MutableList<MutableList<RealMob>> = mutableListOf<MutableList<RealMob>>()
     private val mobs = mutableListOf<RealMob>()
     private val towers = mutableListOf<RealTower>()
 
@@ -37,6 +39,19 @@ class GameController(
     init {
         createMobModel(mobsModel)
         createRealMobs()
+        createWaves()
+    }
+
+    private fun createWaves() {
+        val mobsFirstWave = mutableListOf<RealMob>()
+        mobsFirstWave.add(RealMob(10, 0, 0, MobType.Walk, 100, 100, 2, 0, 50))
+        mobsFirstWave.add(RealMob(10, 0, 0, MobType.Walk, 100, 100, 2, 0, 60))
+        waves.add(mobsFirstWave)
+        val mobsSecondWave = mutableListOf<RealMob>()
+        mobsSecondWave.add(RealMob(10, 0, 0, MobType.Fly, 300, 100, 3, 0, 100))
+        mobsSecondWave.add(RealMob(10, 0, 0, MobType.Fly, 300, 100, 3, 0, 110))
+        waves.add(mobsSecondWave)
+
     }
 
     private fun createRealMobs() {
@@ -54,25 +69,44 @@ class GameController(
 
         timer?.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
-                moveMob()
-                //moveMobs()
+                moveMob(mobs[0])
                 fireTowers()
             }
-        }, 0, 500) // Запуск каждую секунду
+        }, 0, 500)
     }
 
-    private fun fireTowers() {
-        towers.forEach { tower ->
-            mobs.forEach { mob ->
-                if (tower.isInRange(mob)) {
-                    tower.attackMob(mob)
-                }
+    var currentWave = 0
+
+    var timer2 = Timer()
+    fun startGameWithWaves() {
+        timer2.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                moveMobs()
             }
-        }
+        }, 0, 500)
+
+        currentWave++
     }
 
-    private fun moveMob() {
-        val mob = mobs[0]
+    var currentMobId = 0
+    private fun moveMobs() {
+        timer = Timer()
+
+        timer?.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                moveMob(waves[currentWave][currentMobId])
+                if (currentMobId  == waves[currentWave].size - 1) {
+                    timer2.cancel()
+                    return
+                } else {
+                    currentMobId++
+                }
+                fireTowers()
+            }
+        }, 0, 1000)
+    }
+
+    private fun moveMob(mob: RealMob) {
         if (mob.health <= 0) {
             mobs.remove(mob)
             runLater {
@@ -103,6 +137,16 @@ class GameController(
         }
         runLater {
             mapView?.add(mob)
+        }
+    }
+
+    private fun fireTowers() {
+        towers.forEach { tower ->
+            mobs.forEach { mob ->
+                if (tower.isInRange(mob)) {
+                    tower.attackMob(mob)
+                }
+            }
         }
     }
 

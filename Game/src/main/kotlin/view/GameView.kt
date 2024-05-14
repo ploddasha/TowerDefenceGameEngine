@@ -171,6 +171,7 @@ class GameView : View("Bashenki") {
     private fun startGame() {
         gameController.setMyMapView(mapView)
         gameController.startGame()
+        //gameController.startGameWithWaves()
     }
 
 
