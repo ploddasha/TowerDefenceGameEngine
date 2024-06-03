@@ -20,7 +20,7 @@ data class RealTower(
 
     fun attackMob(mob: RealMob) {
         if (isInRange(mob)) {
-            println("Моб рядом с башней, атакуем")
+            println("Mob ${mob.id} is next to tower, attack")
             mob.takeHealth(damage)
         }
     }

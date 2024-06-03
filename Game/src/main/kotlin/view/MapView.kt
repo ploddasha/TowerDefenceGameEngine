@@ -85,31 +85,50 @@ class MapView(
 
     }
 
-
     private fun getTileToMove(tilesArray: Array<Array<GameView.GameTile>>, mob: RealMob): TilePair? {
         val possible = mutableListOf<TilePair>()
-        if ((tilesArray[mob.row + 1][mob.col].tileType == TileType.ROAD ||
-            tilesArray[mob.row + 1][mob.col].tileType == TileType.CITY) &&
+        val maxRow = tilesArray.size - 1
+        val maxCol = tilesArray[0].size - 1
+
+        // Проверка движения вниз
+        if (mob.row + 1 <= maxRow &&
+            (tilesArray[mob.row + 1][mob.col].tileType == TileType.ROAD ||
+                    tilesArray[mob.row + 1][mob.col].tileType == TileType.CITY) &&
             !mob.visited.contains(TilePair(mob.row + 1, mob.col))) {
             possible.add(TilePair(mob.row + 1, mob.col))
-        } else if ((tilesArray[mob.row][mob.col + 1].tileType == TileType.ROAD ||
-            tilesArray[mob.row][mob.col + 1].tileType == TileType.ROAD) &&
+        }
+
+        // Проверка движения вправо
+        if (mob.col + 1 <= maxCol &&
+            (tilesArray[mob.row][mob.col + 1].tileType == TileType.ROAD ||
+                    tilesArray[mob.row][mob.col + 1].tileType == TileType.CITY) &&
             !mob.visited.contains(TilePair(mob.row, mob.col + 1))) {
             possible.add(TilePair(mob.row, mob.col + 1))
-        } else if ((tilesArray[mob.row - 1][mob.col].tileType == TileType.ROAD ||
-            tilesArray[mob.row - 1][mob.col].tileType == TileType.ROAD) &&
+        }
+        /*
+        // Проверка движения вверх
+        if (mob.row - 1 >= 0 &&
+            (tilesArray[mob.row - 1][mob.col].tileType == TileType.ROAD ||
+                    tilesArray[mob.row - 1][mob.col].tileType == TileType.CITY) &&
             !mob.visited.contains(TilePair(mob.row - 1, mob.col))) {
             possible.add(TilePair(mob.row - 1, mob.col))
-        } else if ((tilesArray[mob.row][mob.col - 1].tileType == TileType.ROAD ||
-            tilesArray[mob.row][mob.col - 1].tileType == TileType.ROAD) &&
+        }
+
+        // Проверка движения влево
+        if (mob.col - 1 >= 0 &&
+            (tilesArray[mob.row][mob.col - 1].tileType == TileType.ROAD ||
+                    tilesArray[mob.row][mob.col - 1].tileType == TileType.CITY) &&
             !mob.visited.contains(TilePair(mob.row, mob.col - 1))) {
             possible.add(TilePair(mob.row, mob.col - 1))
-        }
+        } */
+
         if (possible.isNotEmpty()) {
-            return possible[(0 until possible.size).random()]
+            return possible.random()
         }
+
         return null
     }
+
 
     fun add(mob: RealMob) {
         val gridPane = root as GridPane

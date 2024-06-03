@@ -31,6 +31,9 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.openjfx:javafx-media:17")
     implementation("javazoom:jlayer:1.0.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.6.0")
+
 }
 
 tasks.test {

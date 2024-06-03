@@ -3,6 +3,11 @@ package viewModel
 import app.loadFiles.createMobModel
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.value.ObservableValue
+import javafx.util.Duration
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
 import model.CityModel
 import model.fromEditing.MobType
 import model.fromEditing.MobsModel
@@ -26,7 +31,7 @@ class GameController(
 
     private val mobsModel: MobsModel by inject()
     private var timer: Timer? = null
-    private var waves: MutableList<MutableList<RealMob>> = mutableListOf<MutableList<RealMob>>()
+    private var waves: MutableList<MutableList<RealMob>> = mutableListOf()
     private val mobs = mutableListOf<RealMob>()
     private val towers = mutableListOf<RealTower>()
 
@@ -47,6 +52,7 @@ class GameController(
         mobsFirstWave.add(RealMob(10, 0, 0, MobType.Walk, 100, 100, 2, 0, 50))
         mobsFirstWave.add(RealMob(10, 0, 0, MobType.Walk, 100, 100, 2, 0, 60))
         waves.add(mobsFirstWave)
+
         val mobsSecondWave = mutableListOf<RealMob>()
         mobsSecondWave.add(RealMob(10, 0, 0, MobType.Fly, 300, 100, 3, 0, 100))
         mobsSecondWave.add(RealMob(10, 0, 0, MobType.Fly, 300, 100, 3, 0, 110))
@@ -77,36 +83,101 @@ class GameController(
 
     var currentWave = 0
 
-    var timer2 = Timer()
-    fun startGameWithWaves() {
-        timer2.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                moveMobs()
-            }
-        }, 0, 500)
+    /*fun startGameWithWaves() {
+        println("START WAVE")
 
+        runLater {
+            GlobalScope.launch {
+                for (i in 0 until waves[currentWave].size) {
+                    moveMob(waves[currentWave][i])
+
+                    fireTowers()
+                    delay(1000) // задержка в 1 секунду
+                }
+
+            }
+        }
         currentWave++
+    } */
+
+    fun startGameWithWaves() {
+        println("START WAVE")
+
+        runLater {
+            GlobalScope.launch {
+                val wave = waves[currentWave]
+                val jobs = wave.map { mob ->
+                    launch {
+                        var alive = true
+                        while (alive && mob.health > 0 && !mobReachedCity(mob)) {
+                            moveMob(mob)
+                            runLater {
+                                fireTowers() // вызываем fireTowers после каждого перемещения моба
+                            }
+                            delay(500) // задержка в 0.5 секунды между движениями моба
+
+                            if (mob.health <= 0) {
+                                alive = false
+                                handleMobDeath(mob)
+                            }
+                        }
+                        if (alive && mob.health > 0) { // Если моб достиг города
+                            handleMobReachedCity(mob)
+                        }
+                    }
+                }
+                jobs.joinAll() // Ждем завершения всех корутин
+
+                currentWave++
+            }
+        }
     }
 
-    var currentMobId = 0
-    private fun moveMobs() {
-        timer = Timer()
+    private fun mobReachedCity(mob: RealMob): Boolean {
+        return mob.row == city.first && mob.col == city.second
+    }
 
-        timer?.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                moveMob(waves[currentWave][currentMobId])
-                if (currentMobId  == waves[currentWave].size - 1) {
-                    timer2.cancel()
-                    return
-                } else {
-                    currentMobId++
-                }
-                fireTowers()
+    private fun handleMobReachedCity(mob: RealMob) {
+        mobs.remove(mob)
+        runLater {
+            cityModel.setHealth(cityModel.getHealth() - mob.damage)
+            cityController.subtractCityHealth(mob.damage)
+
+            mapView?.deleteMobFromMap(mob.row, mob.col)
+
+            if (cityController.getCityHealth() == 0) {
+                setGameOver(true)
+                println("Game Over")
             }
-        }, 0, 1000)
+        }
+    }
+
+    private fun handleMobDeath(mob: RealMob) {
+        runLater {
+            mobs.remove(mob)
+            moneyController.addMoney(mob.value)
+            mapView?.deleteMobFromMap(mob.row, mob.col)
+        }
+        println("Умер")
     }
 
     private fun moveMob(mob: RealMob) {
+        if (mob.health <= 0) {
+            handleMobDeath(mob)
+            return
+        }
+        if (mobReachedCity(mob)) {
+            handleMobReachedCity(mob)
+            return
+        }
+        runLater {
+            mapView?.add(mob)
+        }
+    }
+
+
+
+    /*private fun moveMob(mob: RealMob) {
         if (mob.health <= 0) {
             mobs.remove(mob)
             runLater {
@@ -138,11 +209,12 @@ class GameController(
         runLater {
             mapView?.add(mob)
         }
-    }
+    } */
+
 
     private fun fireTowers() {
         towers.forEach { tower ->
-            mobs.forEach { mob ->
+            waves[currentWave].forEach { mob ->
                 if (tower.isInRange(mob)) {
                     tower.attackMob(mob)
                 }
