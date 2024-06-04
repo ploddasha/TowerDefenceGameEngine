@@ -1,0 +1,46 @@
+package ru.nsu.plodushcheva.d4;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class FlightRecovery {
+    public static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/demo";
+    public static final String DB_Driver = "org.postgresql.Driver";
+
+    public static void main(String[] args) {
+        try {
+            Class.forName(DB_Driver);
+            Connection connection = DriverManager.getConnection(DB_URL, "postgres", "55555");
+            System.out.println("Соединение с СУБД выполнено.");
+
+            List<Flight> flights = getFlights(connection.createStatement());
+            System.out.println(flights);
+
+
+            connection.close();
+            System.out.println("Отключение от СУБД выполнено.");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("JDBC драйвер для СУБД не найден!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ошибка SQL!");
+        }
+    }
+
+
+    public static List<Flight> getFlights(Statement statement) throws SQLException {
+        String sql = "SELECT flight_id, aircraft_code FROM bookings.flights ORDER BY flight_id";
+        List<Flight> res = new ArrayList<>();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while (resultSet.next()) {
+            int flightId = resultSet.getInt("flight_id");
+            String aircraftCode = resultSet.getString("aircraft_code");
+            res.add(new Flight(flightId, aircraftCode));
+        }
+        return res;
+    }
+
+}
