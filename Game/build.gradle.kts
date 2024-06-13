@@ -38,6 +38,8 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:2.0.0")
     implementation("io.ktor:ktor-client-websockets:2.0.0")
     implementation("io.ktor:ktor-client-json:2.0.0")
+    //implementation("io.ktor:ktor-client-json-serde:2.0.0")
+    implementation("io.ktor:ktor-client-logging:2.0.0")
     implementation("io.ktor:ktor-client-apache:2.0.0")
     implementation("io.ktor:ktor-client-serialization:2.0.0")
     implementation("io.ktor:ktor-client-content-negotiation:2.0.0")

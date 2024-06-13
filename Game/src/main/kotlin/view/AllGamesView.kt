@@ -1,10 +1,15 @@
 package view
 
+import client.NetworkClient
 import javafx.geometry.Pos
 import javafx.scene.image.Image
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import tornadofx.*
 
 class AllGamesView : View("") {
+    private val networkClient = NetworkClient()
+
 
     override val root = stackpane {
         addClass("all-games-stack-pane")
@@ -56,6 +61,17 @@ class AllGamesView : View("") {
                     }
                 }
             }
+        }
+    }
+
+    init {
+        loadGames()
+    }
+
+    private fun loadGames() {
+        GlobalScope.launch {
+            val result = networkClient.getAllGames()
+            println(result)
         }
     }
 
