@@ -7,7 +7,9 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.util.*
 import kotlinx.serialization.Serializable
+import org.apache.http.HttpResponse
 import javax.json.Json
 
 
@@ -20,7 +22,7 @@ class NetworkClient {
 
     suspend fun getAllGames() {
 
-        val response = client.get("http://localhost:8083/games") {
+        val response = client.get("http://192.168.56.1:8083/games") {
             headers {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
             }
@@ -35,13 +37,32 @@ class NetworkClient {
     }
 
     suspend fun getOpponentState() {
-        val response = client.get("http://localhost:8083/state") {
+        val response = client.get("http://192.168.56.1:8083/state") {
             headers {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
             }
         }
         val responseBody = response.body<String>()
         println(responseBody)
+    }
+
+    @OptIn(InternalAPI::class)
+    suspend fun updateState() {
+        val response = client.post("http://192.168.56.1:8083/updateState") {
+            headers {
+                append(HttpHeaders.ContentType, ContentType.Application.Json)
+            }
+            //Здесь необходимо отправить своё состояние
+            body = "{\"key\": \"value\"}"
+        }
+        val responseBody = response.body<String>()
+        println(responseBody)
+    }
+
+    suspend fun connect(): Boolean {
+        val response = client.get("http://192.168.56.1:8083/check")
+        val responseBody = response.body<String>()
+        return responseBody.toBoolean()
     }
 }
 
