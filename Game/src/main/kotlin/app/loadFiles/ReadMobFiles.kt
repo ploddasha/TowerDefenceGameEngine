@@ -9,14 +9,6 @@ import model.fromEditing.MobsModel
 //import model.fromEditing.Mob
 //import model.fromEditing.MobType
 import java.io.File
-
-/*
-@Serializable
-enum class MobType {
-    Fly, Walk
-}
- */
-
 @Serializable
 data class Mob(
     @SerialName("Cost") val cost: Int,

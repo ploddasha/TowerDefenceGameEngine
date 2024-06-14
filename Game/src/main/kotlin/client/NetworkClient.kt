@@ -8,8 +8,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.Serializable
-
-
+import javax.json.Json
 
 
 class NetworkClient {
@@ -33,6 +32,16 @@ class NetworkClient {
         } else {
             println("Error with sending request")
         }
+    }
+
+    suspend fun getOpponentState() {
+        val response = client.get("http://localhost:8083/state") {
+            headers {
+                append(HttpHeaders.ContentType, ContentType.Application.Json)
+            }
+        }
+        val responseBody = response.body<String>()
+        println(responseBody)
     }
 }
 
