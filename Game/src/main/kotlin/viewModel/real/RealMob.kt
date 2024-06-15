@@ -1,8 +1,10 @@
 package viewModel.real
 
+import kotlinx.serialization.Serializable
 import model.fromEditing.MobType
-import view.TilePair
+import model.TilePair
 
+@Serializable
 data class RealMob(
     var id: Int,
     var row: Int,
@@ -12,13 +14,11 @@ data class RealMob(
     var speed: Int,
     var damage: Int,
     var attackRange: Int,
-    var value: Int
-
+    var value: Int,
 ) {
 
     val mobPredPositions = mutableMapOf<Int, Pair<Int, Int>>()
-    val visited = mutableSetOf<TilePair>()
-
+    val visited: MutableSet<TilePair> = mutableSetOf()
 
     fun move(drow: Int, dcol: Int) {
         row = (row + drow).coerceIn(0, 9)

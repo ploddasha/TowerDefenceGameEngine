@@ -1,8 +1,10 @@
 package viewModel.real
 
+import kotlinx.serialization.Serializable
 import model.fromEditing.MobType
 import kotlin.math.pow
 
+@Serializable
 data class RealTower(
     var id: Int,
     var row: Int,
