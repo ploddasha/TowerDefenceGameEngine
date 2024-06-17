@@ -18,6 +18,10 @@ import view.MapView
 import viewModel.real.RealMob
 import viewModel.real.RealTower
 import viewModel.real.TowerType
+import viewModel.towerControllers.Fly
+import viewModel.towerControllers.Walk
+import viewModel.towerControllers.parseWalk
+import viewModel.towerControllers.parseFly
 import java.util.*
 
 
@@ -40,11 +44,18 @@ class GameController(
     private var start: Pair<Int, Int> = Pair(0, 0)
     private var city: Pair<Int, Int> = Pair(9, 9)
 
+    private var walkList = mutableListOf<Walk>()
+    private var flyList = mutableListOf<Fly>()
+
 
     init {
         createMobModel(mobsModel)
         createRealMobs()
         createWaves()
+        runAsync {
+            walkList = parseWalk()
+            flyList = parseFly()
+        }
     }
 
     private fun createWaves() {

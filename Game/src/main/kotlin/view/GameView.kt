@@ -45,7 +45,7 @@ class GameView : View("Bashenki") {
         add(moneyLabel)
         alignment = Pos.CENTER_RIGHT
     }
-    val moneyIcon = ImageView(Image(resources.url("/configs/coin.jpg").toString()))
+    val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
 
 
     val cityLabel = label()
@@ -66,7 +66,6 @@ class GameView : View("Bashenki") {
         moneyIcon.fitHeight = 35.0
 
         cityLabel.textProperty().bind(cityController.cityProperty().asString("City: %d"))
-
     }
     data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)
 
@@ -81,13 +80,13 @@ class GameView : View("Bashenki") {
     }
 
     /*
-       private val pauseMenuView = PauseMenuView()
+    private val pauseMenuView = PauseMenuView()
 
-       private val musicController: MusicController  by inject()
+    private val musicController: MusicController  by inject()
 
-       init {
-           musicController.playMusic("D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/game_music.mp3")
-       } */
+    init {
+        musicController.playMusic("D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/game_music.mp3")
+    } */
 
 
     override val root = stackpane {

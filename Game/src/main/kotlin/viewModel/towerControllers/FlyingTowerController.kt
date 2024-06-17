@@ -1,18 +1,23 @@
 package viewModel.towerControllers
 
 import model.tower.FlyingTower
-import model.tower.GroundTower
+import model.tower.Tower
 
 class FlyingTowerController : TowerController {
 
-    override fun getPrice(): Int {
-        // тут нужно брать из конфигов
-        // для этого надо согласовать формат конфигов
-        return 100
+    override fun getPrice(tower: Tower): Int {
+        return tower.cost
     }
 
-    override fun createTower(): FlyingTower {
-        val newTower = FlyingTower();
+    override fun createTower(
+        health : Int,
+        fileName : String,
+        damage : Int,
+        range : Int,
+        cost : Int,
+        name : String
+    ): FlyingTower {
+        val newTower = FlyingTower(health, fileName, damage, range, cost, name);
         return newTower;
     }
 }

@@ -185,7 +185,8 @@ class MapView(
             //val isFlyingTower = tower is FlyingTowerController
             //val isGroundTower = tower is GroundTowerController
 
-            val imageOfTowerToPut: String = tower2Image
+            val currTowerImagePath = "/configs/"
+            val imageOfTowerToPut: String = currTowerImagePath + tower.fileName
 
             val cellImageView = ImageView(Image(resources.url(imageOfTowerToPut).toString()))
             cellImageView.isPreserveRatio = true
