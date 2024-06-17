@@ -46,6 +46,7 @@ class GameView : View("Bashenki") {
         alignment = Pos.CENTER_RIGHT
     }
     val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
+    val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
 
 
     val cityLabel = label()
@@ -61,10 +62,12 @@ class GameView : View("Bashenki") {
 
 
     init {
-        moneyLabel.textProperty().bind(moneyController.moneyAmountProperty().asString("Money: %d"))
         moneyIcon.fitWidth = 35.0
         moneyIcon.fitHeight = 35.0
+        moneyLabel.textProperty().bind(moneyController.moneyAmountProperty().asString("Money: %d"))
 
+        heartIcon.fitWidth = 30.0
+        heartIcon.fitHeight = 30.0
         cityLabel.textProperty().bind(cityController.cityProperty().asString("City: %d"))
     }
     data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)
@@ -140,12 +143,19 @@ class GameView : View("Bashenki") {
             }
 
             hbox(){
+                hbox() {
+                    add(moneyIcon)
+                    prefWidth = 35.0
+                }
                 add(moneyBackground)
-                add(moneyIcon)
                 alignment = Pos.TOP_RIGHT
             }
-            add(cityBackground)
 
+            hbox() {
+                add(heartIcon)
+                add(cityBackground)
+                alignment = Pos.TOP_RIGHT
+            }
 
             button("Shop") {
                 style {
