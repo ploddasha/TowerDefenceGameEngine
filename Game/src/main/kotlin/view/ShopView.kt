@@ -118,6 +118,8 @@ class ShopView(
                                 health, fileName, damage, range, cost, name
                             );
                             gameController.setTowerToPut(tower)
+
+                            replaceWith(find<GameView>())
                         }
                     }
                     contextMenu.items.add(menuItem)
@@ -170,6 +172,8 @@ class ShopView(
                                 health, fileName, damage, range, cost, name
                             );
                             gameController.setTowerToPut(tower)
+
+                            replaceWith(find<GameView>())
                         }
                     }
                     contextMenu.items.add(menuItem)
@@ -196,6 +200,8 @@ class ShopView(
                     moneyController.writeOffMoney(cityModel.getCostOfHealthPoint());
                     cityModel.setHealth(cityModel.getHealth() + 1);
                     cityController.addCityHealth(1)
+
+                    replaceWith(find<GameView>())
                 }
             }
 

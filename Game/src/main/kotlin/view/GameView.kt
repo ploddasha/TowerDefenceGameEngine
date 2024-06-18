@@ -102,7 +102,6 @@ class GameView(
 
         top {
             hbox {
-
                 paddingAll = 10.0
                 alignment = Pos.TOP_CENTER
                 spacing = 10.0
@@ -192,7 +191,8 @@ class GameView(
         bottom {
             hbox{
                 alignment = Pos.BOTTOM_CENTER
-                vbox{
+                hbox{
+                    spacing = 10.0
 
                     hbox() {
                         hbox() {

@@ -158,7 +158,7 @@ class GameController(
             mobs = mobs.toList(),
             towers = towers.toList()
         )
-        networkClient.sendGameState(gameState)
+        //networkClient.sendGameState(gameState)
     }
 
 
