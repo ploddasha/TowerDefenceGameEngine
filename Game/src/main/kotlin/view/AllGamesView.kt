@@ -58,7 +58,7 @@ class AllGamesView : View("") {
                             }
                             action {
                                 //replaceWith(LoadingView(game.id))
-                                replaceWith(LoadingView())
+                                replaceWith(WaitingForConnectionView())
                             }
                         }
                     }
@@ -128,7 +128,7 @@ class AllGamesView : View("") {
                             }
                             action {
                                 //replaceWith(LoadingView(game.id))
-                                replaceWith(LoadingView())
+                                replaceWith(WaitingForConnectionView())
                             }
                         }
                     }

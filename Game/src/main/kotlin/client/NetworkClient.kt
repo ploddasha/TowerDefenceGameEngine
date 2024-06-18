@@ -54,7 +54,7 @@ class NetworkClient {
     }
 
     @OptIn(InternalAPI::class)
-    suspend fun updateState() {
+    suspend fun sendGameState() {
         val response = client.post("$server/updateState") {
             headers {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
@@ -72,8 +72,5 @@ class NetworkClient {
         return responseBody.toBoolean()
     }
 
-    fun sendGameState(gameState: GameState) {
-
-    }
 }
 

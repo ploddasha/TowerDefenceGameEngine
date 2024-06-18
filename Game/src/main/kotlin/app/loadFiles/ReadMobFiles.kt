@@ -18,8 +18,8 @@ data class Mob(
     @SerialName("Name") val name: String
 )
 
-fun loadMobDataJson(): List<Mob> {
-    val file = File("./src/main/resources/configs/fromEditing/MobsData.json")
+fun loadMobDataJson(path: String): List<Mob> {
+    val file = File(path)
     println(file.readText())
     val result =  Json.decodeFromString<List<Mob>>(file.readText())
 
@@ -27,9 +27,9 @@ fun loadMobDataJson(): List<Mob> {
 }
 
 
-fun createMobModel(mobsModel: MobsModel) {
+fun createMobModel(mobsModel: MobsModel, path: String) {
 
-    val listOfMobs = loadMobDataJson()
+    val listOfMobs = loadMobDataJson(path)
 
     for (i in listOfMobs.indices) {
         mobsModel.addMob(model.fromEditing.Mob(

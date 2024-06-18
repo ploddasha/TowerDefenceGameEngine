@@ -1,0 +1,7 @@
+[
+  {"Type":"Walk","Health":40,"FileName":"tower1.png","Damage":3,"Range":10000,"Cost":40,"Name":"denis1"},
+  {"Type":"Walk","Health":40,"FileName":"tower1.png","Damage":3,"Range":10000,"Cost":40,"Name":"denis2"},
+  {"Type":"Fly","Health":40,"FileName":"tower3.png","Damage":3,"Range":10000,"Cost":50,"Name":"maxim"},
+  {"Type":"Fly","Health":40,"FileName":"tower3.png","Damage":3,"Range":10000,"Cost":50,"Name":"dimon"},
+  {"Type":"Fly","Health":40,"FileName":"tower3.png","Damage":3,"Range":10000,"Cost":50,"Name":"bumba"}
+]

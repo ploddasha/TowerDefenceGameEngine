@@ -1,0 +1,11 @@
+[{"Row": 0, "Column": 0, "Type": "START"},
+  {"Row": 1, "Column": 0, "Type": "ROAD"}, {"Row": 1, "Column": 1, "Type": "ROAD"}, {"Row": 1, "Column": 2, "Type": "WATER"},
+  {"Row": 2, "Column": 0, "Type": "ROAD"}, {"Row": 2, "Column": 1, "Type": "ROAD"}, {"Row": 2, "Column": 2, "Type": "ROAD"},
+  {"Row": 3, "Column": 1, "Type": "ROAD"}, {"Row": 3, "Column": 2, "Type": "ROAD"}, {"Row": 3, "Column": 3, "Type": "ROAD"},
+  {"Row": 4, "Column": 2, "Type": "ROAD"}, {"Row": 4, "Column": 3, "Type": "ROAD"}, {"Row": 4, "Column": 4, "Type": "ROAD"},
+  {"Row": 5, "Column": 3, "Type": "ROAD"}, {"Row": 5, "Column": 4, "Type": "ROAD"}, {"Row": 5, "Column": 5, "Type": "ROAD"},
+  {"Row": 6, "Column": 4, "Type": "ROAD"}, {"Row": 6, "Column": 5, "Type": "ROAD"}, {"Row": 6, "Column": 6, "Type": "ROAD"},
+  {"Row": 7, "Column": 5, "Type": "ROAD"}, {"Row": 7, "Column": 6, "Type": "ROAD"}, {"Row": 7, "Column": 7, "Type": "ROAD"},
+  {"Row": 8, "Column": 7, "Type": "ROAD"}, {"Row": 8, "Column": 8, "Type": "ROAD"},
+  {"Row": 9, "Column": 8, "Type": "CITY"}
+]

@@ -7,7 +7,7 @@
 
 
 .game-stack-pane {
-  -fx-background-image: url("/configs/fromEditing/gameBackground2.jpg");
+  -fx-background-image: url("/configs/gameBackground2.jpg");
   -fx-background-repeat: no-repeat;
   -fx-background-position: center center;
   -fx-background-size: cover;

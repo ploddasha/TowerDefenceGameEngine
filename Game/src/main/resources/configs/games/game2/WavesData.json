@@ -1,0 +1,11 @@
+{
+  "waves": [
+    [
+      {"name": "Me", "amount": 1},
+      {"name": "I", "amount": 1}
+    ],
+    [
+      {"name": "I", "amount": 2}
+    ]
+  ]
+}

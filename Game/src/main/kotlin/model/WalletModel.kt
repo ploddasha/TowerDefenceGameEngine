@@ -1,7 +1,7 @@
 package model
 
 class WalletModel {
-    private var moneyAmount: Int = 1000 //TODO
+    private var moneyAmount: Int = 0
 
     fun getMoneyAmount(): Int {
         return this.moneyAmount

@@ -5,7 +5,6 @@ import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
-import kotlinx.coroutines.runBlocking
 import model.CityModel
 import model.fromEditing.TileType
 import tornadofx.*

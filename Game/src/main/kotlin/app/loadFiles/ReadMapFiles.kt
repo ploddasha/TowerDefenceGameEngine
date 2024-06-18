@@ -8,8 +8,8 @@ import model.fromEditing.Tile
 import java.io.File
 
 
-fun loadMapDataJson(): List<Tile> {
-    val file = File("./src/main/resources/configs/fromEditing/MapData.json")
+fun loadMapDataJson(path: String): List<Tile> {
+    val file = File(path)
     println(file.readText())
     val result =  Json.decodeFromString<List<Tile>>(file.readText())
 
@@ -17,8 +17,8 @@ fun loadMapDataJson(): List<Tile> {
 }
 
 
-fun createMapModel(mapModel: MapModel) {
-    val listOfTiles = loadMapDataJson()
+fun createMapModel(mapModel: MapModel, path: String) {
+    val listOfTiles = loadMapDataJson(path)
     mapModel.addTiles(listOfTiles)
 
 }

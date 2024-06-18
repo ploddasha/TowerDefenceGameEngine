@@ -22,7 +22,6 @@ class MapView(
     private val water = "/configs/fromEditing/map/water.png"
     private val city = "/configs/fromEditing/map/city.jpg"
     private val mobImage = "/configs/fromEditing/map/mushroom.png"
-    private val tower2Image = "/configs/tower2.png"
 
 
     private val numRows = 10
@@ -33,7 +32,8 @@ class MapView(
 
 
     init {
-        createMapModel(mapModel)
+        val gameId = 1
+        createMapModel(mapModel, "./src/main/resources/configs/games/game$gameId/MapData.json")
     }
 
 
