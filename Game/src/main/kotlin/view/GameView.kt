@@ -92,12 +92,16 @@ class GameView : View("Bashenki") {
     } */
 
 
-    override val root = stackpane {
+    override val root = hbox {
 
         addClass("game-stack-pane")
 
         add(gameOverText)
 
+        vbox {
+            add(mapView)
+            alignment = Pos.CENTER
+        }
 
         vbox {
 
@@ -174,7 +178,6 @@ class GameView : View("Bashenki") {
                     //replaceWith(ShopView::class)
                 }
             }
-            add(mapView)
         }
     }
 

@@ -27,6 +27,7 @@ class MapView(
 
     private val numRows = 10
     private val numCols = 10
+    private val cellSize = 50.0
 
     private val mapModel: MapModel by inject()
 
@@ -63,8 +64,8 @@ class MapView(
                 }
 
                 cellImageView.isPreserveRatio = true
-                cellImageView.fitWidth = 20.0
-                cellImageView.fitHeight = 20.0
+                cellImageView.fitWidth = cellSize
+                cellImageView.fitHeight = cellSize
 
                 add(cellImageView, col, row)
 
@@ -156,16 +157,16 @@ class MapView(
                 else -> ImageView(Image(resources.url(grass).toString()))
             }
             cellImageView.isPreserveRatio = true
-            cellImageView.fitWidth = 20.0
-            cellImageView.fitHeight = 20.0
+            cellImageView.fitWidth = cellSize
+            cellImageView.fitHeight = cellSize
 
             gridPane.add(cellImageView, predPair.first, predPair.second)
         }
 
         val cellImageView = ImageView(Image(resources.url(mobImage).toString()))
         cellImageView.isPreserveRatio = true
-        cellImageView.fitWidth = 20.0
-        cellImageView.fitHeight = 20.0
+        cellImageView.fitWidth = cellSize
+        cellImageView.fitHeight = cellSize
 
         gridPane.add(cellImageView, mob.col, mob.row)
 
@@ -188,8 +189,8 @@ class MapView(
 
             val cellImageView = ImageView(Image(resources.url(imageOfTowerToPut).toString()))
             cellImageView.isPreserveRatio = true
-            cellImageView.fitWidth = 20.0
-            cellImageView.fitHeight = 20.0
+            cellImageView.fitWidth = cellSize
+            cellImageView.fitHeight = cellSize
             gridPane.add(cellImageView, col, row)
 
             gameController.removeTowerToPut()
@@ -211,8 +212,8 @@ class MapView(
             else -> ImageView(Image(resources.url(grass).toString()))
         }
         cellImageView.isPreserveRatio = true
-        cellImageView.fitWidth = 20.0
-        cellImageView.fitHeight = 20.0
+        cellImageView.fitWidth = cellSize
+        cellImageView.fitHeight = cellSize
         gridPane.add(cellImageView, col, row)
 
     }
