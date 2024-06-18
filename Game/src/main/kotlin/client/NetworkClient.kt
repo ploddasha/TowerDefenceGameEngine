@@ -10,6 +10,7 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.Serializable
 import model.GameState
+import javax.json.Json
 
 
 class NetworkClient {
@@ -75,9 +76,8 @@ class NetworkClient {
             false
         }
     }
+
+
+    @Serializable
+    data class Game(val id: Int, val gameName: String)
 }
-
-
-
-@Serializable
-data class Game(val id: Int, val gameName: String)
