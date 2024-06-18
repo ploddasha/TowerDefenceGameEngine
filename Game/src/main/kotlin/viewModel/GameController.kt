@@ -1,6 +1,7 @@
 package viewModel
 
 import app.loadFiles.createMobModel
+import client.NetworkClient
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.value.ObservableValue
 import javafx.util.Duration
@@ -9,6 +10,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import model.CityModel
+import model.GameState
 import model.fromEditing.MobType
 import model.fromEditing.MobsModel
 import model.tower.Tower
@@ -47,6 +49,7 @@ class GameController(
     private var walkList = mutableListOf<Walk>()
     private var flyList = mutableListOf<Fly>()
 
+    private val networkClient = NetworkClient()
 
     init {
         createMobModel(mobsModel)
@@ -83,6 +86,7 @@ class GameController(
 
     fun startGame() {
         timer = Timer()
+        //startPeriodicGameStateUpdates() For competitive
 
         timer?.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
@@ -94,22 +98,27 @@ class GameController(
 
     var currentWave = 0
 
-    /*fun startGameWithWaves() {
-        println("START WAVE")
-
-        runLater {
-            GlobalScope.launch {
-                for (i in 0 until waves[currentWave].size) {
-                    moveMob(waves[currentWave][i])
-
-                    fireTowers()
-                    delay(1000) // задержка в 1 секунду
-                }
-
+    private fun startPeriodicGameStateUpdates() {
+        GlobalScope.launch {
+            while (!gameOverProperty().value) {
+                sendGameState()
+                delay(5000)
             }
+            sendGameState()
         }
-        currentWave++
-    } */
+    }
+    private suspend fun sendGameState() {
+        val gameState = GameState(
+            isGameOn = !gameOverProperty().value,
+            moneyAmount = moneyController.getCurrentMoneyAmount(),
+            cityHealth = cityModel.getHealth(),
+            currentWave = currentWave,
+            mobs = mobs.toList(),
+            towers = towers.toList()
+        )
+        networkClient.sendGameState(gameState)
+    }
+
 
     fun startGameWithWaves() {
         println("START WAVE")
@@ -185,42 +194,6 @@ class GameController(
             mapView?.add(mob)
         }
     }
-
-
-
-    /*private fun moveMob(mob: RealMob) {
-        if (mob.health <= 0) {
-            mobs.remove(mob)
-            runLater {
-                moneyController.addMoney(mob.value)
-                mapView?.deleteMobFromMap(mob.row, mob.col)
-            }
-            timer?.cancel()
-            println("Умер")
-            return
-        }
-        if (mob.row == city.first && mob.col == city.second) {
-            mobs.remove(mob)
-            runLater {
-                cityModel.setHealth(cityModel.getHealth() - mob.damage)
-                cityController.subtractCityHealth(mob.damage)
-
-                mapView?.deleteMobFromMap(mob.row, mob.col)
-
-                if (cityController.getCityHealth() == 0) {
-                    setGameOver(true)
-                    println("Game Over")
-                }
-            }
-            timer?.cancel()
-            println("Вторгся >:)")
-
-            return
-        }
-        runLater {
-            mapView?.add(mob)
-        }
-    } */
 
 
     private fun fireTowers() {

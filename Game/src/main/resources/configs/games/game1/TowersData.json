@@ -1,0 +1,4 @@
+[
+  {"name": "Tower1", "type": "Fly", "health": 300, "speed": 100, "damage": 3, "attackRange": 0, "value": 100},
+  {"name": "Tower2", "type": "Fly", "health": 300, "speed": 100, "damage": 3, "attackRange": 0, "value": 100}
+]

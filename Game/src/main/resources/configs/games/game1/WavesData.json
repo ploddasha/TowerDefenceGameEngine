@@ -1,0 +1,12 @@
+{
+  "waves": [
+    [
+      {"name": "Mob1", "amount": 1},
+      {"name": "Mob2", "amount": 1}
+    ],
+    [
+      {"name": "Mob1", "amount": 1},
+      {"name": "Mob2", "amount": 1}
+    ]
+  ]
+}

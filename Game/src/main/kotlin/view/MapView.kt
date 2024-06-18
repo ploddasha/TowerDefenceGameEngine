@@ -4,7 +4,7 @@ import app.loadFiles.createMapModel
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.GridPane
-import javafx.scene.layout.Pane
+import model.TilePair
 import model.fromEditing.MapModel
 import model.fromEditing.TileType
 import tornadofx.View
@@ -12,8 +12,6 @@ import tornadofx.gridpane
 import tornadofx.paddingAll
 import viewModel.GameController
 import viewModel.real.RealMob
-import viewModel.towerControllers.FlyingTowerController
-import viewModel.towerControllers.GroundTowerController
 
 class MapView(
     private val gameController: GameController
@@ -221,14 +219,3 @@ class MapView(
 
 }
 
-data class TilePair(val first: Int, val second: Int) {
-    override fun hashCode(): Int {
-        return first.hashCode() * 31 + second.hashCode()
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is TilePair) return false
-        return this.first == other.first && this.second == other.second
-    }
-}

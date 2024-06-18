@@ -1,0 +1,5 @@
+{
+  "gameName": "Tower Defense",
+  "cityHealth": 1000,
+  "initialMoney": 500
+}
