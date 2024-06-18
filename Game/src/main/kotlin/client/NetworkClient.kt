@@ -5,11 +5,11 @@ import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.util.*
 import kotlinx.serialization.Serializable
-import model.GameState
+import org.apache.http.HttpResponse
 import javax.json.Json
 
 
@@ -20,22 +20,9 @@ class NetworkClient {
         }
     }
 
-    suspend fun sendGameState(gameState: GameState) {
-        val response = client.post("http://localhost:8083/updateState") {
-            contentType(ContentType.Application.Json)
-            setBody(gameState)
-        }
-
-        if (response.status == HttpStatusCode.OK) {
-            println("Game state sent successfully")
-        } else {
-            println("Error sending game state")
-        }
-    }
-
     suspend fun getAllGames() {
 
-        val response = client.get("http://localhost:8083/games") {
+        val response = client.get("http://192.168.0.134:8083/games") {
             headers {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
             }
@@ -49,35 +36,37 @@ class NetworkClient {
         }
     }
 
-    suspend fun getState(): String {
-        val response = client.get("http://localhost:8083/state") {
-            headers {
-                append(HttpHeaders.ContentType, ContentType.Text.Plain)
-            }
-        }
-        return if (response.status == HttpStatusCode.OK) {
-            response.bodyAsText()
-        } else {
-            println("Error fetching state")
-            ""
-        }
-    }
-
-    suspend fun checkConnection(): Boolean {
-        val response = client.get("http://localhost:8083/check") {
+    suspend fun getOpponentState() {
+        val response = client.get("http://192.168.0.134:8083/state") {
             headers {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
             }
         }
-        return if (response.status == HttpStatusCode.OK) {
-            response.body()
-        } else {
-            println("Error checking connection")
-            false
-        }
+        val responseBody = response.body<String>()
+        println(responseBody)
     }
 
+    @OptIn(InternalAPI::class)
+    suspend fun updateState() {
+        val response = client.post("http://192.168.0.134:8083/updateState") {
+            headers {
+                append(HttpHeaders.ContentType, ContentType.Application.Json)
+            }
+            //Здесь необходимо отправить своё состояние
+            body = "{\"key\": \"value\"}"
+        }
+        val responseBody = response.body<String>()
+        println(responseBody)
+    }
 
-    @Serializable
-    data class Game(val id: Int, val gameName: String)
+    suspend fun connect(): Boolean {
+        val response = client.get("http://192.168.0.134:8083/check")
+        val responseBody = response.body<String>()
+        return responseBody.toBoolean()
+    }
 }
+
+
+
+@Serializable
+data class Game(val id: Int, val gameName: String)
