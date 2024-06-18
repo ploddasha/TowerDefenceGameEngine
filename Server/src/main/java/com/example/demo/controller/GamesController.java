@@ -30,13 +30,14 @@ public class GamesController {
     public void updateState(HttpServletRequest request, @RequestBody String state) {
         String ip = gamesService.getClientIp(request);
         ip_state.put(ip, state);
+        System.out.println(ip_state.get(ip));
     }
 
     //Функция, проверяющая что именно два клиента подключилось к серверу
     @GetMapping("/check")
     public boolean getConnectionCheck(HttpServletRequest request) {
         if (!ip_state.containsKey(gamesService.getClientIp(request))) {
-            ip_state.put(gamesService.getClientIp(request), null);
+            ip_state.put(gamesService.getClientIp(request), "state" + gamesService.getClientIp(request));
             System.out.println(gamesService.getClientIp(request));
         }
         if (ip_state.size() == 2) {
