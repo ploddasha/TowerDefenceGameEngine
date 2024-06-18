@@ -22,7 +22,7 @@ class NetworkClient {
 
     suspend fun getAllGames() {
 
-        val response = client.get("http://192.168.56.1:8083/games") {
+        val response = client.get("http://192.168.0.134:8083/games") {
             headers {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
             }
@@ -37,7 +37,7 @@ class NetworkClient {
     }
 
     suspend fun getOpponentState() {
-        val response = client.get("http://192.168.56.1:8083/state") {
+        val response = client.get("http://192.168.0.134:8083/state") {
             headers {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
             }
@@ -48,7 +48,7 @@ class NetworkClient {
 
     @OptIn(InternalAPI::class)
     suspend fun updateState() {
-        val response = client.post("http://192.168.56.1:8083/updateState") {
+        val response = client.post("http://192.168.0.134:8083/updateState") {
             headers {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
             }
@@ -60,7 +60,7 @@ class NetworkClient {
     }
 
     suspend fun connect(): Boolean {
-        val response = client.get("http://192.168.56.1:8083/check")
+        val response = client.get("http://192.168.0.134:8083/check")
         val responseBody = response.body<String>()
         return responseBody.toBoolean()
     }
