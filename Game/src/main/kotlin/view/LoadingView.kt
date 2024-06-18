@@ -1,5 +1,6 @@
 package view
 
+import client.NetworkClient
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.application.Platform
@@ -8,7 +9,12 @@ import javafx.event.ActionEvent
 import javafx.util.Duration
 import tornadofx.*
 
-class LoadingView : View("Loading") {
+class LoadingView(
+    //id: Int
+) : View("Loading") {
+
+    private val networkClient = NetworkClient()
+
     override val root = stackpane {
         progressindicator {
             maxWidth = 100.0
@@ -17,11 +23,14 @@ class LoadingView : View("Loading") {
 
     }
 
+    //TODO load game from server
     init {
         runAsync {
-            Thread.sleep(2000)
+            Thread.sleep(500)
         } ui {
-            replaceWith(GameView::class)
+            //replaceWith(GameView(id))
+            replaceWith(GameView())
+
         }
     }
 

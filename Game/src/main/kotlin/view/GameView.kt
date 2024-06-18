@@ -16,7 +16,9 @@ import viewModel.towerControllers.FlyingTowerController
 import viewModel.towerControllers.GroundTowerController
 
 
-class GameView : View("Bashenki") {
+class GameView(
+) : View("Bashenki") {
+
 
     val moneyController = MoneyController()
     val cityController = CityController()
@@ -29,8 +31,8 @@ class GameView : View("Bashenki") {
 
     val mapView = MapView(gameController)
 
+    private val allGamesView: AllGamesView by inject()
     //val gameController = GameController(mapView)
-
 
 
     val shopView = ShopView(gameController, moneyController, cityController, groundTowerController, flyingTowerController, cityModel)
@@ -92,90 +94,125 @@ class GameView : View("Bashenki") {
     } */
 
 
-    override val root = stackpane {
+    override val root = borderpane {
 
         addClass("game-stack-pane")
 
         add(gameOverText)
 
+        top {
+            hbox {
 
-        vbox {
+                paddingAll = 10.0
+                alignment = Pos.TOP_CENTER
+                spacing = 10.0
 
-            paddingTop = 10.0
-            paddingRight = 7.0
-            alignment = Pos.TOP_RIGHT
+                button("Start Game") {
+                    style {
+                        fontSize = 14.px
+                        padding = box(5.px, 10.px)
+                        paddingAll = 5.0
+                        backgroundColor += Color.BLUE
+                        textFill = Color.WHITE
+                        fontWeight = FontWeight.BOLD
+                    }
+                    vboxConstraints {
+                        marginRight = 10.0
+                    }
+                    action {
+                        startGame()
+                    }
+                }
 
-            button("Start Game") {
-                style {
-                    fontSize = 14.px
-                    padding = box(5.px, 10.px)
-                    paddingAll = 5.0
-                    backgroundColor += Color.BLUE
-                    textFill = Color.WHITE
-                    fontWeight = FontWeight.BOLD
+                button("Pause") {
+                    style {
+                        fontSize = 14.px
+                        padding = box(5.px, 10.px)
+                        backgroundColor += Color.rgb(255, 152, 0)
+                        textFill = Color.WHITE
+                        fontWeight = FontWeight.BOLD
+                    }
+                    vboxConstraints {
+                        marginRight = 10.0
+                    }
+                    action {
+                        //pauseMenuView.root.isVisible = true
+                        replaceWith(PauseMenuView::class)
+                    }
                 }
-                vboxConstraints {
-                    marginBottom = 10.0
+
+                button("Shop") {
+                    style {
+                        fontSize = 14.px
+                        padding = box(5.px, 10.px)
+                        paddingAll = 5.0
+                        backgroundColor += Color.GREEN
+                        textFill = Color.WHITE
+                        fontWeight = FontWeight.BOLD
+                    }
+                    vboxConstraints {
+                        marginRight = 10.0
+                    }
+                    action {
+                        replaceWith(shopView)
+                        //replaceWith(ShopView::class)
+                    }
                 }
-                action {
-                    startGame()
+
+                button("Back to menu") {
+                    style {
+                        fontSize = 14.px
+                        padding = box(5.px, 10.px)
+                        paddingAll = 5.0
+                        backgroundColor += Color.BLACK
+                        textFill = Color.WHITE
+                        fontWeight = FontWeight.BOLD
+                    }
+                    vboxConstraints {
+                        marginRight = 10.0
+                    }
+                    action {
+                        //gameController.stopGame()
+                        replaceWith(allGamesView)
+                    }
                 }
+
             }
-
-
-
-
-            button("Pause") {
-                style {
-                    fontSize = 14.px
-                    padding = box(5.px, 10.px)
-                    backgroundColor += Color.rgb(255, 152, 0)
-                    textFill = Color.WHITE
-                    fontWeight = FontWeight.BOLD
-                }
-                vboxConstraints {
-                    marginBottom = 10.0
-                }
-                action {
-                    //pauseMenuView.root.isVisible = true
-                    replaceWith(PauseMenuView::class)
-                }
-            }
-
-            hbox(){
-                hbox() {
-                    add(moneyIcon)
-                    prefWidth = 35.0
-                }
-                add(moneyBackground)
-                alignment = Pos.TOP_RIGHT
-            }
-
-            hbox() {
-                add(heartIcon)
-                add(cityBackground)
-                alignment = Pos.TOP_RIGHT
-            }
-
-            button("Shop") {
-                style {
-                    fontSize = 14.px
-                    padding = box(5.px, 10.px)
-                    paddingAll = 5.0
-                    backgroundColor += Color.GREEN
-                    textFill = Color.WHITE
-                    fontWeight = FontWeight.BOLD
-                }
-                vboxConstraints {
-                    marginBottom = 10.0
-                }
-                action {
-                    replaceWith(shopView)
-                    //replaceWith(ShopView::class)
-                }
-            }
-            add(mapView)
         }
+
+        center {
+            useMaxWidth = true
+
+            hbox{
+                alignment = Pos.CENTER
+                add(mapView)
+            }
+        }
+
+        bottom {
+            hbox{
+                alignment = Pos.BOTTOM_CENTER
+                vbox{
+
+                    hbox() {
+                        hbox() {
+                            add(moneyIcon)
+                            prefWidth = 35.0
+                        }
+                        add(moneyBackground)
+                        alignment = Pos.TOP_RIGHT
+                    }
+
+                    hbox() {
+                        add(heartIcon)
+                        add(cityBackground)
+                        alignment = Pos.TOP_RIGHT
+                    }
+                }
+            }
+
+        }
+
     }
 
     private fun startGame() {

@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "gameName": "Cool",
+    "isLoaded": false
+  },
+  {
+    "id": 2,
+    "gameName": "Boring",
+    "isLoaded": false
+  },
+  {
+    "id": 3,
+    "gameName": "Interesting",
+    "isLoaded": false
+  }
+]

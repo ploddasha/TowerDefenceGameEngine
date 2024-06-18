@@ -6,8 +6,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import model.fromEditing.MobType
 import model.fromEditing.MobsModel
-//import model.fromEditing.Mob
-//import model.fromEditing.MobType
 import java.io.File
 @Serializable
 data class Mob(
@@ -16,7 +14,8 @@ data class Mob(
     @SerialName("Health") val health: Int,
     @SerialName("Speed") val speed: Int,
     @SerialName("AttackRange") val attackRange: Int,
-    @SerialName("Type") val type: MobType
+    @SerialName("Type") val type: MobType,
+    @SerialName("Name") val name: String
 )
 
 fun loadMobDataJson(): List<Mob> {
@@ -31,6 +30,7 @@ fun loadMobDataJson(): List<Mob> {
 fun createMobModel(mobsModel: MobsModel) {
 
     val listOfMobs = loadMobDataJson()
+
     for (i in listOfMobs.indices) {
         mobsModel.addMob(model.fromEditing.Mob(
             cost = listOfMobs[i].cost,
@@ -38,7 +38,8 @@ fun createMobModel(mobsModel: MobsModel) {
             health = listOfMobs[i].health,
             speed = listOfMobs[i].speed,
             attackRange = listOfMobs[i].attackRange,
-            type = listOfMobs[i].type
+            type = listOfMobs[i].type,
+            name = listOfMobs[i].name
         ))
     }
 

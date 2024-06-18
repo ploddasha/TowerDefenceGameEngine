@@ -1,5 +1,6 @@
 package viewModel
 
+import app.loadFiles.WaveConfig
 import app.loadFiles.createMobModel
 import client.NetworkClient
 import javafx.beans.property.SimpleBooleanProperty
@@ -9,6 +10,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import model.CityModel
 import model.GameState
 import model.fromEditing.MobType
@@ -24,6 +27,7 @@ import viewModel.towerControllers.Fly
 import viewModel.towerControllers.Walk
 import viewModel.towerControllers.parseWalk
 import viewModel.towerControllers.parseFly
+import java.io.File
 import java.util.*
 
 
@@ -54,22 +58,49 @@ class GameController(
     init {
         createMobModel(mobsModel)
         createRealMobs()
-        createWaves()
+        //createWaves()
+        loadWavesFromFile()
+
         runAsync {
             walkList = parseWalk()
             flyList = parseFly()
         }
     }
 
+    private fun loadWavesFromFile() {
+        val jsonString = File("./src/main/resources/configs/games/game1/WavesData.json").readText()
+        val waveConfig = Json.decodeFromString<WaveConfig>(jsonString)
+        waves = waveConfig.waves.map { wave ->
+            wave.flatMap { mobConfig ->
+                val templateMob = mobsModel.mobsList.find { it.name == mobConfig.name }
+                    ?: throw IllegalArgumentException("No mob found with name: ${mobConfig.name}")
+                List(mobConfig.amount) {
+                    RealMob(
+                        id = UUID.randomUUID().mostSignificantBits.toInt(), // Unique ID for each mob
+                        row = start.second,
+                        col = start.first,
+                        type = templateMob.type,
+                        health = templateMob.health,
+                        speed = templateMob.speed,
+                        damage = templateMob.damage,
+                        attackRange = templateMob.attackRange,
+                        value = templateMob.cost,
+                        name = templateMob.name
+                    )
+                }
+            }.toMutableList()
+        }.toMutableList()
+    }
+
     private fun createWaves() {
         val mobsFirstWave = mutableListOf<RealMob>()
-        mobsFirstWave.add(RealMob(10, 0, 0, MobType.Walk, 100, 100, 2, 0, 50))
-        mobsFirstWave.add(RealMob(10, 0, 0, MobType.Walk, 100, 100, 2, 0, 60))
+        mobsFirstWave.add(RealMob(10, 0, 0, MobType.Walk, 100, 100, 2, 0, 50, ""))
+        mobsFirstWave.add(RealMob(10, 0, 0, MobType.Walk, 100, 100, 2, 0, 60, ""))
         waves.add(mobsFirstWave)
 
         val mobsSecondWave = mutableListOf<RealMob>()
-        mobsSecondWave.add(RealMob(10, 0, 0, MobType.Fly, 300, 100, 3, 0, 100))
-        mobsSecondWave.add(RealMob(10, 0, 0, MobType.Fly, 300, 100, 3, 0, 110))
+        mobsSecondWave.add(RealMob(10, 0, 0, MobType.Fly, 300, 100, 3, 0, 100, ""))
+        mobsSecondWave.add(RealMob(10, 0, 0, MobType.Fly, 300, 100, 3, 0, 110, ""))
         waves.add(mobsSecondWave)
 
     }
@@ -77,9 +108,20 @@ class GameController(
     private fun createRealMobs() {
         for (i in 0 until mobsModel.mobsList.size) {
             val toCopy = mobsModel.mobsList[i]
-            mobs.add(RealMob(id = i, row = start.second, col = start.first, type = toCopy.type,
-                health = toCopy.health, speed = toCopy.speed, damage = toCopy.damage,
-                attackRange = toCopy.attackRange, value = toCopy.cost))
+            mobs.add(
+                RealMob(
+                    id = i,
+                    row = start.second,
+                    col = start.first,
+                    type = toCopy.type,
+                    health = toCopy.health,
+                    speed = toCopy.speed,
+                    damage = toCopy.damage,
+                    attackRange = toCopy.attackRange,
+                    value = toCopy.cost,
+                    name = toCopy.name
+                )
+            )
         }
     }
 
@@ -244,5 +286,9 @@ class GameController(
 
     private fun setGameOver(value: Boolean) {
         _gameOver.set(value)
+    }
+
+    fun stopGame() {
+        TODO("Not yet implemented")
     }
 }

@@ -28,7 +28,7 @@ fun loadTowerDataJson(): List<Tower> {
 }
 
 
-fun createMobModel(towersModel: TowersModel) {
+fun createTowersModel(towersModel: TowersModel) {
 
     val listOfTowers = loadTowerDataJson()
     for (i in listOfTowers.indices) {

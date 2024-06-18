@@ -15,6 +15,7 @@ data class RealMob(
     var damage: Int,
     var attackRange: Int,
     var value: Int,
+    var name: String
 ) {
 
     val mobPredPositions = mutableMapOf<Int, Pair<Int, Int>>()

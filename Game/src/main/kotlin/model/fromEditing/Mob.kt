@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleBooleanProperty
 import tornadofx.*
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleObjectProperty
+import javafx.beans.property.SimpleStringProperty
 import kotlinx.serialization.Serializable
 import tornadofx.ItemViewModel
 
@@ -20,7 +21,8 @@ class Mob (
     speed: Int? = null,
     //canAttack: Boolean? = null,
     attackRange: Int? = null,
-    type: MobType? = null
+    type: MobType? = null,
+    name: String? = null
 ){
     val costProperty = SimpleIntegerProperty(this, "cost", cost!!)
     var cost by costProperty
@@ -42,6 +44,9 @@ class Mob (
 
     val attackRangeProperty = SimpleIntegerProperty(this, "attackRange", 0)
     var attackRange by attackRangeProperty
+
+    val nameProperty = SimpleStringProperty(this, "name", name!!)
+    var name: String by nameProperty
 }
 
 
@@ -53,4 +58,5 @@ class MobModel : ItemViewModel<Mob>() {
     val type = bind(Mob::type)
     //val canAttack = bind(Mob::canAttack)
     val attackRange = bind(Mob::attackRange)
+    val name = bind(Mob::name)
 }
