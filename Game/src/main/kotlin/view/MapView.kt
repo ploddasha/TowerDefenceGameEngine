@@ -7,9 +7,7 @@ import javafx.scene.layout.GridPane
 import model.TilePair
 import model.fromEditing.MapModel
 import model.fromEditing.TileType
-import tornadofx.View
-import tornadofx.gridpane
-import tornadofx.paddingAll
+import tornadofx.*
 import viewModel.GameController
 import viewModel.real.RealMob
 
@@ -43,6 +41,8 @@ class MapView(
         hgap = 1.0
         vgap = 1.0
         paddingAll = 0.0
+
+        addClass("game-field-background")
 
         for (row in 0 until numRows) {
             for (col in 0 until numCols) {

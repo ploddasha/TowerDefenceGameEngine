@@ -17,7 +17,7 @@ import javax.json.Json
 
 class NetworkClient {
 
-    val server: String = "http://localhost:8083"
+    val server: String = "http://192.168.0.109:8083"
 
     val client = HttpClient(CIO) {
         install(ContentNegotiation) {
