@@ -83,7 +83,8 @@ class PauseMenuView : View("Pause Menu") {
                     marginBottom = 10.0
                 }
                 action {
-                    replaceWith(GameView(0))
+                    //replaceWith(GameView(0))
+                    replaceWith(GameView())
                 }
             }
 

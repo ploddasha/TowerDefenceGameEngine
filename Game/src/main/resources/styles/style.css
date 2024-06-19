@@ -38,3 +38,10 @@
   -fx-stroke: black;
   -fx-stroke-width: 1px;
 }
+
+.game-field-background {
+  -fx-background-color: #123524;
+  -fx-background-radius: 10;
+  -fx-padding: 10px;
+  -fx-margin: 0px;
+}

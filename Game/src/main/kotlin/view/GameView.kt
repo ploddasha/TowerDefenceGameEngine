@@ -13,6 +13,7 @@ import viewModel.GameController
 import viewModel.MoneyController
 import viewModel.towerControllers.FlyingTowerController
 import viewModel.towerControllers.GroundTowerController
+import kotlin.math.round
 
 
 class GameView(
@@ -183,7 +184,10 @@ class GameView(
 
             hbox{
                 alignment = Pos.CENTER
-                add(mapView)
+                vbox {
+                    alignment = Pos.CENTER
+                    add(mapView)
+                }
             }
         }
 
