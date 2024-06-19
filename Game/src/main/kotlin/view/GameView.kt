@@ -5,6 +5,7 @@ import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
+import javafx.scene.text.TextAlignment
 import model.CityModel
 import model.fromEditing.TileType
 import tornadofx.*
@@ -37,29 +38,41 @@ class GameView(
 
     val shopView = ShopView(gameController, moneyController, cityController, groundTowerController, flyingTowerController, cityModel)
 
-    val moneyLabel = label()
+    val moneyLabel = label() {
+        style {
+            fontWeight = FontWeight.BOLD
+        }
+    }
     val moneyBackground = stackpane {
         rectangle {
             width = 100.0
             height = 30.0
             fill = Color.WHITE
+            arcWidth = 20.0
+            arcHeight = 20.0
         }
         add(moneyLabel)
-        alignment = Pos.CENTER_RIGHT
+        alignment = Pos.CENTER
     }
     val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
     val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
 
 
-    val cityLabel = label()
+    val cityLabel = label() {
+        style {
+            fontWeight = FontWeight.BOLD
+        }
+    }
     val cityBackground = stackpane {
         rectangle {
             width = 100.0
             height = 30.0
             fill = Color.WHITE
+            arcWidth = 20.0
+            arcHeight = 20.0
         }
         add(cityLabel)
-        alignment = Pos.CENTER_RIGHT
+        alignment = Pos.CENTER
     }
 
 
