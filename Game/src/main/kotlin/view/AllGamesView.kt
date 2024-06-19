@@ -39,8 +39,7 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                //replaceWith(LoadingView(game.id))
-                                replaceWith(LoadingView())
+                                replaceWith(LoadingView(game.id))
                             }
                         }
 
@@ -57,7 +56,6 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                //replaceWith(LoadingView(game.id))
                                 replaceWith(WaitingForConnectionView())
                             }
                         }
@@ -109,8 +107,7 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                //replaceWith(LoadingView(game.id))
-                                replaceWith(LoadingView())
+                                replaceWith(LoadingView(game.id))
                             }
                         }
 
@@ -127,7 +124,6 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                //replaceWith(LoadingView(game.id))
                                 replaceWith(WaitingForConnectionView())
                             }
                         }

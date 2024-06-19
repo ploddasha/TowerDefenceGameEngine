@@ -10,7 +10,7 @@ import javafx.util.Duration
 import tornadofx.*
 
 class LoadingView(
-    //id: Int
+    id: Int
 ) : View("Loading") {
 
     private val networkClient = NetworkClient()

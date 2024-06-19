@@ -11,6 +11,7 @@ import tornadofx.*
 import viewModel.CityController
 import viewModel.GameController
 import viewModel.MoneyController
+import viewModel.RatingController
 import viewModel.towerControllers.FlyingTowerController
 import viewModel.towerControllers.GroundTowerController
 
@@ -25,8 +26,9 @@ class GameView(
     val groundTowerController = GroundTowerController()
     val flyingTowerController = FlyingTowerController()
     val cityModel = CityModel()
+    val ratingController = RatingController()
 
-    val gameController = GameController(moneyController, cityController, cityModel)
+    val gameController = GameController(moneyController, cityController, ratingController, cityModel)
 
     val mapView = MapView(gameController)
 
@@ -48,7 +50,7 @@ class GameView(
     }
     val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
     val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
-
+    val starIcon = ImageView(Image(resources.url("/configs/star.png").toString()))
 
     val cityLabel = label()
     val cityBackground = stackpane {
@@ -62,6 +64,17 @@ class GameView(
     }
 
 
+    val ratingLabel = label()
+    val ratingBackground = stackpane {
+        rectangle {
+            width = 100.0
+            height = 30.0
+            fill = Color.WHITE
+        }
+        add(ratingLabel)
+        alignment = Pos.CENTER_RIGHT
+    }
+
     init {
         moneyIcon.fitWidth = 35.0
         moneyIcon.fitHeight = 35.0
@@ -70,6 +83,10 @@ class GameView(
         heartIcon.fitWidth = 30.0
         heartIcon.fitHeight = 30.0
         cityLabel.textProperty().bind(cityController.cityProperty().asString("City: %d"))
+
+        starIcon.fitWidth = 30.0
+        starIcon.fitHeight = 30.0
+        ratingLabel.textProperty().bind(ratingController.ratingProperty().asString("Rating: %d"))
     }
     data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)
 
@@ -205,6 +222,12 @@ class GameView(
                     hbox() {
                         add(heartIcon)
                         add(cityBackground)
+                        alignment = Pos.TOP_RIGHT
+                    }
+
+                    hbox() {
+                        add(starIcon)
+                        add(ratingBackground)
                         alignment = Pos.TOP_RIGHT
                     }
                 }

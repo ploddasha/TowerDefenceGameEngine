@@ -5,6 +5,7 @@ import app.loadFiles.createMobModel
 import client.NetworkClient
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.value.ObservableValue
+import javafx.scene.control.Alert
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.joinAll
@@ -17,6 +18,7 @@ import model.data.InitConfig
 import model.fromEditing.MobsModel
 import model.tower.Tower
 import tornadofx.Controller
+import tornadofx.alert
 import tornadofx.runLater
 import view.MapView
 import viewModel.real.RealMob
@@ -33,6 +35,7 @@ import java.util.*
 class GameController(
     private val moneyController: MoneyController,
     private val cityController: CityController,
+    private val ratingController: RatingController,
     private val cityModel: CityModel
 ) : Controller() {
 
@@ -54,6 +57,8 @@ class GameController(
 
     private val networkClient = NetworkClient()
     private var gameId = 1
+
+    private var currentWave = 0
 
 
     init {
@@ -125,20 +130,6 @@ class GameController(
     }
 
 
-    fun startGame() {
-        timer = Timer()
-        //startPeriodicGameStateUpdates() For competitive
-
-        timer?.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                moveMob(mobs[0])
-                fireTowers()
-            }
-        }, 0, 500)
-    }
-
-    var currentWave = 0
-
     private fun startPeriodicGameStateUpdates() {
         GlobalScope.launch {
             while (!gameOverProperty().value) {
@@ -163,36 +154,55 @@ class GameController(
 
     fun startGameWithWaves() {
         println("START WAVE")
+        //startPeriodicGameStateUpdates() For competitive
 
         runLater {
             GlobalScope.launch {
-                val wave = waves[currentWave]
-                val jobs = wave.map { mob ->
-                    launch {
-                        var alive = true
-                        while (alive && mob.health > 0 && !mobReachedCity(mob)) {
-                            moveMob(mob)
-                            runLater {
-                                fireTowers() // вызываем fireTowers после каждого перемещения моба
-                            }
-                            delay(500) // задержка в 0.5 секунды между движениями моба
+                if (currentWave < waves.size) {
+                    val wave = waves[currentWave]
+                    val jobs = wave.map { mob ->
+                        launch {
+                            var alive = true
+                            while (alive && mob.health > 0 && !mobReachedCity(mob)) {
+                                moveMob(mob)
+                                runLater {
+                                    fireTowers() // вызываем fireTowers после каждого перемещения моба
+                                }
+                                delay(500) // задержка в 0.5 секунды между движениями моба
 
-                            if (mob.health <= 0) {
-                                alive = false
-                                handleMobDeath(mob)
+                                if (mob.health <= 0) {
+                                    alive = false
+                                    handleMobDeath(mob)
+                                }
                             }
-                        }
-                        if (alive && mob.health > 0) { // Если моб достиг города
-                            handleMobReachedCity(mob)
+                            if (alive && mob.health > 0) { // Если моб достиг города
+                                handleMobReachedCity(mob)
+                            }
                         }
                     }
-                }
-                jobs.joinAll() // Ждем завершения всех корутин
+                    jobs.joinAll() // Ждем завершения всех корутин
 
-                currentWave++
+                    currentWave++
+                    checkVictory()
+                } else {
+                    checkVictory()
+                }
             }
         }
     }
+
+
+    private fun checkVictory() {
+        if (currentWave >= waves.size) {
+            runLater {
+                println("You won! Your rating is: ${ratingController.getRating()}")
+                alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won! Your rating is: ${ratingController.getRating()}")
+
+                setGameOver(true)
+            }
+        }
+    }
+
 
     private fun mobReachedCity(mob: RealMob): Boolean {
         return mob.row == city.first && mob.col == city.second
@@ -218,6 +228,7 @@ class GameController(
             mobs.remove(mob)
             moneyController.addMoney(mob.value)
             mapView?.deleteMobFromMap(mob.row, mob.col)
+            ratingController.saveScore(mob.value)
         }
         println("Умер")
     }

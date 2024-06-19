@@ -9,14 +9,15 @@ import model.CityModel
 import model.fromEditing.TileType
 import tornadofx.*
 import viewModel.CityController
-import viewModel.CompetitiveGameController
 import viewModel.GameController
 import viewModel.MoneyController
+import viewModel.RatingController
 import viewModel.towerControllers.FlyingTowerController
 import viewModel.towerControllers.GroundTowerController
 
 
-class GameTwoMapsView() : View("Bashenki") {
+class GameTwoMapsView(
+) : View("Bashenki") {
 
 
     val moneyController = MoneyController()
@@ -25,12 +26,11 @@ class GameTwoMapsView() : View("Bashenki") {
     val groundTowerController = GroundTowerController()
     val flyingTowerController = FlyingTowerController()
     val cityModel = CityModel()
+    val ratingController = RatingController()
 
-    val gameController = GameController(moneyController, cityController, cityModel)
+    val gameController = GameController(moneyController, cityController, ratingController, cityModel)
 
     val mapView = MapView(gameController)
-    val enemyMapView = MapView(gameController)
-
 
     private val allGamesView: AllGamesView by inject()
     //val gameController = GameController(mapView)
@@ -50,7 +50,7 @@ class GameTwoMapsView() : View("Bashenki") {
     }
     val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
     val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
-
+    val starIcon = ImageView(Image(resources.url("/configs/star.png").toString()))
 
     val cityLabel = label()
     val cityBackground = stackpane {
@@ -64,6 +64,17 @@ class GameTwoMapsView() : View("Bashenki") {
     }
 
 
+    val ratingLabel = label()
+    val ratingBackground = stackpane {
+        rectangle {
+            width = 100.0
+            height = 30.0
+            fill = Color.WHITE
+        }
+        add(ratingLabel)
+        alignment = Pos.CENTER_RIGHT
+    }
+
     init {
         moneyIcon.fitWidth = 35.0
         moneyIcon.fitHeight = 35.0
@@ -72,6 +83,10 @@ class GameTwoMapsView() : View("Bashenki") {
         heartIcon.fitWidth = 30.0
         heartIcon.fitHeight = 30.0
         cityLabel.textProperty().bind(cityController.cityProperty().asString("City: %d"))
+
+        heartIcon.fitWidth = 30.0
+        heartIcon.fitHeight = 30.0
+        ratingLabel.textProperty().bind(ratingController.ratingProperty().asString("Rating: %d"))
     }
     data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)
 
@@ -185,9 +200,7 @@ class GameTwoMapsView() : View("Bashenki") {
 
             hbox{
                 alignment = Pos.CENTER
-                spacing = 50.0
                 add(mapView)
-                add(enemyMapView)
             }
         }
 
@@ -209,6 +222,12 @@ class GameTwoMapsView() : View("Bashenki") {
                     hbox() {
                         add(heartIcon)
                         add(cityBackground)
+                        alignment = Pos.TOP_RIGHT
+                    }
+
+                    hbox() {
+                        add(starIcon)
+                        add(ratingBackground)
                         alignment = Pos.TOP_RIGHT
                     }
                 }
