@@ -78,15 +78,21 @@ class GameView(
     }
 
 
-    val ratingLabel = label()
+    val ratingLabel = label() {
+        style {
+            fontWeight = FontWeight.BOLD
+        }
+    }
     val ratingBackground = stackpane {
         rectangle {
             width = 100.0
             height = 30.0
             fill = Color.WHITE
+            arcWidth = 20.0
+            arcHeight = 20.0
         }
         add(ratingLabel)
-        alignment = Pos.CENTER_RIGHT
+        alignment = Pos.CENTER
     }
 
     init {
@@ -132,80 +138,90 @@ class GameView(
 
         top {
             hbox {
-                paddingAll = 10.0
-                alignment = Pos.TOP_CENTER
-                spacing = 10.0
+                alignment = Pos.CENTER
+                vbox {
+                    alignment = Pos.CENTER
+                    hbox {
+                        alignment = Pos.CENTER
+                        maxWidth = 600.0
 
-                button("Start Game") {
-                    style {
-                        fontSize = 14.px
-                        padding = box(5.px, 10.px)
-                        paddingAll = 5.0
-                        backgroundColor += Color.BLUE
-                        textFill = Color.WHITE
-                        fontWeight = FontWeight.BOLD
-                    }
-                    vboxConstraints {
-                        marginRight = 10.0
-                    }
-                    action {
-                        startGame()
+                        addClass("game-top-background")
+
+                        paddingAll = 10.0
+                        //alignment = Pos.TOP_CENTER
+                        spacing = 10.0
+
+                        button("Start Game") {
+                            style {
+                                fontSize = 14.px
+                                padding = box(5.px, 10.px)
+                                paddingAll = 5.0
+                                backgroundColor += Color.BLUE
+                                textFill = Color.WHITE
+                                fontWeight = FontWeight.BOLD
+                            }
+                            vboxConstraints {
+                                marginRight = 10.0
+                            }
+                            action {
+                                startGame()
+                            }
+                        }
+
+                        button("Pause") {
+                            style {
+                                fontSize = 14.px
+                                padding = box(5.px, 10.px)
+                                backgroundColor += Color.rgb(255, 152, 0)
+                                textFill = Color.WHITE
+                                fontWeight = FontWeight.BOLD
+                            }
+                            vboxConstraints {
+                                marginRight = 10.0
+                            }
+                            action {
+                                //pauseMenuView.root.isVisible = true
+                                replaceWith(PauseMenuView::class)
+                            }
+                        }
+
+                        button("Shop") {
+                            style {
+                                fontSize = 14.px
+                                padding = box(5.px, 10.px)
+                                paddingAll = 5.0
+                                backgroundColor += Color.GREEN
+                                textFill = Color.WHITE
+                                fontWeight = FontWeight.BOLD
+                            }
+                            vboxConstraints {
+                                marginRight = 10.0
+                            }
+                            action {
+                                replaceWith(shopView)
+                                //replaceWith(ShopView::class)
+                            }
+                        }
+
+                        button("Back to menu") {
+                            style {
+                                fontSize = 14.px
+                                padding = box(5.px, 10.px)
+                                paddingAll = 5.0
+                                backgroundColor += Color.BLACK
+                                textFill = Color.WHITE
+                                fontWeight = FontWeight.BOLD
+                            }
+                            vboxConstraints {
+                                marginRight = 10.0
+                            }
+                            action {
+                                //gameController.stopGame()
+                                replaceWith(allGamesView)
+                            }
+                        }
                     }
                 }
-
-                button("Pause") {
-                    style {
-                        fontSize = 14.px
-                        padding = box(5.px, 10.px)
-                        backgroundColor += Color.rgb(255, 152, 0)
-                        textFill = Color.WHITE
-                        fontWeight = FontWeight.BOLD
-                    }
-                    vboxConstraints {
-                        marginRight = 10.0
-                    }
-                    action {
-                        //pauseMenuView.root.isVisible = true
-                        replaceWith(PauseMenuView::class)
-                    }
-                }
-
-                button("Shop") {
-                    style {
-                        fontSize = 14.px
-                        padding = box(5.px, 10.px)
-                        paddingAll = 5.0
-                        backgroundColor += Color.GREEN
-                        textFill = Color.WHITE
-                        fontWeight = FontWeight.BOLD
-                    }
-                    vboxConstraints {
-                        marginRight = 10.0
-                    }
-                    action {
-                        replaceWith(shopView)
-                        //replaceWith(ShopView::class)
-                    }
-                }
-
-                button("Back to menu") {
-                    style {
-                        fontSize = 14.px
-                        padding = box(5.px, 10.px)
-                        paddingAll = 5.0
-                        backgroundColor += Color.BLACK
-                        textFill = Color.WHITE
-                        fontWeight = FontWeight.BOLD
-                    }
-                    vboxConstraints {
-                        marginRight = 10.0
-                    }
-                    action {
-                        //gameController.stopGame()
-                        replaceWith(allGamesView)
-                    }
-                }
-
             }
         }
 
@@ -223,6 +239,7 @@ class GameView(
 
         bottom {
             hbox{
+                addClass("game-bottom-background")
                 alignment = Pos.BOTTOM_CENTER
                 hbox{
                     spacing = 10.0

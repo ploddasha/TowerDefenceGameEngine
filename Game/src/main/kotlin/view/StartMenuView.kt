@@ -21,7 +21,7 @@ class StartMenuView : View("Bashenki!") {
 
     override val root = stackpane {
         prefWidth = 900.0
-        prefHeight = 600.0
+        prefHeight = 700.0
 
         addClass("startMenu-stack-pane")
 

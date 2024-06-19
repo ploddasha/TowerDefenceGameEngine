@@ -45,3 +45,27 @@
   -fx-padding: 10px;
   -fx-margin: 0px;
 }
+
+.game-bottom-background {
+  -fx-background-color: #4f0070;
+  -fx-background-radius: 10 10 0 0;
+  -fx-padding: 10px;
+  -fx-margin: 10px;
+
+  -fx-border-color: #320b35;
+  -fx-border-width: 2px 2px 0 2px;
+  -fx-border-radius: 10 10 0 0;
+  -fx-border-insets: -2px;
+}
+
+.game-top-background {
+  -fx-background-color: #fff;
+  -fx-background-radius: 0 0 10 10;
+  -fx-padding: 10px 50px;
+  -fx-margin: 10px 50px;
+
+  -fx-border-color: #ff9800;
+  -fx-border-width: 0 2px 2px 2px;
+  -fx-border-radius: 0 0 10 10;
+  -fx-border-insets: -2px;
+}

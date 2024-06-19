@@ -1,0 +1,98 @@
+Index: Game/src/main/kotlin/view/GameView.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view\r\n\r\nimport javafx.geometry.Pos\r\nimport javafx.scene.image.Image\r\nimport javafx.scene.image.ImageView\r\nimport javafx.scene.paint.Color\r\nimport javafx.scene.text.FontWeight\r\nimport javafx.scene.text.TextAlignment\r\nimport model.CityModel\r\nimport model.fromEditing.TileType\r\nimport tornadofx.*\r\nimport viewModel.CityController\r\nimport viewModel.GameController\r\nimport viewModel.MoneyController\r\nimport viewModel.towerControllers.FlyingTowerController\r\nimport viewModel.towerControllers.GroundTowerController\r\nimport kotlin.math.round\r\n\r\n\r\nclass GameView(\r\n) : View(\"Bashenki\") {\r\n\r\n\r\n    val moneyController = MoneyController()\r\n    val cityController = CityController()\r\n\r\n    val groundTowerController = GroundTowerController()\r\n    val flyingTowerController = FlyingTowerController()\r\n    val cityModel = CityModel()\r\n\r\n    val gameController = GameController(moneyController, cityController, cityModel)\r\n\r\n    val mapView = MapView(gameController)\r\n\r\n    private val allGamesView: AllGamesView by inject()\r\n    //val gameController = GameController(mapView)\r\n\r\n\r\n    val shopView = ShopView(gameController, moneyController, cityController, groundTowerController, flyingTowerController, cityModel)\r\n\r\n    val moneyLabel = label() {\r\n        style {\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n    }\r\n    val moneyBackground = stackpane {\r\n        rectangle {\r\n            width = 100.0\r\n            height = 30.0\r\n            fill = Color.WHITE\r\n            arcWidth = 20.0\r\n            arcHeight = 20.0\r\n        }\r\n        add(moneyLabel)\r\n        alignment = Pos.CENTER\r\n    }\r\n    val moneyIcon = ImageView(Image(resources.url(\"/configs/coin.png\").toString()))\r\n    val heartIcon = ImageView(Image(resources.url(\"/configs/heart.png\").toString()))\r\n\r\n\r\n    val cityLabel = label() {\r\n        style {\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n    }\r\n    val cityBackground = stackpane {\r\n        rectangle {\r\n            width = 100.0\r\n            height = 30.0\r\n            fill = Color.WHITE\r\n            arcWidth = 20.0\r\n            arcHeight = 20.0\r\n        }\r\n        add(cityLabel)\r\n        alignment = Pos.CENTER\r\n    }\r\n\r\n\r\n    init {\r\n        moneyIcon.fitWidth = 35.0\r\n        moneyIcon.fitHeight = 35.0\r\n        moneyLabel.textProperty().bind(moneyController.moneyAmountProperty().asString(\"Money: %d\"))\r\n\r\n        heartIcon.fitWidth = 30.0\r\n        heartIcon.fitHeight = 30.0\r\n        cityLabel.textProperty().bind(cityController.cityProperty().asString(\"City: %d\"))\r\n    }\r\n    data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)\r\n\r\n\r\n    val gameOverText = text(\"Game Over\") {\r\n        style {\r\n            fontSize = 48.px\r\n            fill = Color.RED\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n        visibleProperty().bind(gameController.gameOverProperty()) // Привязываем видимость к свойству gameOver\r\n    }\r\n\r\n    /*\r\n    private val pauseMenuView = PauseMenuView()\r\n\r\n    private val musicController: MusicController  by inject()\r\n\r\n    init {\r\n        musicController.playMusic(\"D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/game_music.mp3\")\r\n    } */\r\n\r\n\r\n    override val root = borderpane {\r\n\r\n        addClass(\"game-stack-pane\")\r\n\r\n        add(gameOverText)\r\n\r\n        top {\r\n            hbox {\r\n                paddingAll = 10.0\r\n                alignment = Pos.TOP_CENTER\r\n                spacing = 10.0\r\n\r\n                button(\"Start Game\") {\r\n                    style {\r\n                        fontSize = 14.px\r\n                        padding = box(5.px, 10.px)\r\n                        paddingAll = 5.0\r\n                        backgroundColor += Color.BLUE\r\n                        textFill = Color.WHITE\r\n                        fontWeight = FontWeight.BOLD\r\n                    }\r\n                    vboxConstraints {\r\n                        marginRight = 10.0\r\n                    }\r\n                    action {\r\n                        startGame()\r\n                    }\r\n                }\r\n\r\n                button(\"Pause\") {\r\n                    style {\r\n                        fontSize = 14.px\r\n                        padding = box(5.px, 10.px)\r\n                        backgroundColor += Color.rgb(255, 152, 0)\r\n                        textFill = Color.WHITE\r\n                        fontWeight = FontWeight.BOLD\r\n                    }\r\n                    vboxConstraints {\r\n                        marginRight = 10.0\r\n                    }\r\n                    action {\r\n                        //pauseMenuView.root.isVisible = true\r\n                        replaceWith(PauseMenuView::class)\r\n                    }\r\n                }\r\n\r\n                button(\"Shop\") {\r\n                    style {\r\n                        fontSize = 14.px\r\n                        padding = box(5.px, 10.px)\r\n                        paddingAll = 5.0\r\n                        backgroundColor += Color.GREEN\r\n                        textFill = Color.WHITE\r\n                        fontWeight = FontWeight.BOLD\r\n                    }\r\n                    vboxConstraints {\r\n                        marginRight = 10.0\r\n                    }\r\n                    action {\r\n                        replaceWith(shopView)\r\n                        //replaceWith(ShopView::class)\r\n                    }\r\n                }\r\n\r\n                button(\"Back to menu\") {\r\n                    style {\r\n                        fontSize = 14.px\r\n                        padding = box(5.px, 10.px)\r\n                        paddingAll = 5.0\r\n                        backgroundColor += Color.BLACK\r\n                        textFill = Color.WHITE\r\n                        fontWeight = FontWeight.BOLD\r\n                    }\r\n                    vboxConstraints {\r\n                        marginRight = 10.0\r\n                    }\r\n                    action {\r\n                        //gameController.stopGame()\r\n                        replaceWith(allGamesView)\r\n                    }\r\n                }\r\n\r\n            }\r\n        }\r\n\r\n        center {\r\n            useMaxWidth = true\r\n\r\n            hbox{\r\n                alignment = Pos.CENTER\r\n                vbox {\r\n                    alignment = Pos.CENTER\r\n                    add(mapView)\r\n                }\r\n            }\r\n        }\r\n\r\n        bottom {\r\n            hbox{\r\n                alignment = Pos.BOTTOM_CENTER\r\n                hbox{\r\n                    spacing = 10.0\r\n\r\n                    hbox() {\r\n                        hbox() {\r\n                            add(moneyIcon)\r\n                            prefWidth = 35.0\r\n                        }\r\n                        add(moneyBackground)\r\n                        alignment = Pos.TOP_RIGHT\r\n                    }\r\n\r\n                    hbox() {\r\n                        add(heartIcon)\r\n                        add(cityBackground)\r\n                        alignment = Pos.TOP_RIGHT\r\n                    }\r\n                }\r\n            }\r\n\r\n        }\r\n\r\n    }\r\n\r\n    private fun startGame() {\r\n        gameController.setMyMapView(mapView)\r\n        gameController.startGameWithWaves()\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/kotlin/view/GameView.kt b/Game/src/main/kotlin/view/GameView.kt
+--- a/Game/src/main/kotlin/view/GameView.kt	(revision 6eb894f09962ec76943f677237f2e3a5c3886971)
++++ b/Game/src/main/kotlin/view/GameView.kt	(date 1718783836000)
+@@ -115,8 +115,13 @@
+ 
+         top {
+             hbox {
++                alignment = Pos.CENTER
++                maxWidth = 600.0
++
++                addClass("game-top-background")
++
+                 paddingAll = 10.0
+-                alignment = Pos.TOP_CENTER
++                //alignment = Pos.TOP_CENTER
+                 spacing = 10.0
+ 
+                 button("Start Game") {
+@@ -188,7 +193,6 @@
+                         replaceWith(allGamesView)
+                     }
+                 }
+-
+             }
+         }
+ 
+@@ -206,6 +210,7 @@
+ 
+         bottom {
+             hbox{
++                addClass("game-bottom-background")
+                 alignment = Pos.BOTTOM_CENTER
+                 hbox{
+                     spacing = 10.0
+Index: Game/src/main/resources/styles/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.startMenu-stack-pane {\r\n  -fx-background-image: url(\"/styles/backgroundStartMenu.jpg\");\r\n  -fx-background-repeat: no-repeat;\r\n  -fx-background-position: center center;\r\n  -fx-background-size: cover;\r\n}\r\n\r\n\r\n.game-stack-pane {\r\n  -fx-background-image: url(\"/configs/gameBackground2.jpg\");\r\n  -fx-background-repeat: no-repeat;\r\n  -fx-background-position: center center;\r\n  -fx-background-size: cover;\r\n}\r\n\r\n.all-games-stack-pane {\r\n  -fx-background-image: url(\"/configs/backgrounds/beforeGameBackground.jpg\");\r\n  -fx-background-repeat: no-repeat;\r\n  -fx-background-position: center center;\r\n  -fx-background-size: cover;\r\n}\r\n\r\n.shop {\r\n  -fx-background-image: url(\"/styles/shop_background.jpg\");\r\n  -fx-background-repeat: no-repeat;\r\n  -fx-background-position: center center;\r\n  -fx-background-size: cover;\r\n}\r\n\r\n.pause {\r\n-fx-background-image: url(\"/styles/pauseBack.jpg\");\r\n  -fx-background-repeat: no-repeat;\r\n  -fx-background-position: center center;\r\n  -fx-background-size: cover;\r\n}\r\n\r\n.bordered.label .text {\r\n  -fx-stroke: black;\r\n  -fx-stroke-width: 1px;\r\n}\r\n\r\n.game-field-background {\r\n  -fx-background-color: #123524;\r\n  -fx-background-radius: 10;\r\n  -fx-padding: 10px;\r\n  -fx-margin: 0px;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/resources/styles/style.css b/Game/src/main/resources/styles/style.css
+--- a/Game/src/main/resources/styles/style.css	(revision 6eb894f09962ec76943f677237f2e3a5c3886971)
++++ b/Game/src/main/resources/styles/style.css	(date 1718783414000)
+@@ -45,3 +45,27 @@
+   -fx-padding: 10px;
+   -fx-margin: 0px;
+ }
++
++.game-bottom-background {
++  -fx-background-color: #4f0070;
++  -fx-background-radius: 10 10 0 0;
++  -fx-padding: 10px;
++  -fx-margin: 10px;
++
++  -fx-border-color: #320b35;
++  -fx-border-width: 2px 2px 0 2px;
++  -fx-border-radius: 10 10 0 0;
++  -fx-border-insets: -2px;
++}
++
++.game-top-background {
++  -fx-background-color: #fff;
++  -fx-background-radius: 0 0 10 10;
++  -fx-padding: 10px;
++  -fx-margin: 10px;
++
++  -fx-border-color: #ff9800;
++  -fx-border-width: 0 2px 2px 2px;
++  -fx-border-radius: 0 0 10 10;
++  -fx-border-insets: -2px;
++}
+Index: Game/src/main/kotlin/view/StartMenuView.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view\r\n\r\nimport javafx.geometry.Pos\r\nimport javafx.scene.layout.Border\r\nimport javafx.scene.paint.Color\r\nimport javafx.scene.text.FontWeight\r\nimport tornadofx.*\r\nimport viewModel.MusicController\r\n\r\nclass StartMenuView : View(\"Bashenki!\") {\r\n\r\n    private val musicController: MusicController by inject()\r\n    init {\r\n        importStylesheet(\"/styles/style.css\")\r\n        //musicController.playMusic(\"D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/start_music.mp3\")\r\n    }\r\n\r\n\r\n\r\n    private val settingsView = SettingsView()\r\n\r\n    override val root = stackpane {\r\n        prefWidth = 900.0\r\n        prefHeight = 600.0\r\n\r\n        addClass(\"startMenu-stack-pane\")\r\n\r\n        vbox {\r\n            hbox {\r\n                alignment = Pos.TOP_RIGHT\r\n\r\n                paddingRight = 20.0\r\n                paddingTop = 10.0\r\n\r\n                button(\"Settings\") {\r\n                    style {\r\n                        fontSize = 14.px\r\n                        padding = box(5.px, 10.px)\r\n                        backgroundColor += Color.GRAY\r\n                        textFill = Color.WHITE\r\n                        fontWeight = FontWeight.BOLD\r\n                    }\r\n                    action {\r\n                        settingsView.root.isVisible = true\r\n                    }\r\n                }\r\n            }\r\n\r\n            vbox {\r\n                alignment = Pos.CENTER\r\n\r\n                /*\r\n                style {\r\n                    backgroundColor += Color.rgb(0, 77, 64)\r\n                } */\r\n\r\n                label(\"Welcome to the Bashenki!\") {\r\n                    styleClass.add(\"bordered\");\r\n                    style {\r\n                        fontSize = 45.px\r\n                        fontWeight = FontWeight.BOLD\r\n                        textFill = Color.WHITE\r\n                        strokeWidth = 2.px\r\n                        stroke = Color.BLACK\r\n                        paddingTop = 170.0\r\n                        paddingBottom = 60.0\r\n                    }\r\n                }\r\n                button(\"Play\") {\r\n                    style {\r\n                        fontSize = 24.px\r\n                        padding = box(10.px, 20.px)\r\n                        backgroundColor += Color.rgb(255, 152, 0)\r\n                        textFill = Color.WHITE\r\n                        fontWeight = FontWeight.BOLD\r\n                    }\r\n                    action {\r\n                        replaceWith(AllGamesView::class)\r\n                    }\r\n                }\r\n            }\r\n        }\r\n\r\n        // Добавляем SettingsView один раз\r\n        add(settingsView)\r\n        settingsView.root.isVisible = false\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/kotlin/view/StartMenuView.kt b/Game/src/main/kotlin/view/StartMenuView.kt
+--- a/Game/src/main/kotlin/view/StartMenuView.kt	(revision 6eb894f09962ec76943f677237f2e3a5c3886971)
++++ b/Game/src/main/kotlin/view/StartMenuView.kt	(date 1718783970000)
+@@ -21,7 +21,7 @@
+ 
+     override val root = stackpane {
+         prefWidth = 900.0
+-        prefHeight = 600.0
++        prefHeight = 700.0
+ 
+         addClass("startMenu-stack-pane")
+ 
