@@ -40,27 +40,28 @@ class NetworkClient {
         }
     }
 
-    suspend fun getOpponentState() {
+    suspend fun getOpponentState(): GameState? {
         val response = client.get("$server/state") {
             headers {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
             }
         }
-        val responseBody = response.body<String>()
-        println(responseBody)
+        return if (response.status == HttpStatusCode.OK) {
+            response.body<GameState>()
+        } else {
+            println("Error with receiving opponent state")
+            null
+        }
     }
 
-    @OptIn(InternalAPI::class)
-    suspend fun sendGameState(gameState: GameState) {
+    suspend fun sendGameState(gameState: GameState): Boolean {
         val response = client.post("$server/updateState") {
             headers {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
             }
-            //Здесь необходимо отправить своё состояние
-            body = "{\"key\": \"value\"}"
+            setBody(gameState)
         }
-        val responseBody = response.body<String>()
-        println(responseBody)
+        return response.status == HttpStatusCode.OK
     }
 
     suspend fun connect(): Boolean {

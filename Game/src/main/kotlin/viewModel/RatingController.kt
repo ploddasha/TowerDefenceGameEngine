@@ -17,4 +17,8 @@ class RatingController {
     fun saveScore(score: Int) {
         return ratingProperty.set(ratingProperty.get() + score)
     }
+
+    fun setRating(rating: Int) {
+        return ratingProperty.set(rating)
+    }
 }

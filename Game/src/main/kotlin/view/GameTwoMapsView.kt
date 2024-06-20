@@ -269,6 +269,38 @@ class GameTwoMapsView(
                                 replaceWith(allGamesView)
                             }
                         }
+                        button("Send game state") {
+                            style {
+                                fontSize = 14.px
+                                padding = box(5.px, 10.px)
+                                paddingAll = 5.0
+                                backgroundColor += Color.RED
+                                textFill = Color.WHITE
+                                fontWeight = FontWeight.BOLD
+                            }
+                            vboxConstraints {
+                                marginRight = 10.0
+                            }
+                            action {
+                                sendGameState()
+                            }
+                        }
+                        button("Get game state") {
+                            style {
+                                fontSize = 14.px
+                                padding = box(5.px, 10.px)
+                                paddingAll = 5.0
+                                backgroundColor += Color.RED
+                                textFill = Color.WHITE
+                                fontWeight = FontWeight.BOLD
+                            }
+                            vboxConstraints {
+                                marginRight = 10.0
+                            }
+                            action {
+                                getGameState()
+                            }
+                        }
                     }
                 }
             }
@@ -354,7 +386,18 @@ class GameTwoMapsView(
 
     private fun startGame() {
         gameController.setMyMapView(mapView)
+        enemyGameController.setMapView(enemyMapView)
+
         gameController.startGameWithWaves()
+    }
+
+
+    private fun sendGameState() {
+        gameController.sendGameState()
+    }
+
+    private fun getGameState() {
+        enemyGameController.receiveGameState()
     }
 
 }

@@ -139,16 +139,19 @@ class GameController(
             sendGameState()
         }
     }
-    private suspend fun sendGameState() {
-        val gameState = GameState(
-            isGameOn = !gameOverProperty().value,
-            moneyAmount = moneyController.getCurrentMoneyAmount(),
-            cityHealth = cityModel.getHealth(),
-            currentWave = currentWave,
-            mobs = mobs.toList(),
-            towers = towers.toList()
-        )
-        //networkClient.sendGameState(gameState)
+    fun sendGameState() {
+        GlobalScope.launch {
+            val gameState = GameState(
+                isGameOn = !gameOverProperty().value,
+                moneyAmount = moneyController.getCurrentMoneyAmount(),
+                cityHealth = cityModel.getHealth(),
+                rating = ratingController.getRating(),
+                currentWave = currentWave,
+                mobs = mobs.toList(),
+                towers = towers.toList()
+            )
+            networkClient.sendGameState(gameState)
+        }
     }
 
 

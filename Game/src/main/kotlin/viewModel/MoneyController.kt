@@ -25,4 +25,8 @@ class MoneyController {
         moneyAmountProperty.set(moneyAmountProperty.get() - amount)
 
     }
+
+    fun setMoney(moneyAmount: Int) {
+        moneyAmountProperty.set(moneyAmount)
+    }
 }

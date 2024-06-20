@@ -32,4 +32,8 @@ class CityController {
         cityProperty.set(cityProperty.get() - subtractingHealth)
 
     }
+
+    fun setHealth(cityHealth: Int) {
+        cityProperty.set(cityHealth)
+    }
 }
