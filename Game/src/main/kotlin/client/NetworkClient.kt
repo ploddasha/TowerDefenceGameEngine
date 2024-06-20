@@ -66,8 +66,10 @@ class NetworkClient {
         println(responseBody)
     }
 
-    suspend fun connect(): Boolean {
-        val response = client.get("$server/connect")
+    suspend fun connect(name: String): Boolean {
+        val response = client.get("$server/connect") {
+            parameter("name", name)
+        }
         val responseBody = response.body<String>()
         return responseBody.toBoolean()
     }
