@@ -3,9 +3,6 @@ package view
 import client.NetworkClient
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
-import javafx.application.Platform
-import javafx.concurrent.Task
-import javafx.event.ActionEvent
 import javafx.geometry.Pos
 import javafx.util.Duration
 import kotlinx.coroutines.GlobalScope
@@ -13,10 +10,14 @@ import kotlinx.coroutines.launch
 import tornadofx.*
 
 class WaitingForConnectionView(
-    //id: Int
+    id: Int
 ) : View("Loading") {
 
     private val networkClient = NetworkClient()
+    private val checkInterval = 5.0
+    private val timeoutDuration = 60.0
+    private var isTransitioned = false
+
 
     override val root = stackpane {
         vbox{
@@ -35,19 +36,33 @@ class WaitingForConnectionView(
     //TODO load game from server
     init {
 
+        val timeline = Timeline(KeyFrame(Duration.seconds(checkInterval), {
+            checkConnection()
+        }))
+        timeline.cycleCount = Timeline.INDEFINITE
+        timeline.play()
+
+        runAsync {
+            Thread.sleep((timeoutDuration * 1000).toLong())
+        } ui {
+            timeline.stop()
+            replaceWith(AllGamesView())
+        }
+    }
+
+    private fun checkConnection() {
+        if (isTransitioned) return
+
         GlobalScope.launch {
             val result = networkClient.connect()
-            if (result) {
+            if (!result) { //TODO delete ! !!!!!!!
                 runLater {
-                    replaceWith(GameTwoMapsView())
-                }
-            } else {
-                Thread.sleep(500)
-                runLater {
-                    replaceWith(AllGamesView())
+                    if (!isTransitioned) {
+                        isTransitioned = true
+                        replaceWith(GameTwoMapsView())
+                    }
                 }
             }
-
         }
     }
 

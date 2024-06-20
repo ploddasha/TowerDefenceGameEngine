@@ -1,4 +1,4 @@
-package model
+package model.data
 
 import kotlinx.serialization.Serializable
 import viewModel.real.RealMob

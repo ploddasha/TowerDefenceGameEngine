@@ -5,7 +5,6 @@ import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
-import javafx.scene.text.TextAlignment
 import model.CityModel
 import model.fromEditing.TileType
 import tornadofx.*
@@ -15,37 +14,35 @@ import viewModel.MoneyController
 import viewModel.RatingController
 import viewModel.towerControllers.FlyingTowerController
 import viewModel.towerControllers.GroundTowerController
-import kotlin.math.round
 
 
 class GameView(
 ) : View("Bashenki") {
 
 
-    val moneyController = MoneyController()
-    val cityController = CityController()
+    private val moneyController = MoneyController()
+    private val cityController = CityController()
 
-    val groundTowerController = GroundTowerController()
-    val flyingTowerController = FlyingTowerController()
-    val cityModel = CityModel()
-    val ratingController = RatingController()
+    private val groundTowerController = GroundTowerController()
+    private val flyingTowerController = FlyingTowerController()
+    private val cityModel = CityModel()
+    private val ratingController = RatingController()
 
-    val gameController = GameController(moneyController, cityController, ratingController, cityModel)
+    private val gameController = GameController(moneyController, cityController, ratingController, cityModel)
 
-    val mapView = MapView(gameController)
+    private val mapView = MapView(gameController)
 
     private val allGamesView: AllGamesView by inject()
-    //val gameController = GameController(mapView)
 
 
-    val shopView = ShopView(gameController, moneyController, cityController, groundTowerController, flyingTowerController, cityModel)
+    private val shopView = ShopView(gameController, moneyController, cityController, groundTowerController, flyingTowerController, cityModel)
 
-    val moneyLabel = label() {
+    private val moneyLabel = label {
         style {
             fontWeight = FontWeight.BOLD
         }
     }
-    val moneyBackground = stackpane {
+    private val moneyBackground = stackpane {
         rectangle {
             width = 100.0
             height = 30.0
@@ -56,16 +53,16 @@ class GameView(
         add(moneyLabel)
         alignment = Pos.CENTER
     }
-    val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
-    val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
-    val starIcon = ImageView(Image(resources.url("/configs/star.png").toString()))
+    private val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
+    private val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
+    private val starIcon = ImageView(Image(resources.url("/configs/star.png").toString()))
 
-    val cityLabel = label() {
+    private val cityLabel = label() {
         style {
             fontWeight = FontWeight.BOLD
         }
     }
-    val cityBackground = stackpane {
+    private val cityBackground = stackpane {
         rectangle {
             width = 100.0
             height = 30.0
@@ -78,7 +75,7 @@ class GameView(
     }
 
 
-    val ratingLabel = label() {
+    private val ratingLabel = label() {
         style {
             fontWeight = FontWeight.BOLD
         }
@@ -148,7 +145,6 @@ class GameView(
                         addClass("game-top-background")
 
                         paddingAll = 10.0
-                        //alignment = Pos.TOP_CENTER
                         spacing = 10.0
 
                         button("Start Game") {
@@ -244,8 +240,8 @@ class GameView(
                 hbox{
                     spacing = 10.0
 
-                    hbox() {
-                        hbox() {
+                    hbox {
+                        hbox {
                             add(moneyIcon)
                             prefWidth = 35.0
                         }
@@ -253,13 +249,13 @@ class GameView(
                         alignment = Pos.TOP_RIGHT
                     }
 
-                    hbox() {
+                    hbox {
                         add(heartIcon)
                         add(cityBackground)
                         alignment = Pos.TOP_RIGHT
                     }
 
-                    hbox() {
+                    hbox {
                         add(starIcon)
                         add(ratingBackground)
                         alignment = Pos.TOP_RIGHT

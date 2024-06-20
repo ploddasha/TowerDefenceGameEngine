@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import model.CityModel
-import model.GameState
+import model.data.GameState
 import model.data.InitConfig
 import model.fromEditing.MobsModel
 import model.tower.Tower

@@ -6,12 +6,8 @@ import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
 import model.CityModel
-import model.fromEditing.TileType
 import tornadofx.*
-import viewModel.CityController
-import viewModel.GameController
-import viewModel.MoneyController
-import viewModel.RatingController
+import viewModel.*
 import viewModel.towerControllers.FlyingTowerController
 import viewModel.towerControllers.GroundTowerController
 
@@ -19,63 +15,142 @@ import viewModel.towerControllers.GroundTowerController
 class GameTwoMapsView(
 ) : View("Bashenki") {
 
+    private val moneyController = MoneyController()
+    private val cityController = CityController()
+    private val ratingController = RatingController()
 
-    val moneyController = MoneyController()
-    val cityController = CityController()
+    private val enemyMoneyController = MoneyController()
+    private val enemyCityController = CityController()
+    private val enemyRatingController = RatingController()
 
-    val groundTowerController = GroundTowerController()
-    val flyingTowerController = FlyingTowerController()
-    val cityModel = CityModel()
-    val ratingController = RatingController()
 
-    val gameController = GameController(moneyController, cityController, ratingController, cityModel)
+    private val groundTowerController = GroundTowerController()
+    private val flyingTowerController = FlyingTowerController()
 
-    val mapView = MapView(gameController)
+    private val cityModel = CityModel()
+    private val enemyCityModel = CityModel()
+
+
+    private val gameController = GameController(moneyController, cityController, ratingController, cityModel)
+    private val enemyGameController = EnemyGameController(enemyMoneyController, enemyCityController, enemyRatingController, enemyCityModel)
+
+    private val mapView = MapView(gameController)
+    private val enemyMapView = EnemyMapView(enemyGameController)
 
     private val allGamesView: AllGamesView by inject()
-    //val gameController = GameController(mapView)
 
+    private val shopView = ShopView(gameController, moneyController, cityController, groundTowerController, flyingTowerController, cityModel)
 
-    val shopView = ShopView(gameController, moneyController, cityController, groundTowerController, flyingTowerController, cityModel)
+    private val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
+    private val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
+    private val starIcon = ImageView(Image(resources.url("/configs/star.png").toString()))
 
-    val moneyLabel = label()
-    val moneyBackground = stackpane {
+    // yours:
+    private val moneyLabel = label() {
+        style {
+            fontWeight = FontWeight.BOLD
+        }
+    }
+    private val moneyBackground = stackpane {
         rectangle {
             width = 100.0
             height = 30.0
             fill = Color.WHITE
+            arcWidth = 20.0
+            arcHeight = 20.0
         }
         add(moneyLabel)
-        alignment = Pos.CENTER_RIGHT
+        alignment = Pos.CENTER
     }
-    val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
-    val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
-    val starIcon = ImageView(Image(resources.url("/configs/star.png").toString()))
-
-    val cityLabel = label()
-    val cityBackground = stackpane {
+    private val cityLabel = label() {
+        style {
+            fontWeight = FontWeight.BOLD
+        }
+    }
+    private val cityBackground = stackpane {
         rectangle {
             width = 100.0
             height = 30.0
             fill = Color.WHITE
+            arcWidth = 20.0
+            arcHeight = 20.0
         }
         add(cityLabel)
-        alignment = Pos.CENTER_RIGHT
+        alignment = Pos.CENTER
     }
-
-
-    val ratingLabel = label()
-    val ratingBackground = stackpane {
+    private val ratingLabel = label() {
+        style {
+            fontWeight = FontWeight.BOLD
+        }
+    }
+    private val ratingBackground = stackpane {
         rectangle {
             width = 100.0
             height = 30.0
             fill = Color.WHITE
+            arcWidth = 20.0
+            arcHeight = 20.0
         }
         add(ratingLabel)
-        alignment = Pos.CENTER_RIGHT
+        alignment = Pos.CENTER
     }
 
+    //enemy's:
+    private val enemyMoneyLabel = label() {
+        style {
+            fontWeight = FontWeight.BOLD
+        }
+    }
+    private val enemyMoneyBackground = stackpane {
+        rectangle {
+            width = 100.0
+            height = 30.0
+            fill = Color.WHITE
+            arcWidth = 20.0
+            arcHeight = 20.0
+        }
+        add(enemyMoneyLabel)
+        alignment = Pos.CENTER
+    }
+    private val enemyCityLabel = label() {
+        style {
+            fontWeight = FontWeight.BOLD
+        }
+    }
+    private val enemyCityBackground = stackpane {
+        rectangle {
+            width = 100.0
+            height = 30.0
+            fill = Color.WHITE
+            arcWidth = 20.0
+            arcHeight = 20.0
+        }
+        add(enemyCityLabel)
+        alignment = Pos.CENTER
+    }
+    private val enemyRatingLabel = label() {
+        style {
+            fontWeight = FontWeight.BOLD
+        }
+    }
+    private val enemyRatingBackground = stackpane {
+        rectangle {
+            width = 100.0
+            height = 30.0
+            fill = Color.WHITE
+            arcWidth = 20.0
+            arcHeight = 20.0
+        }
+        add(enemyRatingLabel)
+        alignment = Pos.CENTER
+    }
+
+    //private val pauseMenuView = PauseMenuView()
+    //private val musicController: MusicController  by inject()
+
     init {
+        // musicController.playMusic("D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/game_music.mp3")
+
         moneyIcon.fitWidth = 35.0
         moneyIcon.fitHeight = 35.0
         moneyLabel.textProperty().bind(moneyController.moneyAmountProperty().asString("Money: %d"))
@@ -84,12 +159,16 @@ class GameTwoMapsView(
         heartIcon.fitHeight = 30.0
         cityLabel.textProperty().bind(cityController.cityProperty().asString("City: %d"))
 
-        heartIcon.fitWidth = 30.0
-        heartIcon.fitHeight = 30.0
+        starIcon.fitWidth = 30.0
+        starIcon.fitHeight = 30.0
         ratingLabel.textProperty().bind(ratingController.ratingProperty().asString("Rating: %d"))
-    }
-    data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)
 
+        //Enemy:
+        enemyMoneyLabel.textProperty().bind(enemyMoneyController.moneyAmountProperty().asString("Emoney: %d"))
+        enemyCityLabel.textProperty().bind(enemyCityController.cityProperty().asString("Ecity: %d"))
+        enemyRatingLabel.textProperty().bind(enemyRatingController.ratingProperty().asString("Erating: %d"))
+
+    }
 
     val gameOverText = text("Game Over") {
         style {
@@ -97,17 +176,9 @@ class GameTwoMapsView(
             fill = Color.RED
             fontWeight = FontWeight.BOLD
         }
-        visibleProperty().bind(gameController.gameOverProperty()) // Привязываем видимость к свойству gameOver
+        visibleProperty().bind(gameController.gameOverProperty())
     }
 
-    /*
-    private val pauseMenuView = PauseMenuView()
-
-    private val musicController: MusicController  by inject()
-
-    init {
-        musicController.playMusic("D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/game_music.mp3")
-    } */
 
 
     override val root = borderpane {
@@ -118,80 +189,88 @@ class GameTwoMapsView(
 
         top {
             hbox {
-                paddingAll = 10.0
-                alignment = Pos.TOP_CENTER
-                spacing = 10.0
+                alignment = Pos.CENTER
+                vbox {
+                    alignment = Pos.CENTER
+                    hbox {
+                        alignment = Pos.CENTER
+                        maxWidth = 600.0
 
-                button("Start Game") {
-                    style {
-                        fontSize = 14.px
-                        padding = box(5.px, 10.px)
-                        paddingAll = 5.0
-                        backgroundColor += Color.BLUE
-                        textFill = Color.WHITE
-                        fontWeight = FontWeight.BOLD
-                    }
-                    vboxConstraints {
-                        marginRight = 10.0
-                    }
-                    action {
-                        startGame()
+                        addClass("game-top-background")
+
+                        paddingAll = 10.0
+                        spacing = 10.0
+
+                        button("Start Game") {
+                            style {
+                                fontSize = 14.px
+                                padding = box(5.px, 10.px)
+                                paddingAll = 5.0
+                                backgroundColor += Color.BLUE
+                                textFill = Color.WHITE
+                                fontWeight = FontWeight.BOLD
+                            }
+                            vboxConstraints {
+                                marginRight = 10.0
+                            }
+                            action {
+                                startGame()
+                            }
+                        }
+
+                        button("Pause") {
+                            style {
+                                fontSize = 14.px
+                                padding = box(5.px, 10.px)
+                                backgroundColor += Color.rgb(255, 152, 0)
+                                textFill = Color.WHITE
+                                fontWeight = FontWeight.BOLD
+                            }
+                            vboxConstraints {
+                                marginRight = 10.0
+                            }
+                            action {
+                                //pauseMenuView.root.isVisible = true
+                                replaceWith(PauseMenuView::class)
+                            }
+                        }
+
+                        button("Shop") {
+                            style {
+                                fontSize = 14.px
+                                padding = box(5.px, 10.px)
+                                paddingAll = 5.0
+                                backgroundColor += Color.GREEN
+                                textFill = Color.WHITE
+                                fontWeight = FontWeight.BOLD
+                            }
+                            vboxConstraints {
+                                marginRight = 10.0
+                            }
+                            action {
+                                replaceWith(shopView)
+                            }
+                        }
+
+                        button("Back to menu") {
+                            style {
+                                fontSize = 14.px
+                                padding = box(5.px, 10.px)
+                                paddingAll = 5.0
+                                backgroundColor += Color.BLACK
+                                textFill = Color.WHITE
+                                fontWeight = FontWeight.BOLD
+                            }
+                            vboxConstraints {
+                                marginRight = 10.0
+                            }
+                            action {
+                                //gameController.stopGame()
+                                replaceWith(allGamesView)
+                            }
+                        }
                     }
                 }
-
-                button("Pause") {
-                    style {
-                        fontSize = 14.px
-                        padding = box(5.px, 10.px)
-                        backgroundColor += Color.rgb(255, 152, 0)
-                        textFill = Color.WHITE
-                        fontWeight = FontWeight.BOLD
-                    }
-                    vboxConstraints {
-                        marginRight = 10.0
-                    }
-                    action {
-                        //pauseMenuView.root.isVisible = true
-                        replaceWith(PauseMenuView::class)
-                    }
-                }
-
-                button("Shop") {
-                    style {
-                        fontSize = 14.px
-                        padding = box(5.px, 10.px)
-                        paddingAll = 5.0
-                        backgroundColor += Color.GREEN
-                        textFill = Color.WHITE
-                        fontWeight = FontWeight.BOLD
-                    }
-                    vboxConstraints {
-                        marginRight = 10.0
-                    }
-                    action {
-                        replaceWith(shopView)
-                        //replaceWith(ShopView::class)
-                    }
-                }
-
-                button("Back to menu") {
-                    style {
-                        fontSize = 14.px
-                        padding = box(5.px, 10.px)
-                        paddingAll = 5.0
-                        backgroundColor += Color.BLACK
-                        textFill = Color.WHITE
-                        fontWeight = FontWeight.BOLD
-                    }
-                    vboxConstraints {
-                        marginRight = 10.0
-                    }
-                    action {
-                        //gameController.stopGame()
-                        replaceWith(allGamesView)
-                    }
-                }
-
             }
         }
 
@@ -200,18 +279,28 @@ class GameTwoMapsView(
 
             hbox{
                 alignment = Pos.CENTER
-                add(mapView)
+                spacing = 20.0
+                vbox {
+                    alignment = Pos.CENTER
+                    add(mapView)
+                }
+                vbox {
+                    alignment = Pos.CENTER
+                    add(enemyMapView)
+                }
             }
         }
 
         bottom {
             hbox{
+                addClass("game-bottom-background")
                 alignment = Pos.BOTTOM_CENTER
+                spacing = 30.0
                 hbox{
                     spacing = 10.0
 
-                    hbox() {
-                        hbox() {
+                    hbox {
+                        hbox {
                             add(moneyIcon)
                             prefWidth = 35.0
                         }
@@ -219,15 +308,41 @@ class GameTwoMapsView(
                         alignment = Pos.TOP_RIGHT
                     }
 
-                    hbox() {
+                    hbox {
                         add(heartIcon)
                         add(cityBackground)
                         alignment = Pos.TOP_RIGHT
                     }
 
-                    hbox() {
+                    hbox {
                         add(starIcon)
                         add(ratingBackground)
+                        alignment = Pos.TOP_RIGHT
+                    }
+                }
+
+                //enemy:
+                hbox{
+                    spacing = 10.0
+
+                    hbox {
+                        hbox {
+                            add(moneyIcon)
+                            prefWidth = 35.0
+                        }
+                        add(enemyMoneyBackground)
+                        alignment = Pos.TOP_RIGHT
+                    }
+
+                    hbox {
+                        add(heartIcon)
+                        add(enemyCityBackground)
+                        alignment = Pos.TOP_RIGHT
+                    }
+
+                    hbox {
+                        add(starIcon)
+                        add(enemyRatingBackground)
                         alignment = Pos.TOP_RIGHT
                     }
                 }
@@ -241,6 +356,5 @@ class GameTwoMapsView(
         gameController.setMyMapView(mapView)
         gameController.startGameWithWaves()
     }
-
 
 }

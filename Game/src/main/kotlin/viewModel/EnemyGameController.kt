@@ -32,7 +32,7 @@ import java.io.File
 import java.util.*
 
 
-class GameController(
+class EnemyGameController(
     private val moneyController: MoneyController,
     private val cityController: CityController,
     private val ratingController: RatingController,

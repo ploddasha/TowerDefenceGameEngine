@@ -8,16 +8,13 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.util.*
-import kotlinx.serialization.Serializable
-import model.GameState
 import model.data.Game
-import org.apache.http.HttpResponse
-import javax.json.Json
+import model.data.GameState
 
 
 class NetworkClient {
 
-    val server: String = "http://192.168.0.109:8083"
+    val server: String = "http://localhost:8083"
 
     val client = HttpClient(CIO) {
         install(ContentNegotiation) {
@@ -54,7 +51,7 @@ class NetworkClient {
     }
 
     @OptIn(InternalAPI::class)
-    suspend fun sendGameState() {
+    suspend fun sendGameState(gameState: GameState) {
         val response = client.post("$server/updateState") {
             headers {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
