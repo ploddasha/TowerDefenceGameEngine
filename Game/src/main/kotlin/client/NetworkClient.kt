@@ -17,7 +17,7 @@ import javax.json.Json
 
 class NetworkClient {
 
-    val server: String = "http://192.168.0.109:8083"
+    val server: String = "http://192.168.0.134:8083"
 
     val client = HttpClient(CIO) {
         install(ContentNegotiation) {
@@ -67,6 +67,12 @@ class NetworkClient {
     }
 
     suspend fun connect(): Boolean {
+        val response = client.get("$server/connect")
+        val responseBody = response.body<String>()
+        return responseBody.toBoolean()
+    }
+
+    suspend fun check(): Boolean {
         val response = client.get("$server/check")
         val responseBody = response.body<String>()
         return responseBody.toBoolean()
