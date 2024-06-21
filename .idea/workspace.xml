@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1e09c9c2-b4c3-4346-a7e5-f6580d5d9454" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Game/src/main/kotlin/view/GameView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/main/kotlin/view/GameView.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/src/main/kotlin/view/StartMenuView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/main/kotlin/view/StartMenuView.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/src/main/resources/styles/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/main/resources/styles/style.css" afterDir="false" />
-    </list>
+    <list default="true" id="1e09c9c2-b4c3-4346-a7e5-f6580d5d9454" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,17 +33,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/TowerDefenceGameEngine/Game",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/TowerDefenceGameEngine/Game&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration default="true" type="Babashka" factoryName="BabashkaLocalRepl" activateToolWindowBeforeRun="false">
       <setting name="displayName" value="" />
@@ -106,6 +102,7 @@
       <updated>1718365651954</updated>
       <workItem from="1718365652676" duration="289000" />
       <workItem from="1718784029043" duration="67000" />
+      <workItem from="1718940274194" duration="8000" />
     </task>
     <servers />
   </component>
