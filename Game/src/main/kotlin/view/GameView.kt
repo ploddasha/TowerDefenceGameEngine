@@ -16,8 +16,7 @@ import viewModel.towerControllers.FlyingTowerController
 import viewModel.towerControllers.GroundTowerController
 
 
-class GameView(
-) : View("Bashenki") {
+class GameView : View("Bashenki") {
 
 
     private val moneyController = MoneyController()
@@ -28,7 +27,8 @@ class GameView(
     private val cityModel = CityModel()
     private val ratingController = RatingController()
 
-    private val gameController = GameController(moneyController, cityController, ratingController, cityModel)
+    private val gameController = GameController(
+        moneyController, cityController, ratingController, cityModel)
 
     private val mapView = MapView(gameController)
 
@@ -37,6 +37,7 @@ class GameView(
 
     private val shopView = ShopView(gameController, moneyController, cityController,
         groundTowerController, flyingTowerController, cityModel, this)
+    private val pauseMenuView = PauseMenuView(this)
 
     private val moneyLabel = label {
         style {
@@ -177,8 +178,7 @@ class GameView(
                                 marginRight = 10.0
                             }
                             action {
-                                //pauseMenuView.root.isVisible = true
-                                replaceWith(PauseMenuView::class)
+                                replaceWith(pauseMenuView)
                             }
                         }
 
@@ -196,7 +196,6 @@ class GameView(
                             }
                             action {
                                 replaceWith(shopView)
-                                //replaceWith(ShopView::class)
                             }
                         }
 
@@ -213,7 +212,6 @@ class GameView(
                                 marginRight = 10.0
                             }
                             action {
-                                //gameController.stopGame()
                                 replaceWith(allGamesView)
                             }
                         }

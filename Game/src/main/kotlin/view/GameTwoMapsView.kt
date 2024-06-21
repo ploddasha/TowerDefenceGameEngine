@@ -41,6 +41,7 @@ class GameTwoMapsView(
 
     private val shopView = ShopView(gameController, moneyController, cityController,
         groundTowerController, flyingTowerController, cityModel, this)
+    private val pauseMenuView = PauseMenuView(this)
 
     private val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
     private val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
@@ -146,7 +147,6 @@ class GameTwoMapsView(
         alignment = Pos.CENTER
     }
 
-    //private val pauseMenuView = PauseMenuView()
     //private val musicController: MusicController  by inject()
 
     init {
@@ -195,7 +195,7 @@ class GameTwoMapsView(
                     alignment = Pos.CENTER
                     hbox {
                         alignment = Pos.CENTER
-                        maxWidth = 600.0
+                        maxWidth = 800.0
 
                         addClass("game-top-background")
 
@@ -231,8 +231,7 @@ class GameTwoMapsView(
                                 marginRight = 10.0
                             }
                             action {
-                                //pauseMenuView.root.isVisible = true
-                                replaceWith(PauseMenuView::class)
+                                replaceWith(pauseMenuView)
                             }
                         }
 
