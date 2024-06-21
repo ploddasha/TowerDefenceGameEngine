@@ -36,7 +36,8 @@ class GameController(
     private val moneyController: MoneyController,
     private val cityController: CityController,
     private val ratingController: RatingController,
-    private val cityModel: CityModel
+    private val cityModel: CityModel,
+    private val doSendGameState: Boolean,
 ) : Controller() {
 
     private var mapView: MapView? = null
@@ -167,6 +168,9 @@ class GameController(
                         launch {
                             var alive = true
                             while (alive && mob.health > 0 && !mobReachedCity(mob)) {
+                                if (doSendGameState) {
+                                    sendGameState()
+                                }
                                 moveMob(mob)
                                 runLater {
                                     fireTowers() // вызываем fireTowers после каждого перемещения моба
