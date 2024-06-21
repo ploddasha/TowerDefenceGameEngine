@@ -19,7 +19,8 @@ class ShopView(
     private val cityController: CityController,
     private val groundTowerController: GroundTowerController,
     private val flyingTowerController: FlyingTowerController,
-    private val cityModel: CityModel
+    private val cityModel: CityModel,
+    private val back_to_view: View
 ) : View("Bashenki") {
 
     private var walkList = mutableListOf<Walk>()
@@ -119,7 +120,9 @@ class ShopView(
                             );
                             gameController.setTowerToPut(tower)
 
-                            replaceWith(find<GameView>())
+                            replaceWith(back_to_view)
+                            //replaceWith(find<GameView>())
+                            //replaceWith(find(GameView::class))
                         }
                     }
                     contextMenu.items.add(menuItem)
@@ -173,7 +176,8 @@ class ShopView(
                             );
                             gameController.setTowerToPut(tower)
 
-                            replaceWith(find<GameView>())
+                            //replaceWith(find<GameView>())
+                            replaceWith(back_to_view)
                         }
                     }
                     contextMenu.items.add(menuItem)
@@ -201,7 +205,8 @@ class ShopView(
                     cityModel.setHealth(cityModel.getHealth() + 1);
                     cityController.addCityHealth(1)
 
-                    replaceWith(find<GameView>())
+                    replaceWith(back_to_view)
+                    //replaceWith(find<GameView>())
                 }
             }
 
@@ -218,8 +223,9 @@ class ShopView(
                     marginBottom = 10.0
                 }
                 action {
+                    replaceWith(back_to_view)
                     //replaceWith(GameView())
-                    replaceWith(find<GameView>())
+                    //replaceWith(find<GameView>())
                 }
             }
         }

@@ -39,7 +39,8 @@ class GameTwoMapsView(
 
     private val allGamesView: AllGamesView by inject()
 
-    private val shopView = ShopView(gameController, moneyController, cityController, groundTowerController, flyingTowerController, cityModel)
+    private val shopView = ShopView(gameController, moneyController, cityController,
+        groundTowerController, flyingTowerController, cityModel, this)
 
     private val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
     private val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))

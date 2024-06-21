@@ -35,7 +35,8 @@ class GameView(
     private val allGamesView: AllGamesView by inject()
 
 
-    private val shopView = ShopView(gameController, moneyController, cityController, groundTowerController, flyingTowerController, cityModel)
+    private val shopView = ShopView(gameController, moneyController, cityController,
+        groundTowerController, flyingTowerController, cityModel, this)
 
     private val moneyLabel = label {
         style {
