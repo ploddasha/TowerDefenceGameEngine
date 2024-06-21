@@ -186,6 +186,8 @@ class GameTwoMapsView(
         enemyStarIcon.fitHeight = 30.0
         enemyRatingLabel.textProperty().bind(
             enemyRatingController.ratingProperty().asString("Erating: %d"))
+
+        startStartGame()
     }
 
     val gameOverText = text("Game Over") {
@@ -404,10 +406,15 @@ class GameTwoMapsView(
     }
 
     private fun startGame() {
+        gameController.startGameWithWaves()
+    }
+
+    private fun startStartGame() {
         gameController.setMyMapView(mapView)
         enemyGameController.setMapView(enemyMapView)
 
-        gameController.startGameWithWaves()
+        gameController.startPeriodicGameStateUpdates()
+        enemyGameController.startPeriodicGameStateUpdates()
     }
 
 

@@ -28,7 +28,7 @@ class GameView : View("Bashenki") {
     private val ratingController = RatingController()
 
     private val gameController = GameController(moneyController, cityController, ratingController, cityModel, false)
-    
+
     private val mapView = MapView(gameController)
 
     private val allGamesView: AllGamesView by inject()

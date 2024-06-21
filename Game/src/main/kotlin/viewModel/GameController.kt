@@ -131,15 +131,6 @@ class GameController(
     }
 
 
-    private fun startPeriodicGameStateUpdates() {
-        GlobalScope.launch {
-            while (!gameOverProperty().value) {
-                sendGameState()
-                delay(5000)
-            }
-            sendGameState()
-        }
-    }
     fun sendGameState() {
         GlobalScope.launch {
             val gameState = GameState(
@@ -155,6 +146,21 @@ class GameController(
         }
     }
 
+    fun startPeriodicGameStateUpdates() {
+        val gameOver = false
+
+        if (doSendGameState) {
+            GlobalScope.launch {
+                while (!gameOver) {
+                    sendGameState()
+                    delay(500)
+                }
+            }
+            sendGameState()
+        }
+    }
+
+
 
     fun startGameWithWaves() {
         println("START WAVE")
@@ -168,9 +174,6 @@ class GameController(
                         launch {
                             var alive = true
                             while (alive && mob.health > 0 && !mobReachedCity(mob)) {
-                                if (doSendGameState) {
-                                    sendGameState()
-                                }
                                 moveMob(mob)
                                 runLater {
                                     fireTowers() // вызываем fireTowers после каждого перемещения моба

@@ -52,6 +52,21 @@ class EnemyGameController(
     init {
         gameId = 1
     }
+
+
+    fun startPeriodicGameStateUpdates() {
+        val gameOver = false
+
+        GlobalScope.launch {
+            while (!gameOver) {
+                receiveGameState()
+                delay(500)
+            }
+            receiveGameState()
+        }
+    }
+
+
     fun receiveGameState() {
         GlobalScope.launch {
             val gameState = networkClient.getOpponentState()

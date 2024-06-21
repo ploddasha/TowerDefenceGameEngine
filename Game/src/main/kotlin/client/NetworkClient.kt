@@ -46,10 +46,15 @@ class NetworkClient {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
             }
         }
-        return if (response.status == HttpStatusCode.OK) {
-            response.body<GameState>()
-        } else {
-            println("Error with receiving opponent state")
+        return try {
+            if (response.status == HttpStatusCode.OK && response.contentLength() != 0L) {
+                response.body<GameState>()
+            } else {
+                println("Error with receiving opponent state: No content")
+                null
+            }
+        } catch (e: NoTransformationFoundException) {
+            println("Error with receiving opponent state: ${e.message}")
             null
         }
     }
@@ -64,20 +69,20 @@ class NetworkClient {
         return response.status == HttpStatusCode.OK
     }
 
-    /*
-    suspend fun connect(): Boolean {
+
+    suspend fun connect(name: String): Boolean {
         val response = client.get("$server/check")
         val responseBody = response.body<String>()
         return responseBody.toBoolean()
-    } */
-
+    }
+    /*
     suspend fun connect(name: String): Boolean {
         val response = client.get("$server/connect") {
             parameter("name", name)
         }
         val responseBody = response.body<String>()
         return responseBody.toBoolean()
-    }
+    } */
 
     suspend fun check(): Boolean {
         val response = client.get("$server/check")

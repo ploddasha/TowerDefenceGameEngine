@@ -24,9 +24,9 @@ class EnemyMapView(
     private val city = "/configs/fromEditing/map/city.jpg"
     private val mobImage = "/configs/fromEditing/map/mushroom.png"
 
-    private val towerImage1 = "/configs/fromEditing/map/tower1.png"
-    private val towerImage2 = "/configs/fromEditing/map/tower2.png"
-    private val towerImage3 = "/configs/fromEditing/map/tower3.png"
+    private val towerImage1 = "/configs/tower1.png"
+    private val towerImage2 = "/configs/tower2.png"
+    private val towerImage3 = "/configs/tower3.png"
 
 
     private val numRows = 10
@@ -101,9 +101,9 @@ class EnemyMapView(
 
         var image: String = towerImage2
         image = if (tower.type == TowerType.FlyingTower) {
-            towerImage1
-        } else {
             towerImage3
+        } else {
+            towerImage1
         }
 
         val cellImageView = ImageView(Image(resources.url(image).toString()))
