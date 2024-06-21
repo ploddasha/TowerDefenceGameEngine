@@ -85,7 +85,17 @@ class EnemyGameController(
     }
 
 
+    fun startPeriodicGameStateUpdates() {
+        val gameOver = false
 
+        GlobalScope.launch {
+            while (!gameOver) {
+                receiveGameState()
+                delay(500)
+            }
+            receiveGameState()
+        }
+    }
 
 
 

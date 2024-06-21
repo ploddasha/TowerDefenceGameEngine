@@ -14,7 +14,7 @@ import model.data.GameState
 
 class NetworkClient {
 
-    val server: String = "http://localhost:8083"
+    val server: String = "http://10.40.109.67:8083"
 
     val client = HttpClient(CIO) {
         install(ContentNegotiation) {
@@ -46,10 +46,15 @@ class NetworkClient {
                 append(HttpHeaders.ContentType, ContentType.Application.Json)
             }
         }
-        return if (response.status == HttpStatusCode.OK) {
-            response.body<GameState>()
-        } else {
-            println("Error with receiving opponent state")
+        return try {
+            if (response.status == HttpStatusCode.OK && response.contentLength() != 0L) {
+                response.body<GameState>()
+            } else {
+                println("Error with receiving opponent state: No content")
+                null
+            }
+        } catch (e: NoTransformationFoundException) {
+            println("Error with receiving opponent state: ${e.message}")
             null
         }
     }
