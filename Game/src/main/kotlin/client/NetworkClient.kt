@@ -80,5 +80,21 @@ class NetworkClient {
         return responseBody.toBoolean()
     }
 
+    suspend fun getGame(name: String, folderPath: String) {
+        val response = client.get("$server/getGame") {
+            parameter("name", name)
+        }
+        if (response.status == HttpStatusCode.OK) {
+            // Получаем тело ответа как ByteArray
+            val bytes = response.readBytes()
+            // Записываем полученные данные в файл (предполагается, что это zip-архив)
+            val file = File(folderPath)
+            file.writeBytes(bytes)
+            println("Папка успешно загружена и сохранена в $folderPath")
+        } else {
+            println("Ошибка при загрузке папки: ${response.status}")
+        }
+    }
+
 }
 
