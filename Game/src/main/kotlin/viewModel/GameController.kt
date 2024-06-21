@@ -148,7 +148,7 @@ class GameController(
                 cityHealth = cityModel.getHealth(),
                 rating = ratingController.getRating(),
                 currentWave = currentWave,
-                mobs = mobs.toList(),
+                mobs = waves[currentWave],
                 towers = towers.toList()
             )
             networkClient.sendGameState(gameState)

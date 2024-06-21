@@ -10,5 +10,4 @@ public class TowerDefenceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TowerDefenceApplication.class, args);
 	}
-
 }

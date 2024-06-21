@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import tornadofx.*
 
 class WaitingForConnectionView(
-    id: Int
+    var name: String
 ) : View("Loading") {
 
     private val networkClient = NetworkClient()
@@ -54,7 +54,7 @@ class WaitingForConnectionView(
         if (isTransitioned) return
 
         GlobalScope.launch {
-            val result = networkClient.connect()
+            val result = networkClient.connect(name)
             if (!result) { //TODO delete ! !!!!!!!
                 runLater {
                     if (!isTransitioned) {

@@ -56,7 +56,7 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                replaceWith(WaitingForConnectionView(game.id))
+                                replaceWith(WaitingForConnectionView(game.gameName))
                             }
                         }
                     }
@@ -124,7 +124,7 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                replaceWith(WaitingForConnectionView(game.id))
+                                replaceWith(WaitingForConnectionView(game.gameName))
                             }
                         }
                     }
