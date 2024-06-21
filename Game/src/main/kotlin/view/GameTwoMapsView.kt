@@ -34,6 +34,7 @@ class GameTwoMapsView(
     private val gameController = GameController(moneyController, cityController, ratingController, cityModel, true)
     private val enemyGameController = EnemyGameController(enemyMoneyController, enemyCityController, enemyRatingController, enemyCityModel)
 
+
     private val mapView = MapView(gameController)
     private val enemyMapView = EnemyMapView(enemyGameController)
 
@@ -41,10 +42,15 @@ class GameTwoMapsView(
 
     private val shopView = ShopView(gameController, moneyController, cityController,
         groundTowerController, flyingTowerController, cityModel, this)
+    private val pauseMenuView = PauseMenuView(this)
 
     private val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
     private val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
     private val starIcon = ImageView(Image(resources.url("/configs/star.png").toString()))
+
+    private val enemyMoneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
+    private val enemyHeartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
+    private val enemyStarIcon = ImageView(Image(resources.url("/configs/star.png").toString()))
 
     // yours:
     private val moneyLabel = label() {
@@ -146,12 +152,12 @@ class GameTwoMapsView(
         alignment = Pos.CENTER
     }
 
-    //private val pauseMenuView = PauseMenuView()
     //private val musicController: MusicController  by inject()
 
     init {
-        // musicController.playMusic("D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/game_music.mp3")
+        // musicController.playMusic("./src/main/resources/music/game_music.mp3")
 
+        //yours
         moneyIcon.fitWidth = 35.0
         moneyIcon.fitHeight = 35.0
         moneyLabel.textProperty().bind(moneyController.moneyAmountProperty().asString("Money: %d"))
@@ -162,13 +168,24 @@ class GameTwoMapsView(
 
         starIcon.fitWidth = 30.0
         starIcon.fitHeight = 30.0
-        ratingLabel.textProperty().bind(ratingController.ratingProperty().asString("Rating: %d"))
+        ratingLabel.textProperty().bind(
+            ratingController.ratingProperty().asString("Rating: %d"))
 
         //Enemy:
-        enemyMoneyLabel.textProperty().bind(enemyMoneyController.moneyAmountProperty().asString("Emoney: %d"))
-        enemyCityLabel.textProperty().bind(enemyCityController.cityProperty().asString("Ecity: %d"))
-        enemyRatingLabel.textProperty().bind(enemyRatingController.ratingProperty().asString("Erating: %d"))
+        enemyMoneyIcon.fitWidth = 35.0
+        enemyMoneyIcon.fitHeight = 35.0
+        enemyMoneyLabel.textProperty().bind(
+            enemyMoneyController.moneyAmountProperty().asString("Emoney: %d"))
 
+        enemyHeartIcon.fitWidth = 30.0
+        enemyHeartIcon.fitHeight = 30.0
+        enemyCityLabel.textProperty().bind(
+            enemyCityController.cityProperty().asString("Ecity: %d"))
+
+        enemyStarIcon.fitWidth = 30.0
+        enemyStarIcon.fitHeight = 30.0
+        enemyRatingLabel.textProperty().bind(
+            enemyRatingController.ratingProperty().asString("Erating: %d"))
     }
 
     val gameOverText = text("Game Over") {
@@ -195,7 +212,7 @@ class GameTwoMapsView(
                     alignment = Pos.CENTER
                     hbox {
                         alignment = Pos.CENTER
-                        maxWidth = 600.0
+                        maxWidth = 800.0
 
                         addClass("game-top-background")
 
@@ -231,8 +248,7 @@ class GameTwoMapsView(
                                 marginRight = 10.0
                             }
                             action {
-                                //pauseMenuView.root.isVisible = true
-                                replaceWith(PauseMenuView::class)
+                                replaceWith(pauseMenuView)
                             }
                         }
 
@@ -331,6 +347,7 @@ class GameTwoMapsView(
                 spacing = 30.0
                 hbox{
                     spacing = 10.0
+                    alignment = Pos.CENTER_LEFT
 
                     hbox {
                         hbox {
@@ -357,10 +374,11 @@ class GameTwoMapsView(
                 //enemy:
                 hbox{
                     spacing = 10.0
+                    alignment = Pos.CENTER_RIGHT
 
                     hbox {
                         hbox {
-                            add(moneyIcon)
+                            add(enemyMoneyIcon)
                             prefWidth = 35.0
                         }
                         add(enemyMoneyBackground)
@@ -368,13 +386,13 @@ class GameTwoMapsView(
                     }
 
                     hbox {
-                        add(heartIcon)
+                        add(enemyHeartIcon)
                         add(enemyCityBackground)
                         alignment = Pos.TOP_RIGHT
                     }
 
                     hbox {
-                        add(starIcon)
+                        add(enemyStarIcon)
                         add(enemyRatingBackground)
                         alignment = Pos.TOP_RIGHT
                     }

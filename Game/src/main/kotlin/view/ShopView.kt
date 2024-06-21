@@ -51,33 +51,7 @@ class ShopView(
                     marginTop= 105.0
                 }
             }
-            /*
-            button("Buy Ground Tower") {
-                styleClass.add("bordered");
-                style {
-                    fontSize = 18.px
-                    padding = box(10.px, 20.px)
-                    backgroundColor += Color.rgb(0, 0, 0)
-                    textFill = Color.WHITE
-                    fontWeight = FontWeight.BOLD
-                }
-                vboxConstraints {
-                    marginBottom = 10.0
-                }
-                action {
-                    if (groundTowerController.getPrice() >= moneyController.getCurrentMoneyAmount()) {
-                        val alert = Alert(Alert.AlertType.ERROR)
-                        alert.title = "Ошибка"
-                        alert.headerText = "Недостаточно средств!"
-                        alert.contentText = "У вас недостаточно средств для покупки этой башни"
-                        alert.showAndWait()
-                    } else {
-                        moneyController.writeOffMoney(groundTowerController.getPrice());
-                        val tower = groundTowerController.createTower();
-                        gameController.setTowerToPut(tower)
-                    }
-                }
-            }*/
+
             button("Buy Ground Tower") {
                 styleClass.add("bordered")
                 style {
@@ -121,8 +95,6 @@ class ShopView(
                             gameController.setTowerToPut(tower)
 
                             replaceWith(back_to_view)
-                            //replaceWith(find<GameView>())
-                            //replaceWith(find(GameView::class))
                         }
                     }
                     contextMenu.items.add(menuItem)
@@ -176,7 +148,6 @@ class ShopView(
                             );
                             gameController.setTowerToPut(tower)
 
-                            //replaceWith(find<GameView>())
                             replaceWith(back_to_view)
                         }
                     }
@@ -206,7 +177,6 @@ class ShopView(
                     cityController.addCityHealth(1)
 
                     replaceWith(back_to_view)
-                    //replaceWith(find<GameView>())
                 }
             }
 
@@ -224,12 +194,8 @@ class ShopView(
                 }
                 action {
                     replaceWith(back_to_view)
-                    //replaceWith(GameView())
-                    //replaceWith(find<GameView>())
                 }
             }
         }
-
-
     }
 }

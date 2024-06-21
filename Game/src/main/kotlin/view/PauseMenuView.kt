@@ -8,7 +8,9 @@ import javafx.geometry.Orientation
 import javafx.scene.control.Slider
 import viewModel.MusicController
 
-class PauseMenuView : View("Pause Menu") {
+class PauseMenuView(
+    private val back_to_view: View
+) : View("Pause Menu") {
 
     /*
     override val root = stackpane {
@@ -29,11 +31,6 @@ class PauseMenuView : View("Pause Menu") {
         }
     }
 */
-
-
-    private val gameView: GameView by inject()
-
-
 
     override val root = stackpane {
 
@@ -83,8 +80,7 @@ class PauseMenuView : View("Pause Menu") {
                     marginBottom = 10.0
                 }
                 action {
-                    //replaceWith(GameView(0))
-                    replaceWith(GameView())
+                    replaceWith(back_to_view)
                 }
             }
 
