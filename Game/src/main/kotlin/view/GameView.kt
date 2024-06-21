@@ -8,10 +8,7 @@ import javafx.scene.text.FontWeight
 import model.CityModel
 import model.fromEditing.TileType
 import tornadofx.*
-import viewModel.CityController
-import viewModel.GameController
-import viewModel.MoneyController
-import viewModel.RatingController
+import viewModel.*
 import viewModel.towerControllers.FlyingTowerController
 import viewModel.towerControllers.GroundTowerController
 
@@ -21,13 +18,14 @@ class GameView : View("Bashenki") {
 
     private val moneyController = MoneyController()
     private val cityController = CityController()
+    private val victoryController = VictoryController()
 
     private val groundTowerController = GroundTowerController()
     private val flyingTowerController = FlyingTowerController()
     private val cityModel = CityModel()
     private val ratingController = RatingController()
 
-    private val gameController = GameController(moneyController, cityController, ratingController, cityModel, false)
+    private val gameController = GameController(moneyController, cityController, ratingController, cityModel, false, victoryController)
 
     private val mapView = MapView(gameController)
 

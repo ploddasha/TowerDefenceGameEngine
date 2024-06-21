@@ -16,6 +16,7 @@ class NetworkClient {
 
     val server: String = "http://10.40.109.67:8083"
 
+
     val client = HttpClient(CIO) {
         install(ContentNegotiation) {
             json()

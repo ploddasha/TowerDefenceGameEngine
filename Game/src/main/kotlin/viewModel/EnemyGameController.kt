@@ -38,7 +38,8 @@ class EnemyGameController(
     private val moneyController: MoneyController,
     private val cityController: CityController,
     private val ratingController: RatingController,
-    private val cityModel: CityModel
+    private val cityModel: CityModel,
+    private val victoryController: VictoryController
 ) : Controller() {
 
     private var mapView: EnemyMapView? = null
@@ -52,17 +53,38 @@ class EnemyGameController(
     init {
         gameId = 1
     }
+    private var isGameOn = true
 
 
     fun startPeriodicGameStateUpdates() {
-        val gameOver = false
+        isGameOn = true
 
         GlobalScope.launch {
-            while (!gameOver) {
+            while (isGameOn) {
                 receiveGameState()
-                delay(500)
+                delay(200)
             }
             receiveGameState()
+            val gameState = networkClient.getOpponentState()
+            if (gameState != null) {
+                victoryController.setEnemyGameOver(true)
+                victoryController.setEnemyCityHealth(gameState.cityHealth)
+                victoryController.setEnemyRating(gameState.rating)
+                val result = victoryController.check()
+                if (result != "nothing") {
+                    when (result) {
+                        "victory" -> {
+                            alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won!")
+                        }
+                        "lose" -> {
+                            alert(Alert.AlertType.INFORMATION, "Ooops...", "You lost!")
+                        }
+                        else -> {
+                            alert(Alert.AlertType.INFORMATION, "Hmmmm...", "It's a draw!")
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -70,16 +92,13 @@ class EnemyGameController(
     fun receiveGameState() {
         GlobalScope.launch {
             val gameState = networkClient.getOpponentState()
-            if (gameState != null) {
-                println("Received game state: $gameState")
-            } else {
-                println("Failed to receive game state")
-            }
 
             if (gameState != null) {
                 println("Received game state: $gameState")
 
                 Platform.runLater {
+                    isGameOn = gameState.isGameOn
+
                     moneyController.setMoney(gameState.moneyAmount)
                     cityController.setHealth(gameState.cityHealth)
                     ratingController.setRating(gameState.rating)

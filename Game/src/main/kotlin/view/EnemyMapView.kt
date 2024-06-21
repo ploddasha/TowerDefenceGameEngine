@@ -34,6 +34,7 @@ class EnemyMapView(
     private val cellSize = 50.0
 
     private val mapModel: MapModel by inject()
+    private val mobPositions = mutableMapOf<Int, Pair<Int, Int>>()
 
 
     init {
@@ -116,6 +117,12 @@ class EnemyMapView(
 
     fun addMob(mob: RealMob) {
         val gridPane = root
+        val tilesArray  = mapModel.getArray(numRows, numCols)
+
+        val currentPos = mobPositions[mob.id]
+        if (currentPos != null && (currentPos.first != mob.row || currentPos.second != mob.col)) {
+            deleteMobFromMap(currentPos.first, currentPos.second)
+        }
 
         val cellImageView = ImageView(Image(resources.url(mobImage).toString()))
         cellImageView.isPreserveRatio = true
@@ -123,6 +130,8 @@ class EnemyMapView(
         cellImageView.fitHeight = cellSize
 
         gridPane.add(cellImageView, mob.col, mob.row)
+        mobPositions[mob.id] = Pair(mob.row, mob.col)
+
     }
 
 }

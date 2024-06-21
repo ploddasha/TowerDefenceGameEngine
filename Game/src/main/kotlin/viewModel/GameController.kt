@@ -38,6 +38,7 @@ class GameController(
     private val ratingController: RatingController,
     private val cityModel: CityModel,
     private val doSendGameState: Boolean,
+    private val victoryController: VictoryController
 ) : Controller() {
 
     private var mapView: MapView? = null
@@ -131,13 +132,12 @@ class GameController(
     }
 
     fun startPeriodicGameStateUpdates() {
-        val gameOver = false
 
         if (doSendGameState) {
             GlobalScope.launch {
-                while (!gameOver) {
+                while (!gameOverProperty().value) {
                     sendGameState()
-                    delay(500)
+                    delay(200)
                 }
             }
             sendGameState()
@@ -146,16 +146,29 @@ class GameController(
 
     fun sendGameState() {
         GlobalScope.launch {
-            val gameState = GameState(
-                isGameOn = !gameOverProperty().value,
-                moneyAmount = moneyController.getCurrentMoneyAmount(),
-                cityHealth = cityModel.getHealth(),
-                rating = ratingController.getRating(),
-                currentWave = currentWave,
-                mobs = waves[currentWave],
-                towers = towers.toList()
-            )
-            networkClient.sendGameState(gameState)
+            if (currentWave < waves.size) {
+                val gameState = GameState(
+                    isGameOn = !gameOverProperty().value,
+                    moneyAmount = moneyController.getCurrentMoneyAmount(),
+                    cityHealth = cityModel.getHealth(),
+                    rating = ratingController.getRating(),
+                    currentWave = currentWave,
+                    mobs = waves[currentWave],
+                    towers = towers.toList()
+                )
+                networkClient.sendGameState(gameState)
+            } else {
+                val gameState = GameState(
+                    isGameOn = false,
+                    moneyAmount = moneyController.getCurrentMoneyAmount(),
+                    cityHealth = cityModel.getHealth(),
+                    rating = ratingController.getRating(),
+                    currentWave = currentWave,
+                    mobs = emptyList(),
+                    towers = towers.toList()
+                )
+                networkClient.sendGameState(gameState)
+            }
         }
     }
 
@@ -204,15 +217,36 @@ class GameController(
 
     private fun checkVictory() {
         if (currentWave >= waves.size) {
-            runLater {
-                if (cityController.getCityHealth() > 0) {
-                    println("You won! Your rating is: ${ratingController.getRating()}")
-                    alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won! Your rating is: ${ratingController.getRating()}")
-                } else {
-                    println("You lost! Your rating is: ${ratingController.getRating()}")
-                    alert(Alert.AlertType.INFORMATION, "Ha-ha-ha!", "You lost! Your rating is: ${ratingController.getRating()}")
+            if (doSendGameState) {
+                runLater {
+                    victoryController.setGameOver(true)
+                    victoryController.setCityHealth(cityController.getCityHealth())
+                    victoryController.setRating(ratingController.getRating())
+                    val result = victoryController.check()
+                    if (result != "nothing") {
+                        when (result) {
+                            "victory" -> {
+                                alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won!")
+                            }
+                            "lose" -> {
+                                alert(Alert.AlertType.INFORMATION, "Ooops...", "You lost!")
+                            }
+                            else -> {
+                                alert(Alert.AlertType.INFORMATION, "Hmmmm...", "It's a draw!")
+                            }
+                        }
+                    }                }
+            } else {
+                runLater {
+                    if (cityController.getCityHealth() > 0) {
+                        println("You won! Your rating is: ${ratingController.getRating()}")
+                        alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won! Your rating is: ${ratingController.getRating()}")
+                    } else {
+                        println("You lost! Your rating is: ${ratingController.getRating()}")
+                        alert(Alert.AlertType.INFORMATION, "Ha-ha-ha!", "You lost! Your rating is: ${ratingController.getRating()}")
+                    }
+                    setGameOver(true)
                 }
-                setGameOver(true)
             }
         }
     }

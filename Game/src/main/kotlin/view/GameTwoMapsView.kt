@@ -22,6 +22,7 @@ class GameTwoMapsView(
     private val enemyMoneyController = MoneyController()
     private val enemyCityController = CityController()
     private val enemyRatingController = RatingController()
+    private val victoryController = VictoryController()
 
 
     private val groundTowerController = GroundTowerController()
@@ -31,8 +32,8 @@ class GameTwoMapsView(
     private val enemyCityModel = CityModel()
 
 
-    private val gameController = GameController(moneyController, cityController, ratingController, cityModel, true)
-    private val enemyGameController = EnemyGameController(enemyMoneyController, enemyCityController, enemyRatingController, enemyCityModel)
+    private val gameController = GameController(moneyController, cityController, ratingController, cityModel, true, victoryController)
+    private val enemyGameController = EnemyGameController(enemyMoneyController, enemyCityController, enemyRatingController, enemyCityModel, victoryController)
 
 
     private val mapView = MapView(gameController)
@@ -418,15 +419,6 @@ class GameTwoMapsView(
 
         gameController.startPeriodicGameStateUpdates()
         enemyGameController.startPeriodicGameStateUpdates()
-    }
-
-
-    private fun sendGameState() {
-        gameController.sendGameState()
-    }
-
-    private fun getGameState() {
-        enemyGameController.receiveGameState()
     }
 
 }
