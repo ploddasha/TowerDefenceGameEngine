@@ -214,7 +214,7 @@ class GameTwoMapsView(
                     alignment = Pos.CENTER
                     hbox {
                         alignment = Pos.CENTER
-                        maxWidth = 800.0
+                        maxWidth = 600.0
 
                         addClass("game-top-background")
 
@@ -288,6 +288,7 @@ class GameTwoMapsView(
                                 replaceWith(allGamesView)
                             }
                         }
+                        /*
                         button("Send game state") {
                             style {
                                 fontSize = 14.px
@@ -320,6 +321,7 @@ class GameTwoMapsView(
                                 getGameState()
                             }
                         }
+                        */
                     }
                 }
             }
@@ -347,6 +349,7 @@ class GameTwoMapsView(
                 addClass("game-bottom-background")
                 alignment = Pos.BOTTOM_CENTER
                 spacing = 30.0
+
                 hbox{
                     spacing = 10.0
                     alignment = Pos.CENTER_LEFT
@@ -413,9 +416,10 @@ class GameTwoMapsView(
         gameController.setMyMapView(mapView)
         enemyGameController.setMapView(enemyMapView)
 
-        gameController.startPeriodicGameStateUpdates()
+        gameController.startGameWithWaves()
         enemyGameController.startPeriodicGameStateUpdates()
     }
+
 
 
     private fun sendGameState() {

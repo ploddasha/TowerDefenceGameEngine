@@ -130,6 +130,19 @@ class GameController(
         }
     }
 
+    fun startPeriodicGameStateUpdates() {
+        val gameOver = false
+
+        if (doSendGameState) {
+            GlobalScope.launch {
+                while (!gameOver) {
+                    sendGameState()
+                    delay(500)
+                }
+            }
+            sendGameState()
+        }
+    }
 
     fun sendGameState() {
         GlobalScope.launch {
@@ -146,19 +159,6 @@ class GameController(
         }
     }
 
-    fun startPeriodicGameStateUpdates() {
-        val gameOver = false
-
-        if (doSendGameState) {
-            GlobalScope.launch {
-                while (!gameOver) {
-                    sendGameState()
-                    delay(500)
-                }
-            }
-            sendGameState()
-        }
-    }
 
 
 
@@ -315,4 +315,6 @@ class GameController(
     fun stopGame() {
         TODO("Not yet implemented")
     }
+
+
 }
