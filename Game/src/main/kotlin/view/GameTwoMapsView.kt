@@ -221,7 +221,7 @@ class GameTwoMapsView(
                         paddingAll = 10.0
                         spacing = 10.0
 
-                        button("Start Game") {
+                        button("Start Wave") {
                             style {
                                 fontSize = 14.px
                                 padding = box(5.px, 10.px)
@@ -416,10 +416,9 @@ class GameTwoMapsView(
         gameController.setMyMapView(mapView)
         enemyGameController.setMapView(enemyMapView)
 
-        gameController.startGameWithWaves()
+        gameController.startPeriodicGameStateUpdates()
         enemyGameController.startPeriodicGameStateUpdates()
     }
-
 
 
     private fun sendGameState() {
