@@ -319,9 +319,22 @@ class GameController(
         return towerToPut
     }
 
-    fun createRealTower(tower: Tower, col: Int, row: Int) {
-        //TODO
-        towers.add(RealTower(row * 20 + col, row, col, TowerType.FlyingTower, 100, 100, 50, 2))
+    fun createRealFlyingTower(tower: Tower, col: Int, row: Int) {
+        //TODO а что за speed у башен?
+        towers.add(RealTower(row * 20 + col, row, col, TowerType.FlyingTower,
+            tower.health, 100, tower.damage, tower.range))
+    }
+
+    fun createRealGroundTower(tower: Tower, col: Int, row: Int) {
+        //TODO а что за speed у башен?
+        towers.add(RealTower(row * 20 + col, row, col, TowerType.GroundTower,
+            tower.health, 100, tower.damage, tower.range))
+    }
+
+    fun createRealBothTower(tower: Tower, col: Int, row: Int) {
+        //TODO а что за speed у башен?
+        towers.add(RealTower(row * 20 + col, row, col, TowerType.BothTower,
+            tower.health, 100, tower.damage, tower.range))
     }
 
     fun setMyMapView(mapView: MapView) {

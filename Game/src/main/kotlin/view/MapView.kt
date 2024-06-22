@@ -6,7 +6,9 @@ import javafx.scene.image.ImageView
 import javafx.scene.layout.GridPane
 import model.TilePair
 import model.fromEditing.MapModel
+import model.fromEditing.MobType
 import model.fromEditing.TileType
+import model.fromEditing.TowerType
 import tornadofx.*
 import viewModel.GameController
 import viewModel.real.RealMob
@@ -19,7 +21,8 @@ class MapView(
     private val sand = "/configs/fromEditing/map/sand.png"
     private val water = "/configs/fromEditing/map/water.png"
     private val city = "/configs/fromEditing/map/city.jpg"
-    private val mobImage = "/configs/fromEditing/map/mushroom.png"
+    private val walkMobImage = "/configs/fromEditing/map/mushroom.png"
+    private val flyMobImage = "/configs/fromEditing/map/flying_mob.png"
 
 
     private val numRows = 10
@@ -163,6 +166,13 @@ class MapView(
             gridPane.add(cellImageView, predPair.first, predPair.second)
         }
 
+        var mobImage = ""
+        if (mob.type == MobType.Fly) {
+            mobImage = flyMobImage
+        } else if (mob.type == MobType.Walk) {
+            mobImage = walkMobImage
+        }
+
         val cellImageView = ImageView(Image(resources.url(mobImage).toString()))
         cellImageView.isPreserveRatio = true
         cellImageView.fitWidth = cellSize
@@ -178,11 +188,15 @@ class MapView(
 
         val tower = gameController.getTowerToPut()
         if (tower != null) {
-            //TODO тип башни и нормальное добавление башни
-            gameController.createRealTower(tower, col, row)
+
+            if (tower.type == TowerType.Fly) {
+                gameController.createRealFlyingTower(tower, col, row)
+            } else if (tower.type == TowerType.Walk) {
+                gameController.createRealGroundTower(tower, col, row)
+            } else if (tower.type == TowerType.Both) {
+                gameController.createRealBothTower(tower, col, row)
+            }
             println("Ставим башню")
-            //val isFlyingTower = tower is FlyingTowerController
-            //val isGroundTower = tower is GroundTowerController
 
             val currTowerImagePath = "/configs/"
             val imageOfTowerToPut: String = currTowerImagePath + tower.fileName

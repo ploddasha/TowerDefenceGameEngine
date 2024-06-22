@@ -3,6 +3,7 @@ package viewModel.real
 import kotlinx.serialization.Serializable
 import model.fromEditing.MobType
 import model.TilePair
+import model.fromEditing.Mob
 
 @Serializable
 data class RealMob(
@@ -34,6 +35,5 @@ data class RealMob(
         row = first
         col = second
     }
-
 }
 

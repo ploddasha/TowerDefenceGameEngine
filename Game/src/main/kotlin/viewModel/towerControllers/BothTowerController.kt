@@ -1,10 +1,10 @@
 package viewModel.towerControllers
 
-import model.tower.GroundTower
-import model.tower.Tower
 import model.fromEditing.TowerType
+import model.tower.BothTower
+import model.tower.Tower
 
-class GroundTowerController() : TowerController {
+class BothTowerController : TowerController {
 
     override fun getPrice(tower: Tower): Int {
         return tower.cost
@@ -18,8 +18,8 @@ class GroundTowerController() : TowerController {
         cost : Int,
         name : String,
         type : TowerType
-    ): GroundTower {
-        val newTower = GroundTower(health, fileName, damage, range, cost, name, type);
+    ): BothTower {
+        val newTower = BothTower(health, fileName, damage, range, cost, name, type);
         return newTower;
     }
 }

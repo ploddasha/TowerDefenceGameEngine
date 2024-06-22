@@ -20,16 +20,27 @@ data class RealTower(
         return distance <= attackRange
     }
 
+    private fun matchTowerMob(tower: TowerType, mob: MobType): Boolean {
+        return when (tower) {
+            TowerType.BothTower -> true
+            TowerType.FlyingTower -> mob == MobType.Fly || mob == MobType.Both
+            TowerType.GroundTower -> mob == MobType.Walk || mob == MobType.Both
+        }
+    }
+
     fun attackMob(mob: RealMob) {
+        if (!matchTowerMob(type, mob.type)) {
+            return
+        }
         if (isInRange(mob)) {
             println("Mob ${mob.id} is next to tower, attack")
             mob.takeHealth(damage)
         }
     }
-
 }
 
 enum class TowerType{
     GroundTower,
-    FlyingTower
+    FlyingTower,
+    BothTower
 }

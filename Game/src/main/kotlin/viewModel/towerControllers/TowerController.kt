@@ -1,5 +1,6 @@
 package viewModel.towerControllers
 
+import model.fromEditing.TowerType
 import model.tower.FlyingTower
 import model.tower.GroundTower
 import model.tower.Tower
@@ -12,6 +13,7 @@ interface TowerController {
         damage : Int,
         range : Int,
         cost : Int,
-        name : String
+        name : String,
+        type : TowerType
     ): Tower
 }

@@ -1,5 +1,6 @@
 package viewModel.towerControllers
 
+import model.fromEditing.TowerType
 import model.tower.FlyingTower
 import model.tower.Tower
 
@@ -15,9 +16,10 @@ class FlyingTowerController : TowerController {
         damage : Int,
         range : Int,
         cost : Int,
-        name : String
+        name : String,
+        type : TowerType
     ): FlyingTower {
-        val newTower = FlyingTower(health, fileName, damage, range, cost, name);
+        val newTower = FlyingTower(health, fileName, damage, range, cost, name, type);
         return newTower;
     }
 }

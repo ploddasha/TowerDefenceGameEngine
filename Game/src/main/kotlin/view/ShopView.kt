@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
 import model.CityModel
+import model.fromEditing.TowerType
 import model.tower.Tower
 import tornadofx.*
 import viewModel.*
@@ -90,7 +91,7 @@ class ShopView(
                             val name = walkList.get(i).Name
 
                             val tower = groundTowerController.createTower(
-                                health, fileName, damage, range, cost, name
+                                health, fileName, damage, range, cost, name, TowerType.Walk
                             );
                             gameController.setTowerToPut(tower)
 
@@ -144,7 +145,7 @@ class ShopView(
                             val name = flyList.get(i).Name
 
                             val tower = flyingTowerController.createTower(
-                                health, fileName, damage, range, cost, name
+                                health, fileName, damage, range, cost, name, TowerType.Fly
                             );
                             gameController.setTowerToPut(tower)
 

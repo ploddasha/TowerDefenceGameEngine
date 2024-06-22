@@ -55,7 +55,7 @@ class WaitingForConnectionView(
 
         GlobalScope.launch {
             val result = networkClient.connect(name)
-            if (result) { //TODO delete ! !!!!!!!
+            if (!result) { //TODO delete ! !!!!!!!
                 runLater {
                     if (!isTransitioned) {
                         isTransitioned = true

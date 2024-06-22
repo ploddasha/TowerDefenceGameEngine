@@ -6,6 +6,9 @@
     ],
     [
       {"name": "I", "amount": 2}
+    ],
+    [
+      {"name": "Ya", "amount": 2}
     ]
   ]
 }

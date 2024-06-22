@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView
 import javafx.scene.layout.GridPane
 import model.TilePair
 import model.fromEditing.MapModel
+import model.fromEditing.MobType
 import model.fromEditing.TileType
 import tornadofx.*
 import viewModel.EnemyGameController
@@ -22,7 +23,8 @@ class EnemyMapView(
     private val sand = "/configs/fromEditing/map/sand.png"
     private val water = "/configs/fromEditing/map/water.png"
     private val city = "/configs/fromEditing/map/city.jpg"
-    private val mobImage = "/configs/fromEditing/map/mushroom.png"
+    private val walkMobImage = "/configs/fromEditing/map/mushroom.png"
+    private val flyMobImage = "/configs/fromEditing/map/flying_mob.png"
 
     private val towerImage1 = "/configs/tower1.png"
     private val towerImage2 = "/configs/tower2.png"
@@ -124,6 +126,12 @@ class EnemyMapView(
             deleteMobFromMap(currentPos.first, currentPos.second)
         }
 
+        var mobImage = ""
+        if (mob.type == MobType.Fly) {
+            mobImage = flyMobImage
+        } else if (mob.type == MobType.Walk) {
+            mobImage = walkMobImage
+        }
         val cellImageView = ImageView(Image(resources.url(mobImage).toString()))
         cellImageView.isPreserveRatio = true
         cellImageView.fitWidth = cellSize
