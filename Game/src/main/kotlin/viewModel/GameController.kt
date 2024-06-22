@@ -17,9 +17,8 @@ import model.data.GameState
 import model.data.InitConfig
 import model.fromEditing.MobsModel
 import model.tower.Tower
-import tornadofx.Controller
-import tornadofx.alert
-import tornadofx.runLater
+import tornadofx.*
+import view.GameView
 import view.MapView
 import viewModel.real.RealMob
 import viewModel.real.RealTower
@@ -30,6 +29,8 @@ import viewModel.towerControllers.parseWalk
 import viewModel.towerControllers.parseFly
 import java.io.File
 import java.util.*
+import javafx.scene.control.Button
+import view.GameTwoMapsView
 
 
 class GameController(
@@ -363,6 +364,4 @@ class GameController(
     fun stopGame() {
         TODO("Not yet implemented")
     }
-
-
 }

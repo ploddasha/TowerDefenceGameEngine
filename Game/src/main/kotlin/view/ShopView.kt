@@ -39,7 +39,7 @@ class ShopView(
         }
 
         vbox {
-            alignment = Pos.TOP_CENTER
+            alignment = Pos.CENTER
             label("Shop") {
                 styleClass.add("bordered");
                 style {
@@ -47,10 +47,10 @@ class ShopView(
                     fontWeight = FontWeight.BOLD
                     paddingBottom = 55.0
                     textFill = Color.WHITE
-                }
+                }/*
                 vboxConstraints {
-                    marginTop= 105.0
-                }
+                    marginTop= 100.0
+                }*/
             }
 
             button("Buy Ground Tower") {
@@ -72,7 +72,8 @@ class ShopView(
                 walkList = parseWalk()
                 // Создаем элементы менюшки
                 for (i in 0..walkList.lastIndex) {
-                    val menuItem = MenuItem(walkList.get(i).Name)
+                    val menuItem = MenuItem(walkList.get(i).Name + " (\$" + walkList.get(i).Cost
+                            + ", damage " + walkList.get(i).Damage + ")")
                     menuItem.setOnAction {
                         if (walkList.get(i).Cost >= moneyController.getCurrentMoneyAmount()) {
                             val alert = Alert(Alert.AlertType.ERROR)
@@ -126,7 +127,8 @@ class ShopView(
                 flyList = parseFly()
                 // Создаем элементы менюшки
                 for (i in 0..flyList.lastIndex) {
-                    val menuItem = MenuItem(flyList.get(i).Name)
+                    val menuItem = MenuItem(flyList.get(i).Name + " (\$" + flyList.get(i).Cost
+                            + ", damage " + flyList.get(i).Damage + ")")
                     menuItem.setOnAction {
                         if (flyList.get(i).Cost >= moneyController.getCurrentMoneyAmount()) {
                             val alert = Alert(Alert.AlertType.ERROR)

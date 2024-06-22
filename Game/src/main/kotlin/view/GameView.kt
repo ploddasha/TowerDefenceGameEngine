@@ -1,6 +1,7 @@
 package view
 
 import javafx.geometry.Pos
+import javafx.scene.control.Button
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
@@ -15,7 +16,6 @@ import viewModel.towerControllers.GroundTowerController
 
 class GameView : View("Bashenki") {
 
-
     private val moneyController = MoneyController()
     private val cityController = CityController()
     private val victoryController = VictoryController()
@@ -28,10 +28,7 @@ class GameView : View("Bashenki") {
     private val gameController = GameController(moneyController, cityController, ratingController, cityModel, false, victoryController)
 
     private val mapView = MapView(gameController)
-
     private val allGamesView: AllGamesView by inject()
-
-
     private val shopView = ShopView(gameController, moneyController, cityController,
         groundTowerController, flyingTowerController, cityModel, this)
     private val pauseMenuView = PauseMenuView(this)
@@ -122,7 +119,7 @@ class GameView : View("Bashenki") {
     private val musicController: MusicController  by inject()
 
     init {
-        musicController.playMusic("D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/game_music.mp3")
+        musicController.playMusic("./src/main/resources/music/game_music.mp3")
     } */
 
 
@@ -146,7 +143,7 @@ class GameView : View("Bashenki") {
                         paddingAll = 10.0
                         spacing = 10.0
 
-                        button("Start Game") {
+                        button("Start Wave") {
                             style {
                                 fontSize = 14.px
                                 padding = box(5.px, 10.px)
@@ -267,6 +264,4 @@ class GameView : View("Bashenki") {
         gameController.setMyMapView(mapView)
         gameController.startGameWithWaves()
     }
-
-
 }

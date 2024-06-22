@@ -1,6 +1,7 @@
 package view
 
 import javafx.geometry.Pos
+import javafx.scene.control.Button
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.paint.Color
@@ -201,7 +202,6 @@ class GameTwoMapsView(
     }
 
 
-
     override val root = borderpane {
 
         addClass("game-stack-pane")
@@ -223,6 +223,7 @@ class GameTwoMapsView(
                         spacing = 10.0
 
                         button("Start Wave") {
+
                             style {
                                 fontSize = 14.px
                                 padding = box(5.px, 10.px)
@@ -420,5 +421,4 @@ class GameTwoMapsView(
         gameController.startPeriodicGameStateUpdates()
         enemyGameController.startPeriodicGameStateUpdates()
     }
-
 }
