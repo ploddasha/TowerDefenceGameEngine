@@ -183,8 +183,9 @@ class GameController(
             GlobalScope.launch {
                 if (currentWave < waves.size) {
                     val wave = waves[currentWave]
-                    val jobs = wave.map { mob ->
+                    val jobs = wave.mapIndexed { index, mob ->
                         launch {
+                            delay(index * 750L)
                             var alive = true
                             while (alive && mob.health > 0 && !mobReachedCity(mob)) {
                                 moveMob(mob)
