@@ -40,35 +40,12 @@ class EnemyGameController(
         isGameOn = true
 
         GlobalScope.launch {
-            while (isGameOn) {
+            while (victoryController.getFinished()) {
                 receiveGameState()
                 delay(200)
             }
             receiveGameState()
-            val gameState = networkClient.getOpponentState()
-            if (gameState != null) {
-                victoryController.setEnemyGameOver(true)
-                victoryController.setEnemyCityHealth(gameState.cityHealth)
-                victoryController.setEnemyRating(gameState.rating)
-                val result = victoryController.check()
-                if (result != "nothing") {
-                    runLater {
-                        when (result) {
-                            "victory" -> {
-                                alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won!")
-                            }
 
-                            "lose" -> {
-                                alert(Alert.AlertType.INFORMATION, "Ooops...", "You lost!")
-                            }
-
-                            else -> {
-                                alert(Alert.AlertType.INFORMATION, "Hmmmm...", "It's a draw!")
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -89,7 +66,6 @@ class EnemyGameController(
                     moneyController.setMoney(gameState.moneyAmount)
                     cityController.setHealth(gameState.cityHealth)
                     ratingController.setRating(gameState.rating)
-                    println("Enemy Rating ============== " + gameState.rating)
 
                     previousGameState?.let { prevGameState ->
                         val currentMobIds = gameState.mobs.map { it.id }.toSet()
@@ -110,6 +86,30 @@ class EnemyGameController(
 
                     previousGameState = gameState
 
+                }
+
+                if (!gameState.isGameOn) {
+                    victoryController.setEnemyGameOver(true)
+                    victoryController.setEnemyCityHealth(gameState.cityHealth)
+                    victoryController.setEnemyRating(gameState.rating)
+                    val result = victoryController.check()
+                    if (result != "nothing") {
+                        runLater {
+                            when (result) {
+                                "victory" -> {
+                                    alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won!")
+                                }
+
+                                "lose" -> {
+                                    alert(Alert.AlertType.INFORMATION, "Ooops...", "You lost!")
+                                }
+
+                                else -> {
+                                    alert(Alert.AlertType.INFORMATION, "Hmmmm...", "It's a draw!")
+                                }
+                            }
+                        }
+                    }
                 }
             } else {
                 println("Failed to receive game state")

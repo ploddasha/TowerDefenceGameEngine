@@ -2,6 +2,9 @@
   "waves": [
     [
       {"name": "Me", "amount": 1}
+    ],
+    [
+      {"name": "Me", "amount": 1}
     ]
   ]
 }

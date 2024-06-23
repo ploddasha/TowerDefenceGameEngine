@@ -136,7 +136,7 @@ class GameController(
 
         if (doSendGameState) {
             GlobalScope.launch {
-                while (!gameOverProperty().value) {
+                while (!victoryController.getFinished()) {
                     sendGameState()
                     delay(200)
                 }
@@ -147,7 +147,6 @@ class GameController(
 
     private fun sendGameState() {
         GlobalScope.launch {
-            println("Rating ============== " + ratingController.getRating())
             if (currentWave < waves.size) {
                 val gameState = GameState(
                     isGameOn = !gameOverProperty().value,
