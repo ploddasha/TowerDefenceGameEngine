@@ -15,7 +15,7 @@ class WaitingForConnectionView(
 ) : View("Loading") {
 
     private val networkClient = NetworkClient()
-    private val checkInterval = 5.0
+    private val checkInterval = 1.0
     private val timeoutDuration = 60.0
     private var isTransitioned = false
 

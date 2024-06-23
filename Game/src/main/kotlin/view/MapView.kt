@@ -142,7 +142,6 @@ class MapView(
             tileToMove?.let { mob.moveTo(tileToMove.first, tileToMove.second) }
             if (tileToMove != null) {
                 mob.visited.add(TilePair(tileToMove.first, tileToMove.second))
-                println("mob moves to ${mob.row} ${mob.col}")
             }
 
         }

@@ -9,14 +9,17 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import model.data.Game
 import model.data.GameState
+import model.data.UnifiedGameData
 
 
 class NetworkClient {
 
-    val server: String = "http://10.40.109.248:8083"
+    private val server: String = "http://10.40.109.67:8083"
+    //private val server: String = "http://localhost:8083"
 
 
-    val client = HttpClient(CIO) {
+
+    private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
             json()
         }
@@ -103,6 +106,22 @@ class NetworkClient {
             setBody("$player $result")
         }
         return response.status == HttpStatusCode.OK
+    }
+
+    suspend fun getGameByName(name: String): UnifiedGameData? {
+        val response = client.get("$server/getGame") {
+            parameter("name", name)
+            headers {
+                append(HttpHeaders.ContentType, ContentType.Application.Json)
+            }
+        }
+
+        return if (response.status == HttpStatusCode.OK) {
+            response.body<UnifiedGameData>()
+        } else {
+            println("Error fetching game: ${response.status}")
+            null
+        }
     }
 }
 

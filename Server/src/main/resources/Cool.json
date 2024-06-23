@@ -1,0 +1,45 @@
+{
+  "initData": {
+    "gameName": "Cool",
+    "cityHealth": 20,
+    "initialMoney": 500
+  },
+  "mapData":
+  [{"Row": 0, "Column": 0, "Type": "START"},
+    {"Row": 1, "Column": 0, "Type": "ROAD"}, {"Row": 1, "Column": 1, "Type": "ROAD"}, {"Row": 1, "Column": 2, "Type": "WATER"},
+    {"Row": 2, "Column": 0, "Type": "ROAD"}, {"Row": 2, "Column": 1, "Type": "ROAD"}, {"Row": 2, "Column": 2, "Type": "ROAD"},
+    {"Row": 3, "Column": 1, "Type": "ROAD"}, {"Row": 3, "Column": 2, "Type": "ROAD"}, {"Row": 3, "Column": 3, "Type": "ROAD"},
+    {"Row": 4, "Column": 2, "Type": "ROAD"}, {"Row": 4, "Column": 3, "Type": "ROAD"}, {"Row": 4, "Column": 4, "Type": "ROAD"},
+    {"Row": 5, "Column": 3, "Type": "ROAD"}, {"Row": 5, "Column": 4, "Type": "ROAD"}, {"Row": 5, "Column": 5, "Type": "ROAD"},
+    {"Row": 6, "Column": 4, "Type": "ROAD"}, {"Row": 6, "Column": 5, "Type": "ROAD"}, {"Row": 6, "Column": 6, "Type": "ROAD"},
+    {"Row": 7, "Column": 5, "Type": "ROAD"}, {"Row": 7, "Column": 6, "Type": "ROAD"}, {"Row": 7, "Column": 7, "Type": "ROAD"},
+    {"Row": 8, "Column": 7, "Type": "ROAD"}, {"Row": 8, "Column": 8, "Type": "ROAD"},
+    {"Row": 9, "Column": 8, "Type": "CITY"}
+  ],
+  "mobsData":
+  [
+    {"Type":"Walk", "Health":150, "AttackRange":0, "Damage":1, "Cost":222, "Speed":200, "Name": "Me"},
+    {"Type":"Walk", "Health":160, "AttackRange":0, "Damage":9, "Cost":333, "Speed":200, "Name": "I"},
+    {"Type":"Fly", "Health":100, "AttackRange":0, "Damage":7, "Cost":0, "Speed":200, "Name": "Ya"}
+  ],
+  "towersData":
+  [
+    {"Type":"Walk","Health":40,"FileName":"tower1.png","Damage":10,"Range":3,"Cost":40,"Name":"denis1"},
+    {"Type":"Walk","Health":40,"FileName":"tower1.png","Damage":15,"Range":3,"Cost":50,"Name":"denis2"},
+    {"Type":"Fly","Health":40,"FileName":"tower3.png","Damage":7,"Range":3,"Cost":35,"Name":"maxim"},
+    {"Type":"Fly","Health":40,"FileName":"tower3.png","Damage":10,"Range":3,"Cost":40,"Name":"dimon"},
+    {"Type":"Fly","Health":40,"FileName":"tower3.png","Damage":15,"Range":3,"Cost":50,"Name":"bumba"}
+  ],
+  "wavesData":
+  {
+    "waves": [
+      [
+        {"name": "Me", "amount": 1}
+      ],
+      [
+        {"name": "Me", "amount": 1}
+      ]
+    ]
+  }
+
+}
