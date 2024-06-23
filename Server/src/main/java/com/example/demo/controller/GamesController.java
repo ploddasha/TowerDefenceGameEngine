@@ -109,7 +109,7 @@ public class GamesController {
                 return ResponseEntity.internalServerError().build();
             }
         } else {
-            return ResponseEntity.ok().body("None");
+            return ResponseEntity.ok().body("Empty now :(");
         }
     }
 }

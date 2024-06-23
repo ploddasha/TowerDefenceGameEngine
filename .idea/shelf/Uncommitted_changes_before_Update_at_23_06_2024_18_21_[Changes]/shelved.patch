@@ -1,0 +1,841 @@
+Index: Game/src/main/resources/styles/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.startMenu-stack-pane {\r\n  -fx-background-image: url(\"/styles/backgroundStartMenu.jpg\");\r\n  -fx-background-repeat: no-repeat;\r\n  -fx-background-position: center center;\r\n  -fx-background-size: cover;\r\n}\r\n\r\n\r\n.game-stack-pane {\r\n  -fx-background-image: url(\"/configs/gameBackground2.jpg\");\r\n  -fx-background-repeat: no-repeat;\r\n  -fx-background-position: center center;\r\n  -fx-background-size: cover;\r\n}\r\n\r\n.all-games-stack-pane {\r\n  -fx-background-image: url(\"/configs/backgrounds/beforeGameBackground.jpg\");\r\n  -fx-background-repeat: no-repeat;\r\n  -fx-background-position: center center;\r\n  -fx-background-size: cover;\r\n}\r\n\r\n.shop {\r\n  -fx-background-image: url(\"/styles/shop_background.jpg\");\r\n  -fx-background-repeat: no-repeat;\r\n  -fx-background-position: center center;\r\n  -fx-background-size: cover;\r\n}\r\n\r\n.pause {\r\n-fx-background-image: url(\"/styles/pauseBack.jpg\");\r\n  -fx-background-repeat: no-repeat;\r\n  -fx-background-position: center center;\r\n  -fx-background-size: cover;\r\n}\r\n\r\n.bordered.label .text {\r\n  -fx-stroke: black;\r\n  -fx-stroke-width: 1px;\r\n}\r\n\r\n.game-field-background {\r\n  -fx-background-color: #123524;\r\n  -fx-background-radius: 10;\r\n  -fx-padding: 10px;\r\n  -fx-margin: 0px;\r\n}\r\n\r\n.game-bottom-background {\r\n  -fx-background-color: #4f0070;\r\n  -fx-background-radius: 10 10 0 0;\r\n  -fx-padding: 10px;\r\n  -fx-margin: 10px;\r\n\r\n  -fx-border-color: #320b35;\r\n  -fx-border-width: 2px 2px 0 2px;\r\n  -fx-border-radius: 10 10 0 0;\r\n  -fx-border-insets: -2px;\r\n}\r\n\r\n.game-top-background {\r\n  -fx-background-color: #fff;\r\n  -fx-background-radius: 0 0 10 10;\r\n  -fx-padding: 10px 50px;\r\n  -fx-margin: 10px 50px;\r\n\r\n  -fx-border-color: #ff9800;\r\n  -fx-border-width: 0 2px 2px 2px;\r\n  -fx-border-radius: 0 0 10 10;\r\n  -fx-border-insets: -2px;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/resources/styles/style.css b/Game/src/main/resources/styles/style.css
+--- a/Game/src/main/resources/styles/style.css	(revision 215fb9699001b5966f49704112efb2b06dc54bf0)
++++ b/Game/src/main/resources/styles/style.css	(date 1719137214000)
+@@ -34,6 +34,13 @@
+   -fx-background-size: cover;
+ }
+ 
++.rating {
++  -fx-background-image: url("/styles/rating_menu_background.jpg");
++  -fx-background-repeat: no-repeat;
++  -fx-background-position: center center;
++  -fx-background-size: cover;
++}
++
+ .bordered.label .text {
+   -fx-stroke: black;
+   -fx-stroke-width: 1px;
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1719133934000)
++++ b/.idea/vcs.xml	(date 1719133934000)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/checkstyle-idea.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/checkstyle-idea.xml b/.idea/checkstyle-idea.xml
+new file mode 100644
+--- /dev/null	(date 1719133934000)
++++ b/.idea/checkstyle-idea.xml	(date 1719133934000)
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CheckStyle-IDEA" serialisationVersion="2">
++    <checkstyleVersion>10.17.0</checkstyleVersion>
++    <scanScope>JavaOnly</scanScope>
++    <copyLibs>true</copyLibs>
++    <option name="thirdPartyClasspath" />
++    <option name="activeLocationIds" />
++    <option name="locations">
++      <list>
++        <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
++        <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
++      </list>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_23_06_2024_16_11__Changes_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_23_06_2024_16_11__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_23_06_2024_16_11__Changes_.xml
+new file mode 100644
+--- /dev/null	(date 1719134544000)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_23_06_2024_16_11__Changes_.xml	(date 1719134544000)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Update_at_23_06_2024_16_11_[Changes]" date="1719133923848" recycled="true" deleted="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_06_2024_16_11_[Changes]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Update at 23.06.2024 16:11 [Changes]" />
++</changelist>
+\ No newline at end of file
+Index: Game/src/main/kotlin/client/NetworkClient.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package client\r\n\r\nimport io.ktor.client.*\r\nimport io.ktor.client.call.*\r\nimport io.ktor.client.engine.cio.*\r\nimport io.ktor.client.plugins.contentnegotiation.*\r\nimport io.ktor.client.request.*\r\nimport io.ktor.http.*\r\nimport io.ktor.serialization.kotlinx.json.*\r\nimport model.data.Game\r\nimport model.data.GameState\r\n\r\n\r\nclass NetworkClient {\r\n\r\n    val server: String = \"http://192.168.0.109:8083\"\r\n\r\n\r\n    val client = HttpClient(CIO) {\r\n        install(ContentNegotiation) {\r\n            json()\r\n        }\r\n    }\r\n\r\n    suspend fun getAllGames(): List<Game> {\r\n\r\n        val response = client.get(\"$server/games\") {\r\n            headers {\r\n                append(HttpHeaders.ContentType, ContentType.Application.Json)\r\n            }\r\n        }\r\n\r\n        if (response.status == HttpStatusCode.OK) {\r\n            val data = response.body<List<Game>>()\r\n            println(data)\r\n            return data\r\n        } else {\r\n            println(\"Error with sending request\")\r\n            return emptyList()\r\n        }\r\n    }\r\n\r\n    suspend fun getOpponentState(): GameState? {\r\n        val response = client.get(\"$server/state\") {\r\n            headers {\r\n                append(HttpHeaders.ContentType, ContentType.Application.Json)\r\n            }\r\n        }\r\n        return try {\r\n            if (response.status == HttpStatusCode.OK && response.contentLength() != 0L) {\r\n                response.body<GameState>()\r\n            } else {\r\n                println(\"Error with receiving opponent state: No content\")\r\n                null\r\n            }\r\n        } catch (e: NoTransformationFoundException) {\r\n            println(\"Error with receiving opponent state: ${e.message}\")\r\n            null\r\n        }\r\n    }\r\n\r\n    suspend fun sendGameState(gameState: GameState): Boolean {\r\n        val response = client.post(\"$server/updateState\") {\r\n            headers {\r\n                append(HttpHeaders.ContentType, ContentType.Application.Json)\r\n            }\r\n            setBody(gameState)\r\n        }\r\n        return response.status == HttpStatusCode.OK\r\n    }\r\n\r\n\r\n    suspend fun connect(name: String): Boolean {\r\n        val response = client.get(\"$server/check\")\r\n        val responseBody = response.body<String>()\r\n        return responseBody.toBoolean()\r\n    }\r\n    /*\r\n    suspend fun connect(name: String): Boolean {\r\n        val response = client.get(\"$server/connect\") {\r\n            parameter(\"name\", name)\r\n        }\r\n        val responseBody = response.body<String>()\r\n        return responseBody.toBoolean()\r\n    } */\r\n\r\n    suspend fun check(): Boolean {\r\n        val response = client.get(\"$server/check\")\r\n        val responseBody = response.body<String>()\r\n        return responseBody.toBoolean()\r\n    }\r\n\r\n    suspend fun getGameSettings(name: String): String {\r\n        val response = client.get(\"$server/getGame\") {\r\n            parameter(\"name\", name)\r\n        }\r\n        return response.body<String>()\r\n    }\r\n\r\n    suspend fun getRating(name: String): String{\r\n        val response = client.get(\"$server/rating\") {\r\n            parameter(\"name\", name)\r\n        }\r\n        return response.body<String>()\r\n    }\r\n\r\n    suspend fun addToRating(name: String, player: String, result: Int): Boolean {\r\n        val response = client.post(\"$server/addToRating\"){\r\n            parameter(\"name\", name)\r\n            setBody(\"$player $result\")\r\n        }\r\n        return response.status == HttpStatusCode.OK\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/kotlin/client/NetworkClient.kt b/Game/src/main/kotlin/client/NetworkClient.kt
+--- a/Game/src/main/kotlin/client/NetworkClient.kt	(revision 215fb9699001b5966f49704112efb2b06dc54bf0)
++++ b/Game/src/main/kotlin/client/NetworkClient.kt	(date 1719140814000)
+@@ -13,7 +13,7 @@
+ 
+ class NetworkClient {
+ 
+-    val server: String = "http://192.168.0.109:8083"
++    val server: String = "http://10.40.109.248:8083"
+ 
+ 
+     val client = HttpClient(CIO) {
+@@ -111,5 +111,7 @@
+         }
+         return response.status == HttpStatusCode.OK
+     }
++
++    companion object
+ }
+ 
+Index: Game/src/main/kotlin/view/GameView.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view\r\n\r\nimport javafx.geometry.Pos\r\nimport javafx.scene.control.Button\r\nimport javafx.scene.image.Image\r\nimport javafx.scene.image.ImageView\r\nimport javafx.scene.paint.Color\r\nimport javafx.scene.text.FontWeight\r\nimport model.CityModel\r\nimport model.fromEditing.TileType\r\nimport tornadofx.*\r\nimport viewModel.*\r\nimport viewModel.towerControllers.FlyingTowerController\r\nimport viewModel.towerControllers.GroundTowerController\r\n\r\n\r\nclass GameView : View(\"Bashenki\") {\r\n\r\n    private val moneyController = MoneyController()\r\n    private val cityController = CityController()\r\n    private val victoryController = VictoryController()\r\n\r\n    private val groundTowerController = GroundTowerController()\r\n    private val flyingTowerController = FlyingTowerController()\r\n    private val cityModel = CityModel()\r\n    private val ratingController = RatingController()\r\n\r\n    private val gameController = GameController(moneyController, cityController, ratingController, cityModel, false, victoryController)\r\n\r\n    private val mapView = MapView(gameController)\r\n    private val allGamesView: AllGamesView by inject()\r\n    private val shopView = ShopView(gameController, moneyController, cityController,\r\n        groundTowerController, flyingTowerController, cityModel, this)\r\n    private val pauseMenuView = PauseMenuView(this)\r\n\r\n    private val moneyLabel = label {\r\n        style {\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n    }\r\n    private val moneyBackground = stackpane {\r\n        rectangle {\r\n            width = 100.0\r\n            height = 30.0\r\n            fill = Color.WHITE\r\n            arcWidth = 20.0\r\n            arcHeight = 20.0\r\n        }\r\n        add(moneyLabel)\r\n        alignment = Pos.CENTER\r\n    }\r\n    private val moneyIcon = ImageView(Image(resources.url(\"/configs/coin.png\").toString()))\r\n    private val heartIcon = ImageView(Image(resources.url(\"/configs/heart.png\").toString()))\r\n    private val starIcon = ImageView(Image(resources.url(\"/configs/star.png\").toString()))\r\n\r\n    private val cityLabel = label() {\r\n        style {\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n    }\r\n    private val cityBackground = stackpane {\r\n        rectangle {\r\n            width = 100.0\r\n            height = 30.0\r\n            fill = Color.WHITE\r\n            arcWidth = 20.0\r\n            arcHeight = 20.0\r\n        }\r\n        add(cityLabel)\r\n        alignment = Pos.CENTER\r\n    }\r\n\r\n\r\n    private val ratingLabel = label() {\r\n        style {\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n    }\r\n    val ratingBackground = stackpane {\r\n        rectangle {\r\n            width = 100.0\r\n            height = 30.0\r\n            fill = Color.WHITE\r\n            arcWidth = 20.0\r\n            arcHeight = 20.0\r\n        }\r\n        add(ratingLabel)\r\n        alignment = Pos.CENTER\r\n    }\r\n\r\n    init {\r\n        moneyIcon.fitWidth = 35.0\r\n        moneyIcon.fitHeight = 35.0\r\n        moneyLabel.textProperty().bind(moneyController.moneyAmountProperty().asString(\"Money: %d\"))\r\n\r\n        heartIcon.fitWidth = 30.0\r\n        heartIcon.fitHeight = 30.0\r\n        cityLabel.textProperty().bind(cityController.cityProperty().asString(\"City: %d\"))\r\n\r\n        starIcon.fitWidth = 30.0\r\n        starIcon.fitHeight = 30.0\r\n        ratingLabel.textProperty().bind(ratingController.ratingProperty().asString(\"Rating: %d\"))\r\n    }\r\n    data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)\r\n\r\n\r\n    val gameOverText = text(\"Game Over\") {\r\n        style {\r\n            fontSize = 48.px\r\n            fill = Color.RED\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n        visibleProperty().bind(gameController.gameOverProperty()) // Привязываем видимость к свойству gameOver\r\n    }\r\n\r\n    /*\r\n    private val pauseMenuView = PauseMenuView()\r\n\r\n    private val musicController: MusicController  by inject()\r\n\r\n    init {\r\n        musicController.playMusic(\"./src/main/resources/music/game_music.mp3\")\r\n    } */\r\n\r\n\r\n    override val root = borderpane {\r\n\r\n        addClass(\"game-stack-pane\")\r\n\r\n        add(gameOverText)\r\n\r\n        top {\r\n            hbox {\r\n                alignment = Pos.CENTER\r\n                vbox {\r\n                    alignment = Pos.CENTER\r\n                    hbox {\r\n                        alignment = Pos.CENTER\r\n                        maxWidth = 600.0\r\n\r\n                        addClass(\"game-top-background\")\r\n\r\n                        paddingAll = 10.0\r\n                        spacing = 10.0\r\n\r\n                        button(\"Start Wave\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.BLUE\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                startGame()\r\n                            }\r\n                        }\r\n\r\n                        button(\"Pause\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                backgroundColor += Color.rgb(255, 152, 0)\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                replaceWith(pauseMenuView)\r\n                            }\r\n                        }\r\n\r\n                        button(\"Shop\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.GREEN\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                replaceWith(shopView)\r\n                            }\r\n                        }\r\n\r\n                        button(\"Back to menu\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.BLACK\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                replaceWith(allGamesView)\r\n                            }\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        }\r\n\r\n        center {\r\n            useMaxWidth = true\r\n\r\n            hbox{\r\n                alignment = Pos.CENTER\r\n                vbox {\r\n                    alignment = Pos.CENTER\r\n                    add(mapView)\r\n                }\r\n            }\r\n        }\r\n\r\n        bottom {\r\n            hbox{\r\n                addClass(\"game-bottom-background\")\r\n                alignment = Pos.BOTTOM_CENTER\r\n                hbox{\r\n                    spacing = 10.0\r\n\r\n                    hbox {\r\n                        hbox {\r\n                            add(moneyIcon)\r\n                            prefWidth = 35.0\r\n                        }\r\n                        add(moneyBackground)\r\n                        alignment = Pos.TOP_RIGHT\r\n                    }\r\n\r\n                    hbox {\r\n                        add(heartIcon)\r\n                        add(cityBackground)\r\n                        alignment = Pos.TOP_RIGHT\r\n                    }\r\n\r\n                    hbox {\r\n                        add(starIcon)\r\n                        add(ratingBackground)\r\n                        alignment = Pos.TOP_RIGHT\r\n                    }\r\n                }\r\n            }\r\n\r\n        }\r\n\r\n    }\r\n\r\n    private fun startGame() {\r\n        gameController.setMyMapView(mapView)\r\n        gameController.startGameWithWaves()\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/kotlin/view/GameView.kt b/Game/src/main/kotlin/view/GameView.kt
+--- a/Game/src/main/kotlin/view/GameView.kt	(revision 215fb9699001b5966f49704112efb2b06dc54bf0)
++++ b/Game/src/main/kotlin/view/GameView.kt	(date 1719140814000)
+@@ -12,9 +12,13 @@
+ import viewModel.*
+ import viewModel.towerControllers.FlyingTowerController
+ import viewModel.towerControllers.GroundTowerController
++import client.NetworkClient
+ 
+ 
+-class GameView : View("Bashenki") {
++class GameView(
++    gameName: String,
++    ratingMenuView: RatingMenuView
++) : View("Bashenki") {
+ 
+     private val moneyController = MoneyController()
+     private val cityController = CityController()
+@@ -100,6 +104,7 @@
+         starIcon.fitWidth = 30.0
+         starIcon.fitHeight = 30.0
+         ratingLabel.textProperty().bind(ratingController.ratingProperty().asString("Rating: %d"))
++
+     }
+     data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)
+ 
+@@ -136,77 +141,113 @@
+                     alignment = Pos.CENTER
+                     hbox {
+                         alignment = Pos.CENTER
+-                        maxWidth = 600.0
++                        maxWidth = 500.0
+ 
+                         addClass("game-top-background")
+ 
+-                        paddingAll = 10.0
+-                        spacing = 10.0
++                        //paddingAll = 10.0
++                        //spacing = 10.0
++
++                        vbox {
++                            alignment = Pos.CENTER
++                            maxWidth = 500.0
++
++                            hbox {
++                                alignment = Pos.CENTER
++                                maxWidth = 500.0
++                                paddingAll = 6.0
++                                spacing = 10.0
+ 
+-                        button("Start Wave") {
+-                            style {
+-                                fontSize = 14.px
+-                                padding = box(5.px, 10.px)
+-                                paddingAll = 5.0
+-                                backgroundColor += Color.BLUE
+-                                textFill = Color.WHITE
+-                                fontWeight = FontWeight.BOLD
+-                            }
+-                            vboxConstraints {
+-                                marginRight = 10.0
+-                            }
+-                            action {
+-                                startGame()
+-                            }
+-                        }
+-
+-                        button("Pause") {
+-                            style {
+-                                fontSize = 14.px
+-                                padding = box(5.px, 10.px)
+-                                backgroundColor += Color.rgb(255, 152, 0)
+-                                textFill = Color.WHITE
+-                                fontWeight = FontWeight.BOLD
+-                            }
+-                            vboxConstraints {
+-                                marginRight = 10.0
+-                            }
+-                            action {
+-                                replaceWith(pauseMenuView)
+-                            }
+-                        }
++                                button("Pause") {
++                                    style {
++                                        fontSize = 14.px
++                                        padding = box(5.px, 12.px)
++                                        backgroundColor += Color.rgb(255, 152, 0)
++                                        textFill = Color.WHITE
++                                        fontWeight = FontWeight.BOLD
++                                    }
++                                    vboxConstraints {
++                                        marginRight = 10.0
++                                    }
++                                    action {
++                                        replaceWith(pauseMenuView)
++                                    }
++                                }
+ 
+-                        button("Shop") {
+-                            style {
+-                                fontSize = 14.px
+-                                padding = box(5.px, 10.px)
+-                                paddingAll = 5.0
+-                                backgroundColor += Color.GREEN
+-                                textFill = Color.WHITE
+-                                fontWeight = FontWeight.BOLD
+-                            }
+-                            vboxConstraints {
+-                                marginRight = 10.0
+-                            }
+-                            action {
+-                                replaceWith(shopView)
+-                            }
+-                        }
++                                button("Shop") {
++                                    style {
++                                        fontSize = 14.px
++                                        padding = box(5.px, 12.px)
++                                        paddingAll = 5.0
++                                        backgroundColor += Color.GREEN
++                                        textFill = Color.WHITE
++                                        fontWeight = FontWeight.BOLD
++                                    }
++                                    vboxConstraints {
++                                        marginRight = 10.0
++                                    }
++                                    action {
++                                        replaceWith(shopView)
++                                    }
++                                }
+ 
+-                        button("Back to menu") {
+-                            style {
+-                                fontSize = 14.px
+-                                padding = box(5.px, 10.px)
+-                                paddingAll = 5.0
+-                                backgroundColor += Color.BLACK
+-                                textFill = Color.WHITE
+-                                fontWeight = FontWeight.BOLD
+-                            }
+-                            vboxConstraints {
+-                                marginRight = 10.0
+-                            }
+-                            action {
+-                                replaceWith(allGamesView)
++                                button("Back to menu") {
++                                    style {
++                                        fontSize = 14.px
++                                        padding = box(5.px, 12.px)
++                                        paddingAll = 5.0
++                                        backgroundColor += Color.BLACK
++                                        textFill = Color.WHITE
++                                        fontWeight = FontWeight.BOLD
++                                    }
++                                    vboxConstraints {
++                                        marginRight = 10.0
++                                    }
++                                    action {
++                                        replaceWith(allGamesView)
++                                    }
++                                }
++                            }
++
++                            hbox {
++                                alignment = Pos.CENTER
++                                maxWidth = 500.0
++                                paddingAll = 4.0
++                                spacing = 15.0
++
++                                button("Start Wave") {
++                                    style {
++                                        fontSize = 14.px
++                                        padding = box(5.px, 40.px)
++                                        paddingAll = 5.0
++                                        backgroundColor += Color.BLUE
++                                        textFill = Color.WHITE
++                                        fontWeight = FontWeight.BOLD
++                                    }
++                                    vboxConstraints {
++                                        marginRight = 10.0
++                                    }
++                                    action {
++                                        startGame()
++                                    }
++                                }
++
++                                button("Rating") {
++                                    style {
++                                        fontSize = 14.px
++                                        padding = box(5.px, 40.px)
++                                        paddingAll = 5.0
++                                        backgroundColor += Color.RED
++                                        textFill = Color.WHITE
++                                        fontWeight = FontWeight.BOLD
++                                    }
++                                    vboxConstraints {
++                                        marginRight = 10.0
++                                    }
++                                    action {
++                                        replaceWith(ratingMenuView)
++                                    }
++                                }
+                             }
+                         }
+                     }
+Index: Game/src/main/kotlin/view/LoadingView.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view\r\n\r\nimport client.NetworkClient\r\nimport javafx.animation.KeyFrame\r\nimport javafx.animation.Timeline\r\nimport javafx.application.Platform\r\nimport javafx.concurrent.Task\r\nimport javafx.event.ActionEvent\r\nimport javafx.util.Duration\r\nimport tornadofx.*\r\n\r\nclass LoadingView(\r\n    id: Int\r\n) : View(\"Loading\") {\r\n\r\n    private val networkClient = NetworkClient()\r\n\r\n    override val root = stackpane {\r\n        progressindicator {\r\n            maxWidth = 100.0\r\n            maxHeight = 100.0\r\n        }\r\n\r\n    }\r\n\r\n    //TODO load game from server\r\n    init {\r\n        runAsync {\r\n            Thread.sleep(500)\r\n        } ui {\r\n            //replaceWith(GameView(id))\r\n            replaceWith(GameView())\r\n\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/kotlin/view/LoadingView.kt b/Game/src/main/kotlin/view/LoadingView.kt
+--- a/Game/src/main/kotlin/view/LoadingView.kt	(revision 215fb9699001b5966f49704112efb2b06dc54bf0)
++++ b/Game/src/main/kotlin/view/LoadingView.kt	(date 1719141124000)
+@@ -10,7 +10,9 @@
+ import tornadofx.*
+ 
+ class LoadingView(
+-    id: Int
++    id: Int,
++    gameName: String,
++    ratingMenuView: RatingMenuView
+ ) : View("Loading") {
+ 
+     private val networkClient = NetworkClient()
+@@ -29,7 +31,7 @@
+             Thread.sleep(500)
+         } ui {
+             //replaceWith(GameView(id))
+-            replaceWith(GameView())
++            replaceWith(GameView(gameName, ratingMenuView))
+ 
+         }
+     }
+Index: Server/src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring.application.name=demo\r\nserver.port=8083\r\nserver.address=192.168.0.134\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/Server/src/main/resources/application.properties b/Server/src/main/resources/application.properties
+--- a/Server/src/main/resources/application.properties	(revision 215fb9699001b5966f49704112efb2b06dc54bf0)
++++ b/Server/src/main/resources/application.properties	(date 1719134530000)
+@@ -1,3 +1,3 @@
+ spring.application.name=demo
+ server.port=8083
+-server.address=192.168.0.134
++server.address=10.40.109.248
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"1e09c9c2-b4c3-4346-a7e5-f6580d5d9454\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/Game/src/main/kotlin/view/GameTwoMapsView.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Game/src/main/kotlin/view/GameTwoMapsView.kt\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;mkrikunov&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/ploddasha/TowerDefenceGameEngine.git&quot;,\r\n    &quot;accountId&quot;: &quot;4c9fdba7-9d2d-415c-a6b7-688995eb8a85&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectCodeStyleSettingsMigration\">\r\n    <option name=\"version\" value=\"2\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 8\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2hrwkyxiGcETdpWh4ILQpB0F2Ig\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"dart.analysis.tool.window.visible\": \"false\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"D:/TowerDefenceGameEngine\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration default=\"true\" type=\"Babashka\" factoryName=\"BabashkaLocalRepl\" activateToolWindowBeforeRun=\"false\">\r\n      <setting name=\"displayName\" value=\"\" />\r\n      <setting name=\"bbPath\" value=\"\" />\r\n      <setting name=\"parameters\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <setting name=\"workingDir\" value=\"\" />\r\n      <setting name=\"focusEditor\" value=\"false\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"ClojureREPL\" factoryName=\"Local\" activateToolWindowBeforeRun=\"false\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"ClojureREPL\" factoryName=\"Remote\" activateToolWindowBeforeRun=\"false\">\r\n      <setting name=\"displayName\" value=\"\" />\r\n      <setting name=\"host\" value=\"\" />\r\n      <setting name=\"port\" value=\"0\" />\r\n      <setting name=\"replType\" value=\"SOCKET\" />\r\n      <setting name=\"configType\" value=\"SPECIFY\" />\r\n      <setting name=\"replPortFileType\" value=\"STANDARD\" />\r\n      <setting name=\"customPortFile\" value=\"\" />\r\n      <setting name=\"fixLineNumbers\" value=\"false\" />\r\n      <setting name=\"focusEditor\" value=\"false\" />\r\n      <setting name=\"urlFile\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <module name=\"TowerDefenceGameEngine\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <module name=\"TowerDefenceGameEngine\" />\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"TORNADOFX_RUNCONFIGURATION\" run-type=\"App\" live-views=\"false\" live-stylesheets=\"false\" dump-stylesheets=\"false\">\r\n      <module name=\"TowerDefenceGameEngine\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"1e09c9c2-b4c3-4346-a7e5-f6580d5d9454\" name=\"Changes\" comment=\"\" />\r\n      <created>1718365651954</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1718365651954</updated>\r\n      <workItem from=\"1718365652676\" duration=\"289000\" />\r\n      <workItem from=\"1718784029043\" duration=\"67000\" />\r\n      <workItem from=\"1718940274194\" duration=\"8000\" />\r\n      <workItem from=\"1718951071686\" duration=\"23000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 215fb9699001b5966f49704112efb2b06dc54bf0)
++++ b/.idea/workspace.xml	(date 1719134544000)
+@@ -2,7 +2,12 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="1e09c9c2-b4c3-4346-a7e5-f6580d5d9454" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/Game/src/main/kotlin/view/GameTwoMapsView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/main/kotlin/view/GameTwoMapsView.kt" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_06_2024_16_11__Changes_.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Game/src/main/kotlin/client/NetworkClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/main/kotlin/client/NetworkClient.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/application.properties" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -35,17 +40,17 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "dart.analysis.tool.window.visible": "false",
+-    "git-widget-placeholder": "master",
+-    "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "D:/TowerDefenceGameEngine",
+-    "nodejs_package_manager_path": "npm",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;D:/TowerDefenceGameEngine&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager">
+     <configuration default="true" type="Babashka" factoryName="BabashkaLocalRepl" activateToolWindowBeforeRun="false">
+       <setting name="displayName" value="" />
+@@ -106,6 +111,8 @@
+       <workItem from="1718784029043" duration="67000" />
+       <workItem from="1718940274194" duration="8000" />
+       <workItem from="1718951071686" duration="23000" />
++      <workItem from="1719133866034" duration="68000" />
++      <workItem from="1719134517465" duration="26000" />
+     </task>
+     <servers />
+   </component>
+Index: Game/src/main/kotlin/view/WaitingForConnectionView.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view\r\n\r\nimport client.NetworkClient\r\nimport javafx.animation.KeyFrame\r\nimport javafx.animation.Timeline\r\nimport javafx.geometry.Pos\r\nimport javafx.util.Duration\r\nimport kotlinx.coroutines.GlobalScope\r\nimport kotlinx.coroutines.launch\r\nimport tornadofx.*\r\n\r\nclass WaitingForConnectionView(\r\n    var name: String\r\n) : View(\"Loading\") {\r\n\r\n    private val networkClient = NetworkClient()\r\n    private val checkInterval = 5.0\r\n    private val timeoutDuration = 60.0\r\n    private var isTransitioned = false\r\n\r\n\r\n    override val root = stackpane {\r\n        vbox{\r\n            spacing = 20.0\r\n            alignment = Pos.CENTER\r\n\r\n            progressindicator {\r\n                maxWidth = 100.0\r\n                maxHeight = 100.0\r\n            }\r\n\r\n            label(\"Wait for connection\")\r\n        }\r\n    }\r\n\r\n    //TODO load game from server\r\n    init {\r\n\r\n        val timeline = Timeline(KeyFrame(Duration.seconds(checkInterval), {\r\n            checkConnection()\r\n        }))\r\n        timeline.cycleCount = Timeline.INDEFINITE\r\n        timeline.play()\r\n\r\n        runAsync {\r\n            Thread.sleep((timeoutDuration * 1000).toLong())\r\n        } ui {\r\n            timeline.stop()\r\n            replaceWith(AllGamesView())\r\n        }\r\n    }\r\n\r\n    private fun checkConnection() {\r\n        if (isTransitioned) return\r\n\r\n        GlobalScope.launch {\r\n            val result = networkClient.connect(name)\r\n            if (!result) { //TODO delete ! !!!!!!!\r\n                runLater {\r\n                    if (!isTransitioned) {\r\n                        isTransitioned = true\r\n                        replaceWith(GameTwoMapsView())\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/kotlin/view/WaitingForConnectionView.kt b/Game/src/main/kotlin/view/WaitingForConnectionView.kt
+--- a/Game/src/main/kotlin/view/WaitingForConnectionView.kt	(revision 215fb9699001b5966f49704112efb2b06dc54bf0)
++++ b/Game/src/main/kotlin/view/WaitingForConnectionView.kt	(date 1719141124000)
+@@ -10,7 +10,8 @@
+ import tornadofx.*
+ 
+ class WaitingForConnectionView(
+-    var name: String
++    var name: String,
++    private var ratingMenuView: RatingMenuView
+ ) : View("Loading") {
+ 
+     private val networkClient = NetworkClient()
+@@ -59,7 +60,7 @@
+                 runLater {
+                     if (!isTransitioned) {
+                         isTransitioned = true
+-                        replaceWith(GameTwoMapsView())
++                        replaceWith(GameTwoMapsView(name, ratingMenuView))
+                     }
+                 }
+             }
+Index: Game/src/main/kotlin/viewModel/RatingController.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package viewModel\r\n\r\nimport javafx.beans.property.SimpleIntegerProperty\r\nimport model.RatingModel\r\nimport model.ScoreModel\r\n\r\nclass RatingController {\r\n    private var rating = RatingModel()\r\n\r\n    private val ratingProperty = SimpleIntegerProperty(rating.getRating())\r\n    fun ratingProperty() = ratingProperty\r\n\r\n    fun getRating(): Int{\r\n        return ratingProperty.get()\r\n    }\r\n\r\n    fun saveScore(score: Int) {\r\n        return ratingProperty.set(ratingProperty.get() + score)\r\n    }\r\n\r\n    fun setRating(rating: Int) {\r\n        return ratingProperty.set(rating)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/kotlin/viewModel/RatingController.kt b/Game/src/main/kotlin/viewModel/RatingController.kt
+--- a/Game/src/main/kotlin/viewModel/RatingController.kt	(revision 215fb9699001b5966f49704112efb2b06dc54bf0)
++++ b/Game/src/main/kotlin/viewModel/RatingController.kt	(date 1719138526000)
+@@ -10,7 +10,7 @@
+     private val ratingProperty = SimpleIntegerProperty(rating.getRating())
+     fun ratingProperty() = ratingProperty
+ 
+-    fun getRating(): Int{
++    fun getRating(): Int {
+         return ratingProperty.get()
+     }
+ 
+Index: Game/src/main/kotlin/view/AllGamesView.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view\r\n\r\nimport client.NetworkClient\r\nimport javafx.geometry.Pos\r\nimport javafx.scene.paint.Color\r\nimport javafx.scene.text.FontWeight\r\nimport kotlinx.coroutines.GlobalScope\r\nimport kotlinx.coroutines.launch\r\nimport model.data.Game\r\nimport tornadofx.*\r\n\r\nclass AllGamesView : View(\"\") {\r\n    private val networkClient = NetworkClient()\r\n    private var games = emptyList<Game>()\r\n\r\n\r\n    override val root = stackpane {\r\n        addClass(\"all-games-stack-pane\")\r\n\r\n        hbox {\r\n            alignment = Pos.CENTER\r\n            spacing = 40.0\r\n\r\n            vbox{\r\n                alignment = Pos.CENTER\r\n                spacing = 40.0\r\n\r\n                    games.forEach { game ->\r\n                        button(\"Start Game ${game.gameName}\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.ORANGE\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                replaceWith(LoadingView(game.id))\r\n                            }\r\n                        }\r\n\r\n                        button(\"Play together\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.BLUEVIOLET\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                replaceWith(WaitingForConnectionView(game.gameName))\r\n                            }\r\n                        }\r\n                    }\r\n\r\n            }\r\n        }\r\n    }\r\n\r\n    init {\r\n        loadGames()\r\n    }\r\n\r\n\r\n    private fun loadGames() {\r\n        GlobalScope.launch {\r\n            val result = networkClient.getAllGames()\r\n            runLater {\r\n                games = result\r\n                updateUI()\r\n                saveGamesToJSON()\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun saveGamesToJSON() {\r\n    }\r\n\r\n    private fun updateUI() {\r\n        root.children.clear()\r\n        hbox {\r\n            alignment = Pos.CENTER\r\n            spacing = 40.0\r\n\r\n                games.forEach { game ->\r\n                    vbox {\r\n                        alignment = Pos.CENTER\r\n                        spacing = 40.0\r\n                        button(\"Start Game ${game.gameName}\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.ORANGE\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                replaceWith(LoadingView(game.id))\r\n                            }\r\n                        }\r\n\r\n                        button(\"Play together\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.BLUEVIOLET\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                replaceWith(WaitingForConnectionView(game.gameName))\r\n                            }\r\n                        }\r\n                    }\r\n                }\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/kotlin/view/AllGamesView.kt b/Game/src/main/kotlin/view/AllGamesView.kt
+--- a/Game/src/main/kotlin/view/AllGamesView.kt	(revision 215fb9699001b5966f49704112efb2b06dc54bf0)
++++ b/Game/src/main/kotlin/view/AllGamesView.kt	(date 1719141392000)
+@@ -4,8 +4,7 @@
+ import javafx.geometry.Pos
+ import javafx.scene.paint.Color
+ import javafx.scene.text.FontWeight
+-import kotlinx.coroutines.GlobalScope
+-import kotlinx.coroutines.launch
++import kotlinx.coroutines.*
+ import model.data.Game
+ import tornadofx.*
+ 
+@@ -13,6 +12,8 @@
+     private val networkClient = NetworkClient()
+     private var games = emptyList<Game>()
+ 
++    private val currView = this
++    private lateinit var ratingMenuView: RatingMenuView
+ 
+     override val root = stackpane {
+         addClass("all-games-stack-pane")
+@@ -26,6 +27,12 @@
+                 spacing = 40.0
+ 
+                     games.forEach { game ->
++
++                        GlobalScope.launch(Dispatchers.IO) {
++                            val rating = networkClient.getRating(game.gameName)
++                            RatingMenuView(currView, game.gameName, rating)
++                        }
++
+                         button("Start Game ${game.gameName}") {
+                             style {
+                                 fontSize = 14.px
+@@ -39,7 +46,7 @@
+                                 marginRight = 10.0
+                             }
+                             action {
+-                                replaceWith(LoadingView(game.id))
++                                replaceWith(LoadingView(game.id, game.gameName, ratingMenuView))
+                             }
+                         }
+ 
+@@ -56,7 +63,24 @@
+                                 marginRight = 10.0
+                             }
+                             action {
+-                                replaceWith(WaitingForConnectionView(game.gameName))
++                                replaceWith(WaitingForConnectionView(game.gameName, ratingMenuView))
++                            }
++                        }
++
++                        button("Rating") {
++                            style {
++                                fontSize = 14.px
++                                padding = box(5.px, 40.px)
++                                paddingAll = 5.0
++                                backgroundColor += Color.RED
++                                textFill = Color.WHITE
++                                fontWeight = FontWeight.BOLD
++                            }
++                            vboxConstraints {
++                                marginRight = 10.0
++                            }
++                            action {
++                                replaceWith(ratingMenuView)
+                             }
+                         }
+                     }
+@@ -94,6 +118,12 @@
+                     vbox {
+                         alignment = Pos.CENTER
+                         spacing = 40.0
++
++                        GlobalScope.launch(Dispatchers.IO) {
++                            val rating = networkClient.getRating(game.gameName)
++                            RatingMenuView(currView, game.gameName, rating)
++                        }
++
+                         button("Start Game ${game.gameName}") {
+                             style {
+                                 fontSize = 14.px
+@@ -107,7 +137,7 @@
+                                 marginRight = 10.0
+                             }
+                             action {
+-                                replaceWith(LoadingView(game.id))
++                                replaceWith(LoadingView(game.id, game.gameName, ratingMenuView))
+                             }
+                         }
+ 
+@@ -124,7 +154,24 @@
+                                 marginRight = 10.0
+                             }
+                             action {
+-                                replaceWith(WaitingForConnectionView(game.gameName))
++                                replaceWith(WaitingForConnectionView(game.gameName, ratingMenuView))
++                            }
++                        }
++
++                        button("Rating") {
++                            style {
++                                fontSize = 14.px
++                                padding = box(5.px, 40.px)
++                                paddingAll = 5.0
++                                backgroundColor += Color.RED
++                                textFill = Color.WHITE
++                                fontWeight = FontWeight.BOLD
++                            }
++                            vboxConstraints {
++                                marginRight = 10.0
++                            }
++                            action {
++                                replaceWith(ratingMenuView)
+                             }
+                         }
+                     }
+Index: Game/src/main/kotlin/view/GameTwoMapsView.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view\r\n\r\nimport javafx.geometry.Pos\r\nimport javafx.scene.control.Button\r\nimport javafx.scene.image.Image\r\nimport javafx.scene.image.ImageView\r\nimport javafx.scene.paint.Color\r\nimport javafx.scene.text.FontWeight\r\nimport model.CityModel\r\nimport tornadofx.*\r\nimport viewModel.*\r\nimport viewModel.towerControllers.FlyingTowerController\r\nimport viewModel.towerControllers.GroundTowerController\r\n\r\n\r\nclass GameTwoMapsView(\r\n) : View(\"Bashenki\") {\r\n\r\n    private val moneyController = MoneyController()\r\n    private val cityController = CityController()\r\n    private val ratingController = RatingController()\r\n\r\n    private val enemyMoneyController = MoneyController()\r\n    private val enemyCityController = CityController()\r\n    private val enemyRatingController = RatingController()\r\n    private val victoryController = VictoryController()\r\n\r\n\r\n    private val groundTowerController = GroundTowerController()\r\n    private val flyingTowerController = FlyingTowerController()\r\n\r\n    private val cityModel = CityModel()\r\n    private val enemyCityModel = CityModel()\r\n\r\n\r\n    private val gameController = GameController(moneyController, cityController, ratingController, cityModel, true, victoryController)\r\n    private val enemyGameController = EnemyGameController(enemyMoneyController, enemyCityController, enemyRatingController, enemyCityModel, victoryController)\r\n\r\n\r\n    private val mapView = MapView(gameController)\r\n    private val enemyMapView = EnemyMapView(enemyGameController)\r\n\r\n    private val allGamesView: AllGamesView by inject()\r\n\r\n    private val shopView = ShopView(gameController, moneyController, cityController,\r\n        groundTowerController, flyingTowerController, cityModel, this)\r\n    private val pauseMenuView = PauseMenuView(this)\r\n\r\n    private val moneyIcon = ImageView(Image(resources.url(\"/configs/coin.png\").toString()))\r\n    private val heartIcon = ImageView(Image(resources.url(\"/configs/heart.png\").toString()))\r\n    private val starIcon = ImageView(Image(resources.url(\"/configs/star.png\").toString()))\r\n\r\n    private val enemyMoneyIcon = ImageView(Image(resources.url(\"/configs/coin.png\").toString()))\r\n    private val enemyHeartIcon = ImageView(Image(resources.url(\"/configs/heart.png\").toString()))\r\n    private val enemyStarIcon = ImageView(Image(resources.url(\"/configs/star.png\").toString()))\r\n\r\n    // yours:\r\n    private val moneyLabel = label() {\r\n        style {\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n    }\r\n    private val moneyBackground = stackpane {\r\n        rectangle {\r\n            width = 100.0\r\n            height = 30.0\r\n            fill = Color.WHITE\r\n            arcWidth = 20.0\r\n            arcHeight = 20.0\r\n        }\r\n        add(moneyLabel)\r\n        alignment = Pos.CENTER\r\n    }\r\n    private val cityLabel = label() {\r\n        style {\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n    }\r\n    private val cityBackground = stackpane {\r\n        rectangle {\r\n            width = 100.0\r\n            height = 30.0\r\n            fill = Color.WHITE\r\n            arcWidth = 20.0\r\n            arcHeight = 20.0\r\n        }\r\n        add(cityLabel)\r\n        alignment = Pos.CENTER\r\n    }\r\n    private val ratingLabel = label() {\r\n        style {\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n    }\r\n    private val ratingBackground = stackpane {\r\n        rectangle {\r\n            width = 100.0\r\n            height = 30.0\r\n            fill = Color.WHITE\r\n            arcWidth = 20.0\r\n            arcHeight = 20.0\r\n        }\r\n        add(ratingLabel)\r\n        alignment = Pos.CENTER\r\n    }\r\n\r\n    //enemy's:\r\n    private val enemyMoneyLabel = label() {\r\n        style {\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n    }\r\n    private val enemyMoneyBackground = stackpane {\r\n        rectangle {\r\n            width = 100.0\r\n            height = 30.0\r\n            fill = Color.WHITE\r\n            arcWidth = 20.0\r\n            arcHeight = 20.0\r\n        }\r\n        add(enemyMoneyLabel)\r\n        alignment = Pos.CENTER\r\n    }\r\n    private val enemyCityLabel = label() {\r\n        style {\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n    }\r\n    private val enemyCityBackground = stackpane {\r\n        rectangle {\r\n            width = 100.0\r\n            height = 30.0\r\n            fill = Color.WHITE\r\n            arcWidth = 20.0\r\n            arcHeight = 20.0\r\n        }\r\n        add(enemyCityLabel)\r\n        alignment = Pos.CENTER\r\n    }\r\n    private val enemyRatingLabel = label() {\r\n        style {\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n    }\r\n    private val enemyRatingBackground = stackpane {\r\n        rectangle {\r\n            width = 100.0\r\n            height = 30.0\r\n            fill = Color.WHITE\r\n            arcWidth = 20.0\r\n            arcHeight = 20.0\r\n        }\r\n        add(enemyRatingLabel)\r\n        alignment = Pos.CENTER\r\n    }\r\n\r\n    //private val musicController: MusicController  by inject()\r\n\r\n    init {\r\n        // musicController.playMusic(\"./src/main/resources/music/game_music.mp3\")\r\n\r\n        //yours\r\n        moneyIcon.fitWidth = 35.0\r\n        moneyIcon.fitHeight = 35.0\r\n        moneyLabel.textProperty().bind(moneyController.moneyAmountProperty().asString(\"Money: %d\"))\r\n\r\n        heartIcon.fitWidth = 30.0\r\n        heartIcon.fitHeight = 30.0\r\n        cityLabel.textProperty().bind(cityController.cityProperty().asString(\"City: %d\"))\r\n\r\n        starIcon.fitWidth = 30.0\r\n        starIcon.fitHeight = 30.0\r\n        ratingLabel.textProperty().bind(\r\n            ratingController.ratingProperty().asString(\"Rating: %d\"))\r\n\r\n        //Enemy:\r\n        enemyMoneyIcon.fitWidth = 35.0\r\n        enemyMoneyIcon.fitHeight = 35.0\r\n        enemyMoneyLabel.textProperty().bind(\r\n            enemyMoneyController.moneyAmountProperty().asString(\"Emoney: %d\"))\r\n\r\n        enemyHeartIcon.fitWidth = 30.0\r\n        enemyHeartIcon.fitHeight = 30.0\r\n        enemyCityLabel.textProperty().bind(\r\n            enemyCityController.cityProperty().asString(\"Ecity: %d\"))\r\n\r\n        enemyStarIcon.fitWidth = 30.0\r\n        enemyStarIcon.fitHeight = 30.0\r\n        enemyRatingLabel.textProperty().bind(\r\n            enemyRatingController.ratingProperty().asString(\"Erating: %d\"))\r\n\r\n        startStartGame()\r\n    }\r\n\r\n    val gameOverText = text(\"Game Over\") {\r\n        style {\r\n            fontSize = 48.px\r\n            fill = Color.RED\r\n            fontWeight = FontWeight.BOLD\r\n        }\r\n        visibleProperty().bind(gameController.gameOverProperty())\r\n    }\r\n\r\n\r\n    override val root = borderpane {\r\n\r\n        addClass(\"game-stack-pane\")\r\n\r\n        add(gameOverText)\r\n\r\n        top {\r\n            hbox {\r\n                alignment = Pos.CENTER\r\n                vbox {\r\n                    alignment = Pos.CENTER\r\n                    hbox {\r\n                        alignment = Pos.CENTER\r\n                        maxWidth = 600.0\r\n\r\n                        addClass(\"game-top-background\")\r\n\r\n                        paddingAll = 10.0\r\n                        spacing = 10.0\r\n\r\n                        button(\"Start Wave\") {\r\n\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.BLUE\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                startGame()\r\n                            }\r\n                        }\r\n\r\n                        button(\"Pause\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                backgroundColor += Color.rgb(255, 152, 0)\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                replaceWith(pauseMenuView)\r\n                            }\r\n                        }\r\n\r\n                        button(\"Shop\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.GREEN\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                replaceWith(shopView)\r\n                            }\r\n                        }\r\n\r\n                        button(\"Back to menu\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.BLACK\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                //gameController.stopGame()\r\n                                replaceWith(allGamesView)\r\n                            }\r\n                        }\r\n                        /*\r\n                        button(\"Send game state\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.RED\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                sendGameState()\r\n                            }\r\n                        }\r\n                        button(\"Get game state\") {\r\n                            style {\r\n                                fontSize = 14.px\r\n                                padding = box(5.px, 10.px)\r\n                                paddingAll = 5.0\r\n                                backgroundColor += Color.RED\r\n                                textFill = Color.WHITE\r\n                                fontWeight = FontWeight.BOLD\r\n                            }\r\n                            vboxConstraints {\r\n                                marginRight = 10.0\r\n                            }\r\n                            action {\r\n                                getGameState()\r\n                            }\r\n                        }\r\n                        */\r\n                    }\r\n                }\r\n            }\r\n        }\r\n\r\n        center {\r\n            useMaxWidth = true\r\n\r\n            hbox{\r\n                alignment = Pos.CENTER\r\n                spacing = 20.0\r\n                vbox {\r\n                    alignment = Pos.CENTER\r\n                    add(mapView)\r\n                }\r\n                vbox {\r\n                    alignment = Pos.CENTER\r\n                    add(enemyMapView)\r\n                }\r\n            }\r\n        }\r\n\r\n        bottom {\r\n            hbox{\r\n                addClass(\"game-bottom-background\")\r\n                alignment = Pos.BOTTOM_CENTER\r\n                spacing = 30.0\r\n\r\n                hbox{\r\n                    spacing = 10.0\r\n                    alignment = Pos.CENTER_LEFT\r\n\r\n                    hbox {\r\n                        hbox {\r\n                            add(moneyIcon)\r\n                            prefWidth = 35.0\r\n                        }\r\n                        add(moneyBackground)\r\n                        alignment = Pos.TOP_RIGHT\r\n                    }\r\n\r\n                    hbox {\r\n                        add(heartIcon)\r\n                        add(cityBackground)\r\n                        alignment = Pos.TOP_RIGHT\r\n                    }\r\n\r\n                    hbox {\r\n                        add(starIcon)\r\n                        add(ratingBackground)\r\n                        alignment = Pos.TOP_RIGHT\r\n                    }\r\n                }\r\n\r\n                //enemy:\r\n                hbox{\r\n                    spacing = 10.0\r\n                    alignment = Pos.CENTER_RIGHT\r\n\r\n                    hbox {\r\n                        hbox {\r\n                            add(enemyMoneyIcon)\r\n                            prefWidth = 35.0\r\n                        }\r\n                        add(enemyMoneyBackground)\r\n                        alignment = Pos.TOP_RIGHT\r\n                    }\r\n\r\n                    hbox {\r\n                        add(enemyHeartIcon)\r\n                        add(enemyCityBackground)\r\n                        alignment = Pos.TOP_RIGHT\r\n                    }\r\n\r\n                    hbox {\r\n                        add(enemyStarIcon)\r\n                        add(enemyRatingBackground)\r\n                        alignment = Pos.TOP_RIGHT\r\n                    }\r\n                }\r\n            }\r\n\r\n        }\r\n\r\n    }\r\n\r\n    private fun startGame() {\r\n        gameController.startGameWithWaves()\r\n    }\r\n\r\n    private fun startStartGame() {\r\n        gameController.setMyMapView(mapView)\r\n        enemyGameController.setMapView(enemyMapView)\r\n\r\n        gameController.startPeriodicGameStateUpdates()\r\n        enemyGameController.startPeriodicGameStateUpdates()\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/kotlin/view/GameTwoMapsView.kt b/Game/src/main/kotlin/view/GameTwoMapsView.kt
+--- a/Game/src/main/kotlin/view/GameTwoMapsView.kt	(revision 215fb9699001b5966f49704112efb2b06dc54bf0)
++++ b/Game/src/main/kotlin/view/GameTwoMapsView.kt	(date 1719141412000)
+@@ -11,9 +11,12 @@
+ import viewModel.*
+ import viewModel.towerControllers.FlyingTowerController
+ import viewModel.towerControllers.GroundTowerController
++import client.NetworkClient
+ 
+ 
+ class GameTwoMapsView(
++    gameName: String,
++    ratingMenuView: RatingMenuView
+ ) : View("Bashenki") {
+ 
+     private val moneyController = MoneyController()
+@@ -215,115 +218,115 @@
+                     alignment = Pos.CENTER
+                     hbox {
+                         alignment = Pos.CENTER
+-                        maxWidth = 600.0
++                        maxWidth = 500.0
+ 
+                         addClass("game-top-background")
+ 
+-                        paddingAll = 10.0
+-                        spacing = 10.0
++                        //paddingAll = 10.0
++                        //spacing = 10.0
++
++                        vbox {
++                            alignment = Pos.CENTER
++                            maxWidth = 500.0
++
++                            hbox {
++                                alignment = Pos.CENTER
++                                maxWidth = 500.0
++                                paddingAll = 6.0
++                                spacing = 10.0
+ 
+-                        button("Start Wave") {
+-
+-                            style {
+-                                fontSize = 14.px
+-                                padding = box(5.px, 10.px)
+-                                paddingAll = 5.0
+-                                backgroundColor += Color.BLUE
+-                                textFill = Color.WHITE
+-                                fontWeight = FontWeight.BOLD
+-                            }
+-                            vboxConstraints {
+-                                marginRight = 10.0
+-                            }
+-                            action {
+-                                startGame()
+-                            }
+-                        }
+-
+-                        button("Pause") {
+-                            style {
+-                                fontSize = 14.px
+-                                padding = box(5.px, 10.px)
+-                                backgroundColor += Color.rgb(255, 152, 0)
+-                                textFill = Color.WHITE
+-                                fontWeight = FontWeight.BOLD
+-                            }
+-                            vboxConstraints {
+-                                marginRight = 10.0
+-                            }
+-                            action {
+-                                replaceWith(pauseMenuView)
+-                            }
+-                        }
++                                button("Pause") {
++                                    style {
++                                        fontSize = 14.px
++                                        padding = box(5.px, 12.px)
++                                        backgroundColor += Color.rgb(255, 152, 0)
++                                        textFill = Color.WHITE
++                                        fontWeight = FontWeight.BOLD
++                                    }
++                                    vboxConstraints {
++                                        marginRight = 10.0
++                                    }
++                                    action {
++                                        replaceWith(pauseMenuView)
++                                    }
++                                }
+ 
+-                        button("Shop") {
+-                            style {
+-                                fontSize = 14.px
+-                                padding = box(5.px, 10.px)
+-                                paddingAll = 5.0
+-                                backgroundColor += Color.GREEN
+-                                textFill = Color.WHITE
+-                                fontWeight = FontWeight.BOLD
+-                            }
+-                            vboxConstraints {
+-                                marginRight = 10.0
+-                            }
+-                            action {
+-                                replaceWith(shopView)
+-                            }
+-                        }
++                                button("Shop") {
++                                    style {
++                                        fontSize = 14.px
++                                        padding = box(5.px, 12.px)
++                                        paddingAll = 5.0
++                                        backgroundColor += Color.GREEN
++                                        textFill = Color.WHITE
++                                        fontWeight = FontWeight.BOLD
++                                    }
++                                    vboxConstraints {
++                                        marginRight = 10.0
++                                    }
++                                    action {
++                                        replaceWith(shopView)
++                                    }
++                                }
+ 
+-                        button("Back to menu") {
+-                            style {
+-                                fontSize = 14.px
+-                                padding = box(5.px, 10.px)
+-                                paddingAll = 5.0
+-                                backgroundColor += Color.BLACK
+-                                textFill = Color.WHITE
+-                                fontWeight = FontWeight.BOLD
+-                            }
+-                            vboxConstraints {
+-                                marginRight = 10.0
+-                            }
+-                            action {
+-                                //gameController.stopGame()
+-                                replaceWith(allGamesView)
+-                            }
+-                        }
+-                        /*
+-                        button("Send game state") {
+-                            style {
+-                                fontSize = 14.px
+-                                padding = box(5.px, 10.px)
+-                                paddingAll = 5.0
+-                                backgroundColor += Color.RED
+-                                textFill = Color.WHITE
+-                                fontWeight = FontWeight.BOLD
+-                            }
+-                            vboxConstraints {
+-                                marginRight = 10.0
+-                            }
+-                            action {
+-                                sendGameState()
+-                            }
+-                        }
+-                        button("Get game state") {
+-                            style {
+-                                fontSize = 14.px
+-                                padding = box(5.px, 10.px)
+-                                paddingAll = 5.0
+-                                backgroundColor += Color.RED
+-                                textFill = Color.WHITE
+-                                fontWeight = FontWeight.BOLD
+-                            }
+-                            vboxConstraints {
+-                                marginRight = 10.0
+-                            }
+-                            action {
+-                                getGameState()
++                                button("Back to menu") {
++                                    style {
++                                        fontSize = 14.px
++                                        padding = box(5.px, 12.px)
++                                        paddingAll = 5.0
++                                        backgroundColor += Color.BLACK
++                                        textFill = Color.WHITE
++                                        fontWeight = FontWeight.BOLD
++                                    }
++                                    vboxConstraints {
++                                        marginRight = 10.0
++                                    }
++                                    action {
++                                        replaceWith(allGamesView)
++                                    }
++                                }
++                            }
++
++                            hbox {
++                                alignment = Pos.CENTER
++                                maxWidth = 500.0
++                                paddingAll = 4.0
++                                spacing = 15.0
++
++                                button("Start Wave") {
++                                    style {
++                                        fontSize = 14.px
++                                        padding = box(5.px, 40.px)
++                                        paddingAll = 5.0
++                                        backgroundColor += Color.BLUE
++                                        textFill = Color.WHITE
++                                        fontWeight = FontWeight.BOLD
++                                    }
++                                    vboxConstraints {
++                                        marginRight = 10.0
++                                    }
++                                    action {
++                                        startGame()
++                                    }
++                                }
++
++                                button("Rating") {
++                                    style {
++                                        fontSize = 14.px
++                                        padding = box(5.px, 40.px)
++                                        paddingAll = 5.0
++                                        backgroundColor += Color.RED
++                                        textFill = Color.WHITE
++                                        fontWeight = FontWeight.BOLD
++                                    }
++                                    vboxConstraints {
++                                        marginRight = 10.0
++                                    }
++                                    action {
++                                        replaceWith(ratingMenuView)
++                                    }
++                                }
+                             }
+                         }
+-                        */
+                     }
+                 }
+             }

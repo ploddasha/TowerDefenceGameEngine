@@ -10,7 +10,8 @@ import kotlinx.coroutines.launch
 import tornadofx.*
 
 class WaitingForConnectionView(
-    var name: String
+    var name: String,
+    private var ratingMenuView: RatingMenuView
 ) : View("Loading") {
 
     private val networkClient = NetworkClient()
@@ -59,7 +60,7 @@ class WaitingForConnectionView(
                 runLater {
                     if (!isTransitioned) {
                         isTransitioned = true
-                        replaceWith(GameTwoMapsView())
+                        replaceWith(GameTwoMapsView(name, ratingMenuView))
                     }
                 }
             }

@@ -1,0 +1,34 @@
+Index: Game/src/main/kotlin/client/NetworkClient.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package client\r\n\r\nimport io.ktor.client.*\r\nimport io.ktor.client.call.*\r\nimport io.ktor.client.engine.cio.*\r\nimport io.ktor.client.plugins.contentnegotiation.*\r\nimport io.ktor.client.request.*\r\nimport io.ktor.http.*\r\nimport io.ktor.serialization.kotlinx.json.*\r\nimport io.ktor.util.*\r\nimport model.data.Game\r\nimport model.data.GameState\r\n\r\n\r\nclass NetworkClient {\r\n\r\n    val server: String = \"http://192.168.0.109:8083\"\r\n\r\n\r\n    val client = HttpClient(CIO) {\r\n        install(ContentNegotiation) {\r\n            json()\r\n        }\r\n    }\r\n\r\n    suspend fun getAllGames(): List<Game> {\r\n\r\n        val response = client.get(\"$server/games\") {\r\n            headers {\r\n                append(HttpHeaders.ContentType, ContentType.Application.Json)\r\n            }\r\n        }\r\n\r\n        if (response.status == HttpStatusCode.OK) {\r\n            val data = response.body<List<Game>>()\r\n            println(data)\r\n            return data\r\n        } else {\r\n            println(\"Error with sending request\")\r\n            return emptyList()\r\n        }\r\n    }\r\n\r\n    suspend fun getOpponentState(): GameState? {\r\n        val response = client.get(\"$server/state\") {\r\n            headers {\r\n                append(HttpHeaders.ContentType, ContentType.Application.Json)\r\n            }\r\n        }\r\n        return try {\r\n            if (response.status == HttpStatusCode.OK && response.contentLength() != 0L) {\r\n                response.body<GameState>()\r\n            } else {\r\n                println(\"Error with receiving opponent state: No content\")\r\n                null\r\n            }\r\n        } catch (e: NoTransformationFoundException) {\r\n            println(\"Error with receiving opponent state: ${e.message}\")\r\n            null\r\n        }\r\n    }\r\n\r\n    suspend fun sendGameState(gameState: GameState): Boolean {\r\n        val response = client.post(\"$server/updateState\") {\r\n            headers {\r\n                append(HttpHeaders.ContentType, ContentType.Application.Json)\r\n            }\r\n            setBody(gameState)\r\n        }\r\n        return response.status == HttpStatusCode.OK\r\n    }\r\n\r\n\r\n    suspend fun connect(name: String): Boolean {\r\n        val response = client.get(\"$server/check\")\r\n        val responseBody = response.body<String>()\r\n        return responseBody.toBoolean()\r\n    }\r\n    /*\r\n    suspend fun connect(name: String): Boolean {\r\n        val response = client.get(\"$server/connect\") {\r\n            parameter(\"name\", name)\r\n        }\r\n        val responseBody = response.body<String>()\r\n        return responseBody.toBoolean()\r\n    } */\r\n\r\n    suspend fun check(): Boolean {\r\n        val response = client.get(\"$server/check\")\r\n        val responseBody = response.body<String>()\r\n        return responseBody.toBoolean()\r\n    }\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/kotlin/client/NetworkClient.kt b/Game/src/main/kotlin/client/NetworkClient.kt
+--- a/Game/src/main/kotlin/client/NetworkClient.kt	(revision 38f8ad412570eff2e2fb1ba0fe7ba84529ac198f)
++++ b/Game/src/main/kotlin/client/NetworkClient.kt	(date 1719133890000)
+@@ -14,7 +14,7 @@
+ 
+ class NetworkClient {
+ 
+-    val server: String = "http://192.168.0.109:8083"
++    val server: String = "http://10.40.109.248:8083"
+ 
+ 
+     val client = HttpClient(CIO) {
+Index: Server/src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring.application.name=demo\r\nserver.port=8083\r\nserver.address=192.168.0.109\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/Server/src/main/resources/application.properties b/Server/src/main/resources/application.properties
+--- a/Server/src/main/resources/application.properties	(revision 38f8ad412570eff2e2fb1ba0fe7ba84529ac198f)
++++ b/Server/src/main/resources/application.properties	(date 1719133280000)
+@@ -1,3 +1,3 @@
+ spring.application.name=demo
+ server.port=8083
+-server.address=192.168.0.109
++server.address=10.40.109.248

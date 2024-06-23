@@ -12,9 +12,13 @@ import tornadofx.*
 import viewModel.*
 import viewModel.towerControllers.FlyingTowerController
 import viewModel.towerControllers.GroundTowerController
+import client.NetworkClient
 
 
-class GameView : View("Bashenki") {
+class GameView(
+    gameName: String,
+    ratingMenuView: RatingMenuView
+) : View("Bashenki") {
 
     private val moneyController = MoneyController()
     private val cityController = CityController()
@@ -100,6 +104,7 @@ class GameView : View("Bashenki") {
         starIcon.fitWidth = 30.0
         starIcon.fitHeight = 30.0
         ratingLabel.textProperty().bind(ratingController.ratingProperty().asString("Rating: %d"))
+
     }
     data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)
 
@@ -136,77 +141,113 @@ class GameView : View("Bashenki") {
                     alignment = Pos.CENTER
                     hbox {
                         alignment = Pos.CENTER
-                        maxWidth = 600.0
+                        maxWidth = 500.0
 
                         addClass("game-top-background")
 
-                        paddingAll = 10.0
-                        spacing = 10.0
+                        //paddingAll = 10.0
+                        //spacing = 10.0
 
-                        button("Start Wave") {
-                            style {
-                                fontSize = 14.px
-                                padding = box(5.px, 10.px)
-                                paddingAll = 5.0
-                                backgroundColor += Color.BLUE
-                                textFill = Color.WHITE
-                                fontWeight = FontWeight.BOLD
-                            }
-                            vboxConstraints {
-                                marginRight = 10.0
-                            }
-                            action {
-                                startGame()
-                            }
-                        }
+                        vbox {
+                            alignment = Pos.CENTER
+                            maxWidth = 500.0
 
-                        button("Pause") {
-                            style {
-                                fontSize = 14.px
-                                padding = box(5.px, 10.px)
-                                backgroundColor += Color.rgb(255, 152, 0)
-                                textFill = Color.WHITE
-                                fontWeight = FontWeight.BOLD
-                            }
-                            vboxConstraints {
-                                marginRight = 10.0
-                            }
-                            action {
-                                replaceWith(pauseMenuView)
-                            }
-                        }
+                            hbox {
+                                alignment = Pos.CENTER
+                                maxWidth = 500.0
+                                paddingAll = 6.0
+                                spacing = 10.0
 
-                        button("Shop") {
-                            style {
-                                fontSize = 14.px
-                                padding = box(5.px, 10.px)
-                                paddingAll = 5.0
-                                backgroundColor += Color.GREEN
-                                textFill = Color.WHITE
-                                fontWeight = FontWeight.BOLD
-                            }
-                            vboxConstraints {
-                                marginRight = 10.0
-                            }
-                            action {
-                                replaceWith(shopView)
-                            }
-                        }
+                                button("Pause") {
+                                    style {
+                                        fontSize = 14.px
+                                        padding = box(5.px, 12.px)
+                                        backgroundColor += Color.rgb(255, 152, 0)
+                                        textFill = Color.WHITE
+                                        fontWeight = FontWeight.BOLD
+                                    }
+                                    vboxConstraints {
+                                        marginRight = 10.0
+                                    }
+                                    action {
+                                        replaceWith(pauseMenuView)
+                                    }
+                                }
 
-                        button("Back to menu") {
-                            style {
-                                fontSize = 14.px
-                                padding = box(5.px, 10.px)
-                                paddingAll = 5.0
-                                backgroundColor += Color.BLACK
-                                textFill = Color.WHITE
-                                fontWeight = FontWeight.BOLD
+                                button("Shop") {
+                                    style {
+                                        fontSize = 14.px
+                                        padding = box(5.px, 12.px)
+                                        paddingAll = 5.0
+                                        backgroundColor += Color.GREEN
+                                        textFill = Color.WHITE
+                                        fontWeight = FontWeight.BOLD
+                                    }
+                                    vboxConstraints {
+                                        marginRight = 10.0
+                                    }
+                                    action {
+                                        replaceWith(shopView)
+                                    }
+                                }
+
+                                button("Back to menu") {
+                                    style {
+                                        fontSize = 14.px
+                                        padding = box(5.px, 12.px)
+                                        paddingAll = 5.0
+                                        backgroundColor += Color.BLACK
+                                        textFill = Color.WHITE
+                                        fontWeight = FontWeight.BOLD
+                                    }
+                                    vboxConstraints {
+                                        marginRight = 10.0
+                                    }
+                                    action {
+                                        replaceWith(allGamesView)
+                                    }
+                                }
                             }
-                            vboxConstraints {
-                                marginRight = 10.0
-                            }
-                            action {
-                                replaceWith(allGamesView)
+
+                            hbox {
+                                alignment = Pos.CENTER
+                                maxWidth = 500.0
+                                paddingAll = 4.0
+                                spacing = 15.0
+
+                                button("Start Wave") {
+                                    style {
+                                        fontSize = 14.px
+                                        padding = box(5.px, 40.px)
+                                        paddingAll = 5.0
+                                        backgroundColor += Color.BLUE
+                                        textFill = Color.WHITE
+                                        fontWeight = FontWeight.BOLD
+                                    }
+                                    vboxConstraints {
+                                        marginRight = 10.0
+                                    }
+                                    action {
+                                        startGame()
+                                    }
+                                }
+
+                                button("Rating") {
+                                    style {
+                                        fontSize = 14.px
+                                        padding = box(5.px, 40.px)
+                                        paddingAll = 5.0
+                                        backgroundColor += Color.RED
+                                        textFill = Color.WHITE
+                                        fontWeight = FontWeight.BOLD
+                                    }
+                                    vboxConstraints {
+                                        marginRight = 10.0
+                                    }
+                                    action {
+                                        replaceWith(ratingMenuView)
+                                    }
+                                }
                             }
                         }
                     }

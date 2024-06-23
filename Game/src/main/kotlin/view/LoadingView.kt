@@ -10,7 +10,9 @@ import javafx.util.Duration
 import tornadofx.*
 
 class LoadingView(
-    id: Int
+    id: Int,
+    gameName: String,
+    ratingMenuView: RatingMenuView
 ) : View("Loading") {
 
     private val networkClient = NetworkClient()
@@ -29,7 +31,7 @@ class LoadingView(
             Thread.sleep(500)
         } ui {
             //replaceWith(GameView(id))
-            replaceWith(GameView())
+            replaceWith(GameView(gameName, ratingMenuView))
 
         }
     }
