@@ -96,5 +96,20 @@ class NetworkClient {
         }
         return response.body<String>()
     }
+
+    suspend fun getRating(name: String): String{
+        val response = client.get("$server/rating") {
+            parameter("name", name)
+        }
+        return response.body<String>()
+    }
+
+    suspend fun addToRating(name: String, player: String, result: Int): Boolean {
+        val response = client.post("$server/addToRating"){
+            parameter("name", name)
+            setBody("$player $result")
+        }
+        return response.status == HttpStatusCode.OK
+    }
 }
 
