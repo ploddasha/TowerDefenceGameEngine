@@ -74,12 +74,13 @@ public class GamesService {
 
     public void addToRating(String name, String player, int result) throws IOException {
         Map<String, Integer> rating = new HashMap<>();
-
-        List<String> list_rating = Files.readAllLines(Paths.get("src/main/resources/" + name + ".txt"));
-        String[] sm;
-        for (String s : list_rating) {
-            sm = s.split(" ");
-            rating.put(sm[0],Integer.parseInt(sm[1]));
+        if (Files.exists(Paths.get("src/main/resources/" + name + ".txt"))) {
+            List<String> list_rating = Files.readAllLines(Paths.get("src/main/resources/" + name + ".txt"));
+            String[] sm;
+            for (String s : list_rating) {
+                sm = s.split(" ");
+                rating.put(sm[0], Integer.parseInt(sm[1]));
+            }
         }
         if (!rating.containsKey(player) || rating.get(player) < result) {
             rating.put(player, result);
