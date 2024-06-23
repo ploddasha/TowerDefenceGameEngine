@@ -34,6 +34,13 @@
   -fx-background-size: cover;
 }
 
+.rating {
+  -fx-background-image: url("/styles/rating_menu_background.jpg");
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center center;
+  -fx-background-size: cover;
+}
+
 .bordered.label .text {
   -fx-stroke: black;
   -fx-stroke-width: 1px;

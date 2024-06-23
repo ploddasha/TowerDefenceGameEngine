@@ -10,7 +10,7 @@ class RatingController {
     private val ratingProperty = SimpleIntegerProperty(rating.getRating())
     fun ratingProperty() = ratingProperty
 
-    fun getRating(): Int{
+    fun getRating(): Int {
         return ratingProperty.get()
     }
 
