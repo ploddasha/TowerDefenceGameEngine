@@ -40,7 +40,7 @@ class EnemyGameController(
         isGameOn = true
 
         GlobalScope.launch {
-            while (victoryController.getFinished()) {
+            while (!victoryController.getFinished()) {
                 receiveGameState()
                 delay(200)
             }
