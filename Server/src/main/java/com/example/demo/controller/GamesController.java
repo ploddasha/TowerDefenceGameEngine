@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
@@ -48,7 +49,7 @@ public class GamesController {
 
     //Функция, проверяющая что именно два клиента подключилось к серверу
     @GetMapping("/connect")
-    public boolean getConnection(HttpServletRequest request, @RequestParam(name = "name", required = false) String name) {
+    public boolean getConnection(HttpServletRequest request, @RequestParam(name = "name") String name) {
         if (!name_ip.containsKey(name)) {
             name_ip.put(name,gamesService.getClientIp(request));
         } else if (!name_ip.get(name).equals(gamesService.getClientIp(request))) {
@@ -69,7 +70,7 @@ public class GamesController {
     }
 
     @GetMapping("/getGame")
-    public ResponseEntity<String> getGame(HttpServletRequest request, @RequestParam(name = "name", required = false) String name) {
+    public ResponseEntity<String> getGame(HttpServletRequest request, @RequestParam(name = "name") String name) {
         try {
             Resource resource = new ClassPathResource(name + ".json");
             Path path = resource.getFile().toPath();
@@ -83,7 +84,7 @@ public class GamesController {
     }
 
     @PostMapping("/addToRating")
-    public void updateRating(HttpServletRequest request, @RequestBody String sample, @RequestParam(name = "name", required = true) String name) {
+    public void updateRating(HttpServletRequest request, @RequestBody String sample, @RequestParam(name = "name") String name) {
         String[] sm = sample.split(" ");
         try {
             gamesService.addToRating(name, sm[0], Integer.parseInt(sm[1]));
@@ -98,12 +99,11 @@ public class GamesController {
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
-        try {
-            Resource resource = new ClassPathResource(name + ".txt");
-            Path path = resource.getFile().toPath();
-            String content = Files.readString(path);
+        String filePath = "src/main/resources/" + name + ".txt";
 
-            return ResponseEntity.ok().body(content);
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+            return ResponseEntity.ok().headers(headers).body(content);
         } catch (IOException e) {
             System.err.println("Ошибка при чтении файла: " + e.getMessage());
             return ResponseEntity.internalServerError().build();

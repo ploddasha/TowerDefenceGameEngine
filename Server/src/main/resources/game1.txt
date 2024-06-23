@@ -2,4 +2,4 @@ sanya 11100
 roma 1500
 vlad 1400
 petya 1000
-manya 1
+manya 1000
