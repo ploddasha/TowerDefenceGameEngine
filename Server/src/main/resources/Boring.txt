@@ -1,3 +1,10 @@
-vld 1000
-msh 500
-dsh 250
+DarkStalker 9999
+Dasha 2500
+Vlad 1000
+Sanya 780
+Petya 770
+Misha 500
+Kolya 490
+Fedya 450
+Masha 400
+Glasha 10

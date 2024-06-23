@@ -4,6 +4,7 @@ import tornadofx.*
 import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
+import javafx.scene.control.ScrollPane
 
 class RatingMenuView(
     private val back_to_view: View,
@@ -38,23 +39,48 @@ class RatingMenuView(
                     style {
                         fontSize = 25.px
                         fontWeight = FontWeight.BOLD
-                        paddingBottom = 55.0
+                        paddingBottom = 15.0
                         textFill = Color.WHITE
                     }
                 }
             }
 
             vbox {
-                alignment = Pos.CENTER
-                label(currRating) {
-                    style {
-                        fontSize = 25.px
-                        fontWeight = FontWeight.BOLD
-                        paddingBottom = 55.0
-                        textFill = Color.BLACK
+                paddingBottom = 15.0
+                maxWidth = 450.0
+
+                hbox {
+                    alignment = Pos.CENTER
+
+                    scrollpane {
+                        prefHeight = 190.0
+                        prefWidth = 450.0
+                        vbarPolicy = ScrollPane.ScrollBarPolicy.AS_NEEDED
+                        hbarPolicy = ScrollPane.ScrollBarPolicy.NEVER
+
+                        vbox {
+                            label(currRating) {
+                                isWrapText = true
+                                style {
+                                    fontSize = 25.px
+                                    fontWeight = FontWeight.BOLD
+                                    textFill = Color.BLACK
+                                    //backgroundColor += Color.rgb(255, 152, 0)
+                                }
+                            }
+                        }
+
+                        style {
+                            //backgroundColor += Color.rgb(255, 152, 0)
+                            //borderColor += box(c("#000000"))
+                            //borderWidth += box(2.px)
+                            paddingAll = 2.0
+                        }
                     }
+
                 }
             }
+
 
             vbox {
                 alignment = Pos.BOTTOM_CENTER
