@@ -7,8 +7,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import model.CityModel
+import model.data.GameState
 import tornadofx.Controller
 import tornadofx.alert
+import tornadofx.runLater
 import view.EnemyMapView
 
 
@@ -50,15 +52,19 @@ class EnemyGameController(
                 victoryController.setEnemyRating(gameState.rating)
                 val result = victoryController.check()
                 if (result != "nothing") {
-                    when (result) {
-                        "victory" -> {
-                            alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won!")
-                        }
-                        "lose" -> {
-                            alert(Alert.AlertType.INFORMATION, "Ooops...", "You lost!")
-                        }
-                        else -> {
-                            alert(Alert.AlertType.INFORMATION, "Hmmmm...", "It's a draw!")
+                    runLater {
+                        when (result) {
+                            "victory" -> {
+                                alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won!")
+                            }
+
+                            "lose" -> {
+                                alert(Alert.AlertType.INFORMATION, "Ooops...", "You lost!")
+                            }
+
+                            else -> {
+                                alert(Alert.AlertType.INFORMATION, "Hmmmm...", "It's a draw!")
+                            }
                         }
                     }
                 }
@@ -66,8 +72,11 @@ class EnemyGameController(
         }
     }
 
+    private var previousGameState: GameState? = null
 
-    fun receiveGameState() {
+
+
+    private fun receiveGameState() {
         GlobalScope.launch {
             val gameState = networkClient.getOpponentState()
 
@@ -80,6 +89,16 @@ class EnemyGameController(
                     moneyController.setMoney(gameState.moneyAmount)
                     cityController.setHealth(gameState.cityHealth)
                     ratingController.setRating(gameState.rating)
+                    println("Enemy Rating ============== " + gameState.rating)
+
+                    previousGameState?.let { prevGameState ->
+                        val currentMobIds = gameState.mobs.map { it.id }.toSet()
+                        prevGameState.mobs.forEach { mob ->
+                            if (mob.id !in currentMobIds) {
+                                mapView?.deleteMobFromMap(mob.row, mob.col)
+                            }
+                        }
+                    }
 
                     // TODO clear old?
                     for (mob in gameState.mobs) {
@@ -88,6 +107,9 @@ class EnemyGameController(
                     for (tower in gameState.towers) {
                         mapView?.addTower(tower)
                     }
+
+                    previousGameState = gameState
+
                 }
             } else {
                 println("Failed to receive game state")

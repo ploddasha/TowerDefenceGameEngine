@@ -145,13 +145,14 @@ class GameController(
         }
     }
 
-    fun sendGameState() {
+    private fun sendGameState() {
         GlobalScope.launch {
+            println("Rating ============== " + ratingController.getRating())
             if (currentWave < waves.size) {
                 val gameState = GameState(
                     isGameOn = !gameOverProperty().value,
                     moneyAmount = moneyController.getCurrentMoneyAmount(),
-                    cityHealth = cityModel.getHealth(),
+                    cityHealth = cityController.getCityHealth(),
                     rating = ratingController.getRating(),
                     currentWave = currentWave,
                     mobs = waves[currentWave],
@@ -162,7 +163,7 @@ class GameController(
                 val gameState = GameState(
                     isGameOn = false,
                     moneyAmount = moneyController.getCurrentMoneyAmount(),
-                    cityHealth = cityModel.getHealth(),
+                    cityHealth = cityController.getCityHealth(),
                     rating = ratingController.getRating(),
                     currentWave = currentWave,
                     mobs = emptyList(),
