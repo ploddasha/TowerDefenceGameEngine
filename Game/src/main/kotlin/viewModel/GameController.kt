@@ -301,9 +301,11 @@ class GameController(
 
     private fun fireTowers() {
         towers.forEach { tower ->
-            waves[currentWave].forEach { mob ->
-                if (tower.isInRange(mob)) {
-                    tower.attackMob(mob)
+            if (currentWave < waves.size) {
+                waves[currentWave].forEach { mob ->
+                    if (tower.isInRange(mob)) {
+                        tower.attackMob(mob)
+                    }
                 }
             }
         }

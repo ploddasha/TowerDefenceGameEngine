@@ -85,6 +85,7 @@ class EnemyMapView(
         val tile = tilesArray[row][col]
 
         val cellImageView = when (tile.tileType) {
+            TileType.START -> ImageView(Image(resources.url(city).toString()))
             TileType.ROAD -> ImageView(Image(resources.url(sand).toString()))
             TileType.GRASS -> ImageView(Image(resources.url(grass).toString()))
             TileType.WATER -> ImageView(Image(resources.url(water).toString()))
