@@ -228,20 +228,9 @@ class GameController(
                     val result = victoryController.check()
                     if (result != "nothing") {
                         when (result) {
-                            "victory" -> {
-                                showNameInputView("Congratulations!", "You won!")
-                                //alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won!")
-                            }
-                            "lose" -> {
-                                showNameInputView("Ooops...", "You lost!")
-
-                                //alert(Alert.AlertType.INFORMATION, "Ooops...", "You lost!")
-                            }
-                            else -> {
-                                showNameInputView("Hmmmm...", "It's a draw!")
-
-                                //alert(Alert.AlertType.INFORMATION, "Hmmmm...", "It's a draw!")
-                            }
+                            "victory" -> showNameInputView("Congratulations! You won!")
+                            "lose" -> showNameInputView("Ooops... You lost!")
+                            else -> showNameInputView("Hmmmm... It's a draw!")
                         }
                     }
                 }
@@ -249,10 +238,10 @@ class GameController(
                 runLater {
                     if (cityController.getCityHealth() > 0) {
                         println("You won! Your rating is: ${ratingController.getRating()}")
-                        alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won! Your rating is: ${ratingController.getRating()}")
+                        showNameInputView("Congratulations! You won! Your rating is: ${ratingController.getRating()}")
                     } else {
                         println("You lost! Your rating is: ${ratingController.getRating()}")
-                        alert(Alert.AlertType.INFORMATION, "Ha-ha-ha!", "You lost! Your rating is: ${ratingController.getRating()}")
+                        showNameInputView("Ha-ha-ha! You lost! Your rating is: ${ratingController.getRating()}")
                     }
                     setGameOver(true)
                 }
@@ -260,12 +249,22 @@ class GameController(
         }
     }
 
-    private fun showNameInputView(title: String, message: String) {
+    private fun showNameInputView(message: String) {
         find<SaveRatingView>().apply {
+            setResultMessage(message)
             this.onSave = { name ->
-                // ratingController.saveScoreWithName(ratingController.getRating(), name)
-                alert(Alert.AlertType.INFORMATION, title, "$message\nRating saved for $name.")
+                GlobalScope.launch {
+                    networkClient.addToRating(
+                        name = "Cool",
+                        result = ratingController.getRating(),
+                        player = name
+                    )
+                }
+                find<SaveRatingView>().apply {
+                    setResultMessage("$message\nRating saved for $name.")
+                }
             }
+
             openModal(block = true)
         }
     }
