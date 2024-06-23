@@ -93,36 +93,5 @@ public class GamesService {
                 System.err.println("Файл не найден: " + e.getMessage());
             }
         }
-        /*
-        if (rating.containsKey(player)) {
-            if (rating.get(player) < result) {
-                rating.put(player, result);
-
-                List<Map.Entry<String, Integer>> list = new ArrayList<>(rating.entrySet());
-                list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
-
-                try (PrintWriter out = new PrintWriter("src/main/resources/" + name + ".txt")) {
-                    for (Map.Entry<String, Integer> entry : list) {
-                        out.println(entry.getKey() + " " + entry.getValue());
-                    }
-                } catch (FileNotFoundException e) {
-                    System.err.println("Файл не найден: " + e.getMessage());
-                }
-            }
-        } else {
-            rating.put(player, result);
-
-            List<Map.Entry<String, Integer>> list = new ArrayList<>(rating.entrySet());
-            list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
-
-            try (PrintWriter out = new PrintWriter("src/main/resources/" + name + ".txt")) {
-                for (Map.Entry<String, Integer> entry : list) {
-                    out.println(entry.getKey() + " " + entry.getValue());
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println("Файл не найден: " + e.getMessage());
-            }
-        }
-         */
     }
 }
