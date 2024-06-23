@@ -7,7 +7,6 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import io.ktor.util.*
 import model.data.Game
 import model.data.GameState
 
@@ -91,5 +90,11 @@ class NetworkClient {
         return responseBody.toBoolean()
     }
 
+    suspend fun getGameSettings(name: String): String {
+        val response = client.get("$server/getGame") {
+            parameter("name", name)
+        }
+        return response.body<String>()
+    }
 }
 
