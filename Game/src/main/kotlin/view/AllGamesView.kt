@@ -14,7 +14,7 @@ class AllGamesView : View("") {
 
     private val currView = this
     private lateinit var rating: String
-    private lateinit var ratingMenuView: RatingMenuView
+    //private lateinit var ratingMenuView: RatingMenuView
 
     override val root = stackpane {
         addClass("all-games-stack-pane")
@@ -28,10 +28,16 @@ class AllGamesView : View("") {
                 spacing = 40.0
 
                     games.forEach { game ->
-
-                        GlobalScope.launch(Dispatchers.IO) {
-                            rating = networkClient.getRating(game.gameName)
-                            ratingMenuView = RatingMenuView(currView, game.gameName, rating)
+                        lateinit var currRating: String
+                        lateinit var ratingMenuView: RatingMenuView
+                        runBlocking {
+                            rating = withContext(Dispatchers.IO) {
+                                networkClient.getRating(game.gameName)
+                            }
+                            currRating = rating
+                            println("gameName: " + game.gameName)
+                            println("rating: " + currRating)
+                            ratingMenuView = RatingMenuView(currView, game.gameName, currRating)
                         }
 
                         button("Start Game ${game.gameName}") {
@@ -47,7 +53,7 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                replaceWith(LoadingView(game.id, game.gameName, rating))
+                                replaceWith(LoadingView(game.id, game.gameName, currRating))
                                 println("gameName: " + game.gameName)
                             }
                         }
@@ -65,7 +71,7 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                replaceWith(WaitingForConnectionView(game.gameName, rating))
+                                replaceWith(WaitingForConnectionView(game.gameName, currRating))
                             }
                         }
 
@@ -85,6 +91,12 @@ class AllGamesView : View("") {
                                 replaceWith(ratingMenuView)
                             }
                         }
+
+                        /*
+                        GlobalScope.launch(Dispatchers.IO) {
+                            rating = networkClient.getRating(game.gameName)
+                            ratingMenuView = RatingMenuView(currView, game.gameName, rating)
+                        }*/
                     }
 
             }
@@ -117,66 +129,80 @@ class AllGamesView : View("") {
             spacing = 40.0
 
                 games.forEach { game ->
+                    lateinit var currRating: String
+                    lateinit var ratingMenuView: RatingMenuView
                     vbox {
                         alignment = Pos.CENTER
                         spacing = 40.0
 
+                        runBlocking {
+                            rating = withContext(Dispatchers.IO) {
+                                networkClient.getRating(game.gameName)
+                            }
+                            currRating = rating
+                            println("gameName: " + game.gameName)
+                            println("rating: " + currRating)
+                            ratingMenuView = RatingMenuView(currView, game.gameName, currRating)
+
+                            button("Start Game ${game.gameName}") {
+                                style {
+                                    fontSize = 14.px
+                                    padding = box(5.px, 10.px)
+                                    paddingAll = 5.0
+                                    backgroundColor += Color.ORANGE
+                                    textFill = Color.WHITE
+                                    fontWeight = FontWeight.BOLD
+                                }
+                                vboxConstraints {
+                                    marginRight = 10.0
+                                }
+                                action {
+                                    replaceWith(LoadingView(game.id, game.gameName, currRating))
+                                    println("gameName: " + game.gameName)
+                                }
+                            }
+
+                            button("Play together") {
+                                style {
+                                    fontSize = 14.px
+                                    padding = box(5.px, 10.px)
+                                    paddingAll = 5.0
+                                    backgroundColor += Color.BLUEVIOLET
+                                    textFill = Color.WHITE
+                                    fontWeight = FontWeight.BOLD
+                                }
+                                vboxConstraints {
+                                    marginRight = 10.0
+                                }
+                                action {
+                                    replaceWith(WaitingForConnectionView(game.gameName, currRating))
+                                }
+                            }
+
+                            button("Rating") {
+                                style {
+                                    fontSize = 14.px
+                                    padding = box(5.px, 40.px)
+                                    paddingAll = 5.0
+                                    backgroundColor += Color.RED
+                                    textFill = Color.WHITE
+                                    fontWeight = FontWeight.BOLD
+                                }
+                                vboxConstraints {
+                                    marginRight = 10.0
+                                }
+                                action {
+                                    replaceWith(ratingMenuView)
+                                }
+                            }
+                        }
+                        /*
                         GlobalScope.launch(Dispatchers.IO) {
                             rating = networkClient.getRating(game.gameName)
+                            println("gameName: " + game.gameName)
+                            println("rating: " + rating)
                             ratingMenuView = RatingMenuView(currView, game.gameName, rating)
-                        }
-
-                        button("Start Game ${game.gameName}") {
-                            style {
-                                fontSize = 14.px
-                                padding = box(5.px, 10.px)
-                                paddingAll = 5.0
-                                backgroundColor += Color.ORANGE
-                                textFill = Color.WHITE
-                                fontWeight = FontWeight.BOLD
-                            }
-                            vboxConstraints {
-                                marginRight = 10.0
-                            }
-                            action {
-                                replaceWith(LoadingView(game.id, game.gameName, rating))
-                                println("gameName: " + game.gameName)
-                            }
-                        }
-
-                        button("Play together") {
-                            style {
-                                fontSize = 14.px
-                                padding = box(5.px, 10.px)
-                                paddingAll = 5.0
-                                backgroundColor += Color.BLUEVIOLET
-                                textFill = Color.WHITE
-                                fontWeight = FontWeight.BOLD
-                            }
-                            vboxConstraints {
-                                marginRight = 10.0
-                            }
-                            action {
-                                replaceWith(WaitingForConnectionView(game.gameName, rating))
-                            }
-                        }
-
-                        button("Rating") {
-                            style {
-                                fontSize = 14.px
-                                padding = box(5.px, 40.px)
-                                paddingAll = 5.0
-                                backgroundColor += Color.RED
-                                textFill = Color.WHITE
-                                fontWeight = FontWeight.BOLD
-                            }
-                            vboxConstraints {
-                                marginRight = 10.0
-                            }
-                            action {
-                                replaceWith(ratingMenuView)
-                            }
-                        }
+                        }*/
                     }
                 }
         }

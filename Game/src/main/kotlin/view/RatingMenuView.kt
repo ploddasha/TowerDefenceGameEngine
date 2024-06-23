@@ -4,16 +4,18 @@ import tornadofx.*
 import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
-import javafx.geometry.Orientation
-import javafx.scene.control.Slider
-import viewModel.MusicController
-import model.data.Game
 
 class RatingMenuView(
     private val back_to_view: View,
     private val gameName: String,
-    private val currRating: String
+    private var currRating: String
 ) : View("Rating Menu") {
+
+    init {
+        if (!currRating.equals("Empty now :(")) {
+            reorganizeCurrRating(currRating)
+        }
+    }
 
     override val root = stackpane {
 
@@ -44,7 +46,14 @@ class RatingMenuView(
 
             vbox {
                 alignment = Pos.CENTER
-                label(currRating)
+                label(currRating) {
+                    style {
+                        fontSize = 25.px
+                        fontWeight = FontWeight.BOLD
+                        paddingBottom = 55.0
+                        textFill = Color.BLACK
+                    }
+                }
             }
 
             vbox {
@@ -67,5 +76,20 @@ class RatingMenuView(
                 }
             }
         }
+    }
+
+    private fun reorganizeCurrRating(rating: String) {
+        rating.trimIndent()
+        val lines = rating.split("\n")
+        val result = StringBuilder()
+
+        for ((index, line) in lines.withIndex()) {
+            val parts = line.split(" ")
+            val newLine = "${index + 1}) ${parts[0]}     ${parts[1]}"
+
+            result.append(newLine).append("\n")
+        }
+
+        this.currRating = result.toString()
     }
 }
