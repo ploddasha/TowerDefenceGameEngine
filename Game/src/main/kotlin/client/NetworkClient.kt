@@ -13,7 +13,7 @@ import model.data.GameState
 
 class NetworkClient {
 
-    val server: String = "http://10.40.109.248:8083"
+    val server: String = "http://10.40.109.67:8083"
 
 
     val client = HttpClient(CIO) {
@@ -69,20 +69,13 @@ class NetworkClient {
         return response.status == HttpStatusCode.OK
     }
 
-
-    suspend fun connect(name: String): Boolean {
-        val response = client.get("$server/check")
-        val responseBody = response.body<String>()
-        return responseBody.toBoolean()
-    }
-    /*
     suspend fun connect(name: String): Boolean {
         val response = client.get("$server/connect") {
             parameter("name", name)
         }
         val responseBody = response.body<String>()
         return responseBody.toBoolean()
-    } */
+    }
 
     suspend fun check(): Boolean {
         val response = client.get("$server/check")

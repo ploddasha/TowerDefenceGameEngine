@@ -31,6 +31,7 @@ import java.io.File
 import java.util.*
 import javafx.scene.control.Button
 import view.GameTwoMapsView
+import view.SaveRatingView
 
 
 class GameController(
@@ -228,13 +229,18 @@ class GameController(
                     if (result != "nothing") {
                         when (result) {
                             "victory" -> {
-                                alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won!")
+                                showNameInputView("Congratulations!", "You won!")
+                                //alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won!")
                             }
                             "lose" -> {
-                                alert(Alert.AlertType.INFORMATION, "Ooops...", "You lost!")
+                                showNameInputView("Ooops...", "You lost!")
+
+                                //alert(Alert.AlertType.INFORMATION, "Ooops...", "You lost!")
                             }
                             else -> {
-                                alert(Alert.AlertType.INFORMATION, "Hmmmm...", "It's a draw!")
+                                showNameInputView("Hmmmm...", "It's a draw!")
+
+                                //alert(Alert.AlertType.INFORMATION, "Hmmmm...", "It's a draw!")
                             }
                         }
                     }
@@ -251,6 +257,16 @@ class GameController(
                     setGameOver(true)
                 }
             }
+        }
+    }
+
+    private fun showNameInputView(title: String, message: String) {
+        find<SaveRatingView>().apply {
+            this.onSave = { name ->
+                // ratingController.saveScoreWithName(ratingController.getRating(), name)
+                alert(Alert.AlertType.INFORMATION, title, "$message\nRating saved for $name.")
+            }
+            openModal(block = true)
         }
     }
 
