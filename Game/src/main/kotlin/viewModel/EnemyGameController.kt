@@ -84,6 +84,7 @@ class EnemyGameController(
                 println("Received game state: $gameState")
 
                 Platform.runLater {
+
                     isGameOn = gameState.isGameOn
 
                     moneyController.setMoney(gameState.moneyAmount)

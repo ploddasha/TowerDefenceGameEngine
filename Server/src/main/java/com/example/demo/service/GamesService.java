@@ -74,6 +74,7 @@ public class GamesService {
 
     public void addToRating(String name, String player, int result) throws IOException {
         Map<String, Integer> rating = new HashMap<>();
+
         List<String> list_rating = Files.readAllLines(Paths.get("src/main/resources/" + name + ".txt"));
         String[] sm;
         for (String s : list_rating) {
