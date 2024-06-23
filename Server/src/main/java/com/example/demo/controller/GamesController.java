@@ -100,13 +100,16 @@ public class GamesController {
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
         String filePath = "src/main/resources/" + name + ".txt";
-
-        try {
-            String content = new String(Files.readAllBytes(Paths.get(filePath)));
-            return ResponseEntity.ok().headers(headers).body(content);
-        } catch (IOException e) {
-            System.err.println("Ошибка при чтении файла: " + e.getMessage());
-            return ResponseEntity.internalServerError().build();
+        if (Files.exists(Paths.get(filePath))) {
+            try {
+                String content = new String(Files.readAllBytes(Paths.get(filePath)));
+                return ResponseEntity.ok().headers(headers).body(content);
+            } catch (IOException e) {
+                System.err.println("Ошибка при чтении файла: " + e.getMessage());
+                return ResponseEntity.internalServerError().build();
+            }
+        } else {
+            return ResponseEntity.ok().body("None");
         }
     }
 }
