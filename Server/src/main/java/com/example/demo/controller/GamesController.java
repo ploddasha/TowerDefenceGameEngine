@@ -57,7 +57,7 @@ public class GamesController {
             ip_ip.put(gamesService.getClientIp(request), name_ip.get(name));
         }
         ip_time.put(gamesService.getClientIp(request), Instant.now());
-        return ip_state.size() >= 2;
+        return ip_ip.size() >= 2;
     }
 
     @GetMapping("/check")

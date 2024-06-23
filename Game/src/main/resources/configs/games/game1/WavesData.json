@@ -7,15 +7,6 @@
       {"name": "I", "amount": 1},
       {"name": "Me", "amount": 1},
       {"name": "Ya", "amount": 1}
-    ],
-    [
-      {"name": "Me", "amount": 1},
-      {"name": "Ya", "amount": 3}
-    ],
-    [
-      {"name": "Me", "amount": 1},
-      {"name": "I", "amount": 1},
-      {"name": "Ya", "amount": 3}
     ]
   ]
 }
