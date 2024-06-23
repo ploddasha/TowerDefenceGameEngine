@@ -2,13 +2,14 @@ package com.example.demo.controller;
 import com.example.demo.model.Game;
 import com.example.demo.service.GamesService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
@@ -72,12 +73,39 @@ public class GamesController {
         try {
             Resource resource = new ClassPathResource(name + ".json");
             Path path = resource.getFile().toPath();
-            System.out.println(path);
             String content = Files.readString(path);
 
             return ResponseEntity.ok().body(content);
         } catch (Exception e) {
             e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @PostMapping("/addToRating")
+    public void updateRating(HttpServletRequest request, @RequestBody String sample, @RequestParam(name = "name", required = true) String name) {
+        String[] sm = sample.split(" ");
+        try {
+            gamesService.addToRating(name, sm[0], Integer.parseInt(sm[1]));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping("/rating")
+    public ResponseEntity<String> getRating(HttpServletRequest request, @RequestParam(name = "name") String name) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        try {
+            Resource resource = new ClassPathResource(name + ".txt");
+            Path path = resource.getFile().toPath();
+            String content = Files.readString(path);
+
+            return ResponseEntity.ok().body(content);
+        } catch (IOException e) {
+            System.err.println("Ошибка при чтении файла: " + e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }

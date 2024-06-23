@@ -5,13 +5,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,4 +71,58 @@ public class GamesService {
         return ipAddress;
     }
 
+
+    public void addToRating(String name, String player, int result) throws IOException {
+        Map<String, Integer> rating = new HashMap<>();
+        List<String> list_rating = Files.readAllLines(Paths.get("src/main/resources/" + name + ".txt"));
+        String[] sm;
+        for (String s : list_rating) {
+            sm = s.split(" ");
+            rating.put(sm[0],Integer.parseInt(sm[1]));
+        }
+        if (!rating.containsKey(player) || rating.get(player) < result) {
+            rating.put(player, result);
+            List<Map.Entry<String, Integer>> list = new ArrayList<>(rating.entrySet());
+            list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
+
+            try (PrintWriter out = new PrintWriter("src/main/resources/" + name + ".txt")) {
+                for (Map.Entry<String, Integer> entry : list) {
+                    out.println(entry.getKey() + " " + entry.getValue());
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println("Файл не найден: " + e.getMessage());
+            }
+        }
+        /*
+        if (rating.containsKey(player)) {
+            if (rating.get(player) < result) {
+                rating.put(player, result);
+
+                List<Map.Entry<String, Integer>> list = new ArrayList<>(rating.entrySet());
+                list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
+
+                try (PrintWriter out = new PrintWriter("src/main/resources/" + name + ".txt")) {
+                    for (Map.Entry<String, Integer> entry : list) {
+                        out.println(entry.getKey() + " " + entry.getValue());
+                    }
+                } catch (FileNotFoundException e) {
+                    System.err.println("Файл не найден: " + e.getMessage());
+                }
+            }
+        } else {
+            rating.put(player, result);
+
+            List<Map.Entry<String, Integer>> list = new ArrayList<>(rating.entrySet());
+            list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
+
+            try (PrintWriter out = new PrintWriter("src/main/resources/" + name + ".txt")) {
+                for (Map.Entry<String, Integer> entry : list) {
+                    out.println(entry.getKey() + " " + entry.getValue());
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println("Файл не найден: " + e.getMessage());
+            }
+        }
+         */
+    }
 }
