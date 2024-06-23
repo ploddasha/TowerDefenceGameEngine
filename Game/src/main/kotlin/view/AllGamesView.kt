@@ -30,7 +30,7 @@ class AllGamesView : View("") {
 
                         GlobalScope.launch(Dispatchers.IO) {
                             val rating = networkClient.getRating(game.gameName)
-                            println("Rating: " + rating)
+                            //println("Rating: " + rating)
                             ratingMenuView = RatingMenuView(currView, game.gameName, rating)
                         }
 
@@ -48,6 +48,7 @@ class AllGamesView : View("") {
                             }
                             action {
                                 replaceWith(LoadingView(game.id, game.gameName, ratingMenuView))
+                                println("gameName: " + game.gameName)
                             }
                         }
 
@@ -122,7 +123,7 @@ class AllGamesView : View("") {
 
                         GlobalScope.launch(Dispatchers.IO) {
                             val rating = networkClient.getRating(game.gameName)
-                            println("Rating: " + rating)
+                            //println("Rating: " + rating)
                             ratingMenuView = RatingMenuView(currView, game.gameName, rating)
                         }
 
@@ -140,6 +141,7 @@ class AllGamesView : View("") {
                             }
                             action {
                                 replaceWith(LoadingView(game.id, game.gameName, ratingMenuView))
+                                println("gameName: " + game.gameName)
                             }
                         }
 

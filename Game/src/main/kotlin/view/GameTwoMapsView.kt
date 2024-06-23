@@ -218,20 +218,42 @@ class GameTwoMapsView(
                     alignment = Pos.CENTER
                     hbox {
                         alignment = Pos.CENTER
-                        maxWidth = 500.0
+                        maxWidth = 800.0
 
                         addClass("game-top-background")
 
                         //paddingAll = 10.0
                         //spacing = 10.0
 
-                        vbox {
+                        hbox {
                             alignment = Pos.CENTER
-                            maxWidth = 500.0
+                            maxWidth = 850.0
 
                             hbox {
                                 alignment = Pos.CENTER
-                                maxWidth = 500.0
+                                paddingAll = 4.0
+                                spacing = 30.0
+
+                                button("Start Wave") {
+                                    style {
+                                        fontSize = 14.px
+                                        padding = box(5.px, 30.px)
+                                        paddingAll = 5.0
+                                        backgroundColor += Color.BLUE
+                                        textFill = Color.WHITE
+                                        fontWeight = FontWeight.BOLD
+                                    }
+                                    vboxConstraints {
+                                        marginRight = 10.0
+                                    }
+                                    action {
+                                        startGame()
+                                    }
+                                }
+                            }
+
+                            hbox {
+                                alignment = Pos.CENTER
                                 paddingAll = 6.0
                                 spacing = 10.0
 
@@ -268,51 +290,10 @@ class GameTwoMapsView(
                                     }
                                 }
 
-                                button("Back to menu") {
-                                    style {
-                                        fontSize = 14.px
-                                        padding = box(5.px, 12.px)
-                                        paddingAll = 5.0
-                                        backgroundColor += Color.BLACK
-                                        textFill = Color.WHITE
-                                        fontWeight = FontWeight.BOLD
-                                    }
-                                    vboxConstraints {
-                                        marginRight = 10.0
-                                    }
-                                    action {
-                                        replaceWith(allGamesView)
-                                    }
-                                }
-                            }
-
-                            hbox {
-                                alignment = Pos.CENTER
-                                maxWidth = 500.0
-                                paddingAll = 4.0
-                                spacing = 15.0
-
-                                button("Start Wave") {
-                                    style {
-                                        fontSize = 14.px
-                                        padding = box(5.px, 40.px)
-                                        paddingAll = 5.0
-                                        backgroundColor += Color.BLUE
-                                        textFill = Color.WHITE
-                                        fontWeight = FontWeight.BOLD
-                                    }
-                                    vboxConstraints {
-                                        marginRight = 10.0
-                                    }
-                                    action {
-                                        startGame()
-                                    }
-                                }
-
                                 button("Rating") {
                                     style {
                                         fontSize = 14.px
-                                        padding = box(5.px, 40.px)
+                                        padding = box(5.px, 12.px)
                                         paddingAll = 5.0
                                         backgroundColor += Color.RED
                                         textFill = Color.WHITE
@@ -323,6 +304,29 @@ class GameTwoMapsView(
                                     }
                                     action {
                                         replaceWith(ratingMenuView)
+                                    }
+                                }
+                            }
+
+                            hbox {
+                                alignment = Pos.CENTER
+                                paddingAll = 4.0
+                                spacing = 30.0
+
+                                button("Back to menu") {
+                                    style {
+                                        fontSize = 14.px
+                                        padding = box(5.px, 20.px)
+                                        paddingAll = 5.0
+                                        backgroundColor += Color.BLACK
+                                        textFill = Color.WHITE
+                                        fontWeight = FontWeight.BOLD
+                                    }
+                                    vboxConstraints {
+                                        marginRight = 10.0
+                                    }
+                                    action {
+                                        replaceWith(allGamesView)
                                     }
                                 }
                             }
