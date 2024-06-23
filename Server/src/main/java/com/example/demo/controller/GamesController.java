@@ -4,8 +4,13 @@ import com.example.demo.service.GamesService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
@@ -60,5 +65,20 @@ public class GamesController {
         Duration duration = Duration.between(ip_time.get(ip_op), Instant.now());
         long seconds = duration.getSeconds();
         return seconds <= 10;
+    }
+
+    @GetMapping("/getGame")
+    public ResponseEntity<String> getGame(HttpServletRequest request, @RequestParam(name = "name", required = false) String name) {
+        try {
+            Resource resource = new ClassPathResource(name + ".json");
+            Path path = resource.getFile().toPath();
+            System.out.println(path);
+            String content = Files.readString(path);
+
+            return ResponseEntity.ok().body(content);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }
