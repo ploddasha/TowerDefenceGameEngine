@@ -210,7 +210,7 @@ class GameController(
                     currentWave++
                     checkVictory()
                 } else {
-                    checkVictory()
+                    //checkVictory()
                 }
             }
         }
@@ -237,7 +237,8 @@ class GameController(
                                 alert(Alert.AlertType.INFORMATION, "Hmmmm...", "It's a draw!")
                             }
                         }
-                    }                }
+                    }
+                }
             } else {
                 runLater {
                     if (cityController.getCityHealth() > 0) {

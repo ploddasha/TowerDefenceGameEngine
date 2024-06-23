@@ -11,7 +11,7 @@ class VictoryController  {
     private var enemyCityHealth = 0
     private var enemyRating = 0
 
-    fun setFinished() {
+    private fun setFinished() {
         this.finished = true
     }
 
@@ -53,12 +53,13 @@ class VictoryController  {
         var result = "nothing"
         if (gameOver && enemyGameOver) {
             setFinished()
+
             result = "draw"
             if ((cityHealth > 0 && enemyCityHealth > 0) || (cityHealth <= 0 && enemyCityHealth <= 0)) {
                 if (enemyRating > rating) {
-                    return "victory"
-                } else if (enemyRating < rating) {
                     return "lose"
+                } else if (enemyRating < rating) {
+                    return "victory"
                 }
             } else if (cityHealth > 0) {
                 return "victory"
