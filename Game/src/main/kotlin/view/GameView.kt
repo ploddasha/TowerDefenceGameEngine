@@ -17,7 +17,7 @@ import client.NetworkClient
 
 class GameView(
     gameName: String,
-    ratingMenuView: RatingMenuView
+    rating: String
 ) : View("Bashenki") {
 
     private val moneyController = MoneyController()
@@ -36,6 +36,7 @@ class GameView(
     private val shopView = ShopView(gameController, moneyController, cityController,
         groundTowerController, flyingTowerController, cityModel, this)
     private val pauseMenuView = PauseMenuView(this)
+    private val ratingMenuView = RatingMenuView(this, gameName, rating)
 
     private val moneyLabel = label {
         style {

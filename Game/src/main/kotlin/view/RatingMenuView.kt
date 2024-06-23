@@ -47,19 +47,23 @@ class RatingMenuView(
                 label(currRating)
             }
 
-            button("Back") {
-                style {
-                    fontSize = 18.px
-                    padding = box(10.px, 20.px)
-                    backgroundColor += Color.rgb(0, 0, 0)
-                    textFill = Color.WHITE
-                    fontWeight = FontWeight.BOLD
-                }
-                vboxConstraints {
-                    marginBottom = 10.0
-                }
-                action {
-                    replaceWith(back_to_view)
+            vbox {
+                alignment = Pos.BOTTOM_CENTER
+
+                button("Back") {
+                    style {
+                        fontSize = 18.px
+                        padding = box(10.px, 20.px)
+                        backgroundColor += Color.rgb(0, 0, 0)
+                        textFill = Color.WHITE
+                        fontWeight = FontWeight.BOLD
+                    }
+                    vboxConstraints {
+                        marginBottom = 10.0
+                    }
+                    action {
+                        replaceWith(back_to_view)
+                    }
                 }
             }
         }

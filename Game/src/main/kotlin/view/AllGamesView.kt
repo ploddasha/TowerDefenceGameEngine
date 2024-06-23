@@ -13,6 +13,7 @@ class AllGamesView : View("") {
     private var games = emptyList<Game>()
 
     private val currView = this
+    private lateinit var rating: String
     private lateinit var ratingMenuView: RatingMenuView
 
     override val root = stackpane {
@@ -29,8 +30,7 @@ class AllGamesView : View("") {
                     games.forEach { game ->
 
                         GlobalScope.launch(Dispatchers.IO) {
-                            val rating = networkClient.getRating(game.gameName)
-                            //println("Rating: " + rating)
+                            rating = networkClient.getRating(game.gameName)
                             ratingMenuView = RatingMenuView(currView, game.gameName, rating)
                         }
 
@@ -47,7 +47,7 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                replaceWith(LoadingView(game.id, game.gameName, ratingMenuView))
+                                replaceWith(LoadingView(game.id, game.gameName, rating))
                                 println("gameName: " + game.gameName)
                             }
                         }
@@ -65,7 +65,7 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                replaceWith(WaitingForConnectionView(game.gameName, ratingMenuView))
+                                replaceWith(WaitingForConnectionView(game.gameName, rating))
                             }
                         }
 
@@ -122,8 +122,7 @@ class AllGamesView : View("") {
                         spacing = 40.0
 
                         GlobalScope.launch(Dispatchers.IO) {
-                            val rating = networkClient.getRating(game.gameName)
-                            //println("Rating: " + rating)
+                            rating = networkClient.getRating(game.gameName)
                             ratingMenuView = RatingMenuView(currView, game.gameName, rating)
                         }
 
@@ -140,7 +139,7 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                replaceWith(LoadingView(game.id, game.gameName, ratingMenuView))
+                                replaceWith(LoadingView(game.id, game.gameName, rating))
                                 println("gameName: " + game.gameName)
                             }
                         }
@@ -158,7 +157,7 @@ class AllGamesView : View("") {
                                 marginRight = 10.0
                             }
                             action {
-                                replaceWith(WaitingForConnectionView(game.gameName, ratingMenuView))
+                                replaceWith(WaitingForConnectionView(game.gameName, rating))
                             }
                         }
 

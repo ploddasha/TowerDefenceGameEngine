@@ -16,7 +16,7 @@ import client.NetworkClient
 
 class GameTwoMapsView(
     gameName: String,
-    ratingMenuView: RatingMenuView
+    rating: String
 ) : View("Bashenki") {
 
     private val moneyController = MoneyController()
@@ -48,6 +48,7 @@ class GameTwoMapsView(
     private val shopView = ShopView(gameController, moneyController, cityController,
         groundTowerController, flyingTowerController, cityModel, this)
     private val pauseMenuView = PauseMenuView(this)
+    private val ratingMenuView = RatingMenuView(this, gameName, rating)
 
     private val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
     private val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))

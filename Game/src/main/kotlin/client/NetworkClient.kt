@@ -13,7 +13,7 @@ import model.data.GameState
 
 class NetworkClient {
 
-    val server: String = "http://10.40.109.67:8083"
+    val server: String = "http://10.40.109.248:8083"
 
 
     val client = HttpClient(CIO) {
