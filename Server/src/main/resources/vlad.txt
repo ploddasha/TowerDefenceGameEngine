@@ -1,2 +1,2 @@
-Games have been played: 4
-The number of unique games: 3
+Games have been played: 7
+The number of unique games: 5

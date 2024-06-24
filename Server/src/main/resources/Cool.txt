@@ -1,0 +1,4 @@
+Misha 300002
+Dasha 1000
+Pupa 222
+Vlad 10
