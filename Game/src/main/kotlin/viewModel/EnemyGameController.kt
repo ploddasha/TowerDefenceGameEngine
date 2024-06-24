@@ -17,6 +17,7 @@ import view.SaveRatingView
 
 
 class EnemyGameController(
+    private val dangerousMoneyController: MoneyController,
     private val moneyController: MoneyController,
     private val cityController: CityController,
     private val ratingController: RatingController,
@@ -94,15 +95,17 @@ class EnemyGameController(
                 }
 
                 if (!gameState.isGameOn) {
-                    victoryController.setEnemyGameOver(true)
-                    victoryController.setEnemyCityHealth(gameState.cityHealth)
-                    victoryController.setEnemyRating(gameState.rating)
-                    val result = victoryController.check()
-                    if (result != "nothing") {
-                        when (result) {
-                            "victory" -> showNameInputView("Congratulations! You won!")
-                            "lose" -> showNameInputView("Ooops... You lost!")
-                            else -> showNameInputView("Hmmmm... It's a draw!")
+                    runLater {
+                        victoryController.setEnemyGameOver(true)
+                        victoryController.setEnemyCityHealth(gameState.cityHealth)
+                        victoryController.setEnemyRating(gameState.rating)
+                        val result = victoryController.check()
+                        if (result != "nothing") {
+                            when (result) {
+                                "victory" -> showNameInputView("Congratulations! You won!")
+                                "lose" -> showNameInputView("Ooops... You lost!")
+                                else -> showNameInputView("Hmmmm... It's a draw!")
+                            }
                         }
                     }
                 }
@@ -115,7 +118,7 @@ class EnemyGameController(
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun showNameInputView(message: String) {
-        val totalMoneySpent = moneyController.getMoneySpent()
+        val totalMoneySpent = dangerousMoneyController.getMoneySpent()
 
         find<SaveRatingView>().apply {
             setResultMessage("$message\nTotal Money Spent: $totalMoneySpent")

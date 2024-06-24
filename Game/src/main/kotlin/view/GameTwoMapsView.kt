@@ -38,7 +38,7 @@ class GameTwoMapsView(
 
 
     private val gameController = GameController(moneyController, cityController, ratingController, cityModel, true, victoryController, waveController)
-    private val enemyGameController = EnemyGameController(enemyMoneyController, enemyCityController, enemyRatingController, enemyCityModel, victoryController)
+    private val enemyGameController = EnemyGameController(moneyController, enemyMoneyController, enemyCityController, enemyRatingController, enemyCityModel, victoryController)
 
 
     private val mapView = MapView(gameController)
