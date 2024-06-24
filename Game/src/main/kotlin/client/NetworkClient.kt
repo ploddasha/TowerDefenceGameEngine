@@ -15,7 +15,7 @@ import model.data.UnifiedGameData
 
 class NetworkClient {
 
-    private val server: String = "http://10.40.109.67:8083"
+    private val server: String = "http://10.40.109.248:8083"
     //private val server: String = "http://localhost:8083"
 
 

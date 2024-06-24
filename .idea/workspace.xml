@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="1e09c9c2-b4c3-4346-a7e5-f6580d5d9454" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_06_2024_16_11__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/src/main/kotlin/client/NetworkClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/main/kotlin/client/NetworkClient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/src/main/resources/configs/fromEditing/TowersData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/main/resources/configs/fromEditing/TowersData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/src/main/resources/configs/games/game1/TowersData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/main/resources/configs/games/game1/TowersData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/src/main/resources/configs/games/game2/TowersData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/main/resources/configs/games/game2/TowersData.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +49,10 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/TowerDefenceGameEngine&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -113,6 +119,7 @@
       <workItem from="1718951071686" duration="23000" />
       <workItem from="1719133866034" duration="68000" />
       <workItem from="1719134517465" duration="26000" />
+      <workItem from="1719222768855" duration="1237000" />
     </task>
     <servers />
   </component>
