@@ -1,9 +1,9 @@
+Vlad 100000
+Dasha 10000
 DarkStalker 9999
-Dasha 2500
-Vlad 1000
+Misha 1010
 Sanya 780
 Petya 770
-Misha 500
 Kolya 490
 Fedya 450
 Masha 400
