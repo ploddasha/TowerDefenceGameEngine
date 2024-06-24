@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1e09c9c2-b4c3-4346-a7e5-f6580d5d9454" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/src/main/kotlin/client/NetworkClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/main/kotlin/client/NetworkClient.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +117,8 @@
       <workItem from="1718951071686" duration="23000" />
       <workItem from="1719133866034" duration="68000" />
       <workItem from="1719134517465" duration="26000" />
-      <workItem from="1719222768855" duration="4277000" />
+      <workItem from="1719222768855" duration="6600000" />
+      <workItem from="1719249729846" duration="545000" />
     </task>
     <servers />
   </component>
