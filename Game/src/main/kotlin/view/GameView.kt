@@ -58,6 +58,7 @@ class GameView(
     private val moneyIcon = ImageView(Image(resources.url("/configs/coin.png").toString()))
     private val heartIcon = ImageView(Image(resources.url("/configs/heart.png").toString()))
     private val starIcon = ImageView(Image(resources.url("/configs/star.png").toString()))
+    private val waveIcon = ImageView(Image(resources.url("/configs/wave_icon.png").toString()))
 
     private val cityLabel = label() {
         style {
@@ -124,6 +125,8 @@ class GameView(
         starIcon.fitHeight = 30.0
         ratingLabel.textProperty().bind(ratingController.ratingProperty().asString("Rating: %d"))
 
+        waveIcon.fitWidth = 30.0
+        waveIcon.fitHeight = 30.0
         waveLabel.textProperty().bind(waveController.currentWaveProperty().asString("Wave %d of ").concat(waveController.totalWavesProperty.asString("%d")))
 
     }
@@ -321,6 +324,7 @@ class GameView(
                     }
 
                     hbox {
+                        add(waveIcon)
                         add(waveBackground)
                         alignment = Pos.TOP_RIGHT
                     }
