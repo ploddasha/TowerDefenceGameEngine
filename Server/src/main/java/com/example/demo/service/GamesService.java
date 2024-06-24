@@ -96,4 +96,75 @@ public class GamesService {
             }
         }
     }
+
+    public void updateData(String player,  String gameName, int score, String time) throws IOException {
+        List<String> games = new ArrayList<>();
+        if (Files.exists((Paths.get("src/main/resources/" + player + "Games.txt")))) {
+            List<String> list_rating = Files.readAllLines(Paths.get("src/main/resources/" + player + "Games.txt"));
+            games.addAll(list_rating);
+        }
+        games.add(gameName + ", " + time + ", " + score);
+        int gamesCnt = games.size();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/" + player + "Games.txt"))) {
+            for (String line : games) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Map<String, Integer> scores = new HashMap<>();
+        if (Files.exists((Paths.get("src/main/resources/" + player + "Scores.txt")))) {
+            List<String> list_rating = Files.readAllLines(Paths.get("src/main/resources/" + player + "Scores.txt"));
+            String[] sm;
+            for (String s : list_rating) {
+                sm = s.split(" ");
+                scores.put(sm[0], Integer.parseInt(sm[1]));
+            }
+        }
+        if (scores.containsKey(gameName)) {
+            if (scores.get(gameName) < score) {
+                scores.put(gameName, score);
+            }
+        } else {
+            scores.put(gameName, score);
+        }
+        int scoresCnt = scores.size();
+
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(scores.entrySet());
+        list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/" + player + "Scores.txt"))) {
+            for (Map.Entry<String, Integer> entry : list) {
+                writer.write(entry.getKey() + " " + entry.getValue());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/" + player + ".txt"))) {
+            writer.write("Games have been played: " + gamesCnt);
+            writer.newLine();
+            writer.write("The number of unique games: " + scoresCnt);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addToPlayers(String player) throws IOException {
+        Set<String> players = new HashSet<>();
+        if (Files.exists(Paths.get("src/main/resources/players.txt"))) {
+            List<String> list_rating = Files.readAllLines(Paths.get("src/main/resources/players.txt"));
+            players.addAll(list_rating);
+        }
+        players.add(player);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/players.txt"))) {
+            for (String line : players) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

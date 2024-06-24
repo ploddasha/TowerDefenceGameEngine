@@ -15,7 +15,7 @@ import model.data.UnifiedGameData
 
 class NetworkClient {
 
-    private val server: String = "http://10.40.109.67:8083"
+    private val server: String = "http://10.40.109.248:8083"
     //private val server: String = "http://localhost:8083"
 
 
@@ -128,6 +128,30 @@ class NetworkClient {
             println("Error fetching game: ${response.status}")
             null
         }
+    }
+    suspend fun getAllPlayers(): List<String> {
+        val response = client.get("$server/getPlayers")
+        val players = response.body<String>()
+        return players.split("\n")
+    }
+
+    suspend fun getPlayerGames(player: String): String {
+        val response = client.get("$server/getListOfGames") {
+            parameter("player", player)
+        }
+        return response.body<String>()
+    }
+    suspend fun getPlayerScores(player: String): String {
+        val response = client.get("$server/getScores") {
+            parameter("player", player)
+        }
+        return response.body<String>()
+    }
+    suspend fun getPlayer(player: String): String {
+        val response = client.get("$server/getPlayer") {
+            parameter("player", player)
+        }
+        return response.body<String>()
     }
 }
 

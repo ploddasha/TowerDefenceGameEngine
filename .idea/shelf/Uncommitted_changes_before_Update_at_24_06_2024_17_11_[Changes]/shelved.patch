@@ -1,0 +1,88 @@
+Index: Game/src/main/kotlin/client/NetworkClient.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package client\r\n\r\nimport io.ktor.client.*\r\nimport io.ktor.client.call.*\r\nimport io.ktor.client.engine.cio.*\r\nimport io.ktor.client.plugins.*\r\nimport io.ktor.client.plugins.contentnegotiation.*\r\nimport io.ktor.client.request.*\r\nimport io.ktor.http.*\r\nimport io.ktor.serialization.kotlinx.json.*\r\nimport model.data.Game\r\nimport model.data.GameState\r\nimport model.data.UnifiedGameData\r\n\r\n\r\nclass NetworkClient {\r\n\r\n    private val server: String = \"http://10.40.109.67:8083\"\r\n    //private val server: String = \"http://localhost:8083\"\r\n\r\n\r\n\r\n    private val client = HttpClient(CIO) {\r\n        install(ContentNegotiation) {\r\n            json()\r\n        }\r\n        install(HttpTimeout) {\r\n            requestTimeoutMillis = 5000 // 5 seconds timeout\r\n            connectTimeoutMillis = 5000\r\n            socketTimeoutMillis = 5000\r\n        }\r\n    }\r\n\r\n    suspend fun getAllGames(): List<Game> {\r\n\r\n        val response = client.get(\"$server/games\") {\r\n            headers {\r\n                append(HttpHeaders.ContentType, ContentType.Application.Json)\r\n            }\r\n        }\r\n\r\n        if (response.status == HttpStatusCode.OK) {\r\n            val data = response.body<List<Game>>()\r\n            println(data)\r\n            return data\r\n        } else {\r\n            println(\"Error with sending request\")\r\n            return emptyList()\r\n        }\r\n    }\r\n\r\n    suspend fun getOpponentState(): GameState? {\r\n        val response = client.get(\"$server/state\") {\r\n            headers {\r\n                append(HttpHeaders.ContentType, ContentType.Application.Json)\r\n            }\r\n        }\r\n        return try {\r\n            if (response.status == HttpStatusCode.OK && response.contentLength() != 0L) {\r\n                response.body<GameState>()\r\n            } else {\r\n                println(\"Error with receiving opponent state: No content\")\r\n                null\r\n            }\r\n        } catch (e: NoTransformationFoundException) {\r\n            println(\"Error with receiving opponent state: ${e.message}\")\r\n            null\r\n        }\r\n    }\r\n\r\n    suspend fun sendGameState(gameState: GameState): Boolean {\r\n        val response = client.post(\"$server/updateState\") {\r\n            headers {\r\n                append(HttpHeaders.ContentType, ContentType.Application.Json)\r\n            }\r\n            setBody(gameState)\r\n        }\r\n        return response.status == HttpStatusCode.OK\r\n    }\r\n\r\n    suspend fun connect(name: String): Boolean {\r\n        val response = client.get(\"$server/connect\") {\r\n            parameter(\"name\", name)\r\n        }\r\n        val responseBody = response.body<String>()\r\n        return responseBody.toBoolean()\r\n    }\r\n\r\n    suspend fun check(): Boolean {\r\n        val response = client.get(\"$server/check\")\r\n        val responseBody = response.body<String>()\r\n        return responseBody.toBoolean()\r\n    }\r\n\r\n    suspend fun getGameSettings(name: String): String {\r\n        val response = client.get(\"$server/getGame\") {\r\n            parameter(\"name\", name)\r\n        }\r\n        return response.body<String>()\r\n    }\r\n\r\n    suspend fun getRating(name: String): String{\r\n        val response = client.get(\"$server/rating\") {\r\n            parameter(\"name\", name)\r\n        }\r\n        return response.body<String>()\r\n    }\r\n\r\n    suspend fun addToRating(name: String, player: String, result: Int): Boolean {\r\n        val response = client.post(\"$server/addToRating\"){\r\n            parameter(\"name\", name)\r\n            setBody(\"$player $result\")\r\n        }\r\n        return response.status == HttpStatusCode.OK\r\n    }\r\n\r\n    suspend fun getGameByName(name: String): UnifiedGameData? {\r\n        val response = client.get(\"$server/getGame\") {\r\n            parameter(\"name\", name)\r\n            headers {\r\n                append(HttpHeaders.ContentType, ContentType.Application.Json)\r\n            }\r\n        }\r\n\r\n        return if (response.status == HttpStatusCode.OK) {\r\n            response.body<UnifiedGameData>()\r\n        } else {\r\n            println(\"Error fetching game: ${response.status}\")\r\n            null\r\n        }\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Game/src/main/kotlin/client/NetworkClient.kt b/Game/src/main/kotlin/client/NetworkClient.kt
+--- a/Game/src/main/kotlin/client/NetworkClient.kt	(revision c2021a78d161fb9912c1399ea930bc75cb0349bc)
++++ b/Game/src/main/kotlin/client/NetworkClient.kt	(date 1719222784000)
+@@ -15,7 +15,7 @@
+ 
+ class NetworkClient {
+ 
+-    private val server: String = "http://10.40.109.67:8083"
++    private val server: String = "http://10.40.109.248:8083"
+     //private val server: String = "http://localhost:8083"
+ 
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"1e09c9c2-b4c3-4346-a7e5-f6580d5d9454\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/checkstyle-idea.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_06_2024_16_11__Changes_.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Game/src/main/kotlin/client/NetworkClient.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Game/src/main/kotlin/client/NetworkClient.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Server/src/main/resources/application.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Server/src/main/resources/application.properties\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;mkrikunov&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/ploddasha/TowerDefenceGameEngine.git&quot;,\r\n    &quot;accountId&quot;: &quot;4c9fdba7-9d2d-415c-a6b7-688995eb8a85&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectCodeStyleSettingsMigration\">\r\n    <option name=\"version\" value=\"2\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 8\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2hrwkyxiGcETdpWh4ILQpB0F2Ig\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;D:/TowerDefenceGameEngine&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\">\r\n    <configuration default=\"true\" type=\"Babashka\" factoryName=\"BabashkaLocalRepl\" activateToolWindowBeforeRun=\"false\">\r\n      <setting name=\"displayName\" value=\"\" />\r\n      <setting name=\"bbPath\" value=\"\" />\r\n      <setting name=\"parameters\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <setting name=\"workingDir\" value=\"\" />\r\n      <setting name=\"focusEditor\" value=\"false\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"ClojureREPL\" factoryName=\"Local\" activateToolWindowBeforeRun=\"false\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"ClojureREPL\" factoryName=\"Remote\" activateToolWindowBeforeRun=\"false\">\r\n      <setting name=\"displayName\" value=\"\" />\r\n      <setting name=\"host\" value=\"\" />\r\n      <setting name=\"port\" value=\"0\" />\r\n      <setting name=\"replType\" value=\"SOCKET\" />\r\n      <setting name=\"configType\" value=\"SPECIFY\" />\r\n      <setting name=\"replPortFileType\" value=\"STANDARD\" />\r\n      <setting name=\"customPortFile\" value=\"\" />\r\n      <setting name=\"fixLineNumbers\" value=\"false\" />\r\n      <setting name=\"focusEditor\" value=\"false\" />\r\n      <setting name=\"urlFile\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <module name=\"TowerDefenceGameEngine\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <module name=\"TowerDefenceGameEngine\" />\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"TORNADOFX_RUNCONFIGURATION\" run-type=\"App\" live-views=\"false\" live-stylesheets=\"false\" dump-stylesheets=\"false\">\r\n      <module name=\"TowerDefenceGameEngine\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"1e09c9c2-b4c3-4346-a7e5-f6580d5d9454\" name=\"Changes\" comment=\"\" />\r\n      <created>1718365651954</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1718365651954</updated>\r\n      <workItem from=\"1718365652676\" duration=\"289000\" />\r\n      <workItem from=\"1718784029043\" duration=\"67000\" />\r\n      <workItem from=\"1718940274194\" duration=\"8000\" />\r\n      <workItem from=\"1718951071686\" duration=\"23000\" />\r\n      <workItem from=\"1719133866034\" duration=\"68000\" />\r\n      <workItem from=\"1719134517465\" duration=\"26000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision c2021a78d161fb9912c1399ea930bc75cb0349bc)
++++ b/.idea/workspace.xml	(date 1719223712000)
+@@ -1,13 +1,14 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="SELECTIVE" />
++  </component>
+   <component name="ChangeListManager">
+     <list default="true" id="1e09c9c2-b4c3-4346-a7e5-f6580d5d9454" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_06_2024_16_11__Changes_.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_06_2024_13_24__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_06_2024_13_24__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_06_2024_16_11__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_06_2024_16_11__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Game/src/main/kotlin/client/NetworkClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/main/kotlin/client/NetworkClient.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/application.properties" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -40,17 +41,21 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;D:/TowerDefenceGameEngine&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "dart.analysis.tool.window.visible": "false",
++    "git-widget-placeholder": "master",
++    "kotlin-language-version-configured": "true",
++    "last_opened_file_path": "D:/TowerDefenceGameEngine",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "vue.rearranger.settings.migration": "true"
+   }
+-}</component>
++}]]></component>
+   <component name="RunManager">
+     <configuration default="true" type="Babashka" factoryName="BabashkaLocalRepl" activateToolWindowBeforeRun="false">
+       <setting name="displayName" value="" />
+@@ -113,6 +118,7 @@
+       <workItem from="1718951071686" duration="23000" />
+       <workItem from="1719133866034" duration="68000" />
+       <workItem from="1719134517465" duration="26000" />
++      <workItem from="1719222768855" duration="937000" />
+     </task>
+     <servers />
+   </component>

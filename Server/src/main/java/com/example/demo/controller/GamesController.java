@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
@@ -24,6 +25,8 @@ public class GamesController {
 
     private Map<String, String> ip_state = new HashMap<>();
     private Map<String, String> ip_ip = new HashMap<>();
+    Date now;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
     @Autowired
     private GamesService gamesService;
 
@@ -55,6 +58,7 @@ public class GamesController {
         } else if (!name_ip.get(name).equals(gamesService.getClientIp(request))) {
             ip_ip.put(name_ip.get(name), gamesService.getClientIp(request));
             ip_ip.put(gamesService.getClientIp(request), name_ip.get(name));
+            now = new Date();
         }
         ip_time.put(gamesService.getClientIp(request), Instant.now());
         return ip_ip.size() >= 2;
@@ -86,7 +90,11 @@ public class GamesController {
     @PostMapping("/addToRating")
     public void updateRating(HttpServletRequest request, @RequestBody String sample, @RequestParam(name = "name") String name) {
         String[] sm = sample.split(" ");
+        now = new Date();
         try {
+            String time = formatter.format(now);
+            gamesService.addToPlayers(sm[0]);
+            gamesService.updateData(sm[0], name, Integer.parseInt(sm[1]), time);
             gamesService.addToRating(name, sm[0], Integer.parseInt(sm[1]));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -100,6 +108,85 @@ public class GamesController {
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
         String filePath = "src/main/resources/" + name + ".txt";
+        if (Files.exists(Paths.get(filePath))) {
+            try {
+                String content = new String(Files.readAllBytes(Paths.get(filePath)));
+                return ResponseEntity.ok().headers(headers).body(content);
+            } catch (IOException e) {
+                System.err.println("Ошибка при чтении файла: " + e.getMessage());
+                return ResponseEntity.internalServerError().build();
+            }
+        } else {
+            return ResponseEntity.ok().body("Empty now :(");
+        }
+    }
+
+    @GetMapping("/getListOfGames")
+        public ResponseEntity<String> getListOfGames(HttpServletRequest request, @RequestParam(name = "player") String player) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+            headers.add("Pragma", "no-cache");
+            headers.add("Expires", "0");
+            String filePath = "src/main/resources/" + player + "Games.txt";
+            if (Files.exists(Paths.get(filePath))) {
+                try {
+                    String content = new String(Files.readAllBytes(Paths.get(filePath)));
+                    return ResponseEntity.ok().headers(headers).body(content);
+                } catch (IOException e) {
+                    System.err.println("Ошибка при чтении файла: " + e.getMessage());
+                    return ResponseEntity.internalServerError().build();
+                }
+            } else {
+                return ResponseEntity.ok().body("Empty now :(");
+            }
+        }
+    @GetMapping("/getScores")
+    public ResponseEntity<String> getScores(HttpServletRequest request, @RequestParam(name = "player") String player) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        String filePath = "src/main/resources/" + player + "Scores.txt";
+        if (Files.exists(Paths.get(filePath))) {
+            try {
+                String content = new String(Files.readAllBytes(Paths.get(filePath)));
+                return ResponseEntity.ok().headers(headers).body(content);
+            } catch (IOException e) {
+                System.err.println("Ошибка при чтении файла: " + e.getMessage());
+                return ResponseEntity.internalServerError().build();
+            }
+        } else {
+            return ResponseEntity.ok().body("Empty now :(");
+        }
+    }
+
+    @GetMapping("/getPlayer")
+    public ResponseEntity<String> getPlayer(HttpServletRequest request, @RequestParam(name = "player") String player) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        String filePath = "src/main/resources/" + player + ".txt";
+        if (Files.exists(Paths.get(filePath))) {
+            try {
+                String content = new String(Files.readAllBytes(Paths.get(filePath)));
+                return ResponseEntity.ok().headers(headers).body(content);
+            } catch (IOException e) {
+                System.err.println("Ошибка при чтении файла: " + e.getMessage());
+                return ResponseEntity.internalServerError().build();
+            }
+        } else {
+            return ResponseEntity.ok().body("Empty now :(");
+        }
+    }
+
+    @GetMapping("/getPlayers")
+    public ResponseEntity<String> getPlayers(HttpServletRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        String filePath = "src/main/resources/players.txt";
         if (Files.exists(Paths.get(filePath))) {
             try {
                 String content = new String(Files.readAllBytes(Paths.get(filePath)));
