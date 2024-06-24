@@ -12,7 +12,7 @@ class StartMenuView : View("Bashenki!") {
     private val musicController: MusicController by inject()
     init {
         importStylesheet("/styles/style.css")
-        //musicController.playMusic("D:/ggwp/TowerDefenceGameEngine/Game/src/main/resources/music/start_music.mp3")
+        //musicController.playMusic("./src/main/resources/music/start_music.mp3")
     }
 
 
@@ -48,11 +48,6 @@ class StartMenuView : View("Bashenki!") {
 
             vbox {
                 alignment = Pos.CENTER
-
-                /*
-                style {
-                    backgroundColor += Color.rgb(0, 77, 64)
-                } */
 
                 label("Welcome to the Bashenki!") {
                     styleClass.add("bordered");

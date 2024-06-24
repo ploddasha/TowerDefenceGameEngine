@@ -127,9 +127,6 @@ class PlayerInfoView : View("Player Info") {
                         textFill = Color.WHITE
                         fontWeight = FontWeight.BOLD
                         paddingAll = 20.0
-                        //borderWidth += box(2.px)
-                        //borderColor += box(Color.BLACK)
-                        //round(10.0)
                     }
                     action {
                         replaceWith<AllGamesView>()
