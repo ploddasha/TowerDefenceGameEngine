@@ -129,5 +129,29 @@ class NetworkClient {
             null
         }
     }
+    suspend fun getAllPlayers(): List<String> {
+        val response = client.get("$server/getPlayers")
+        val players = response.body<String>()
+        return players.split("\n")
+    }
+
+    suspend fun getPlayerGames(player: String): String {
+        val response = client.get("$server/getListOfGames") {
+            parameter("player", player)
+        }
+        return response.body<String>()
+    }
+    suspend fun getPlayerScores(player: String): String {
+        val response = client.get("$server/getScores") {
+            parameter("player", player)
+        }
+        return response.body<String>()
+    }
+    suspend fun getPlayer(player: String): String {
+        val response = client.get("$server/getPlayer") {
+            parameter("player", player)
+        }
+        return response.body<String>()
+    }
 }
 
