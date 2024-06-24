@@ -98,13 +98,15 @@ class EnemyGameController(
                     victoryController.setEnemyCityHealth(gameState.cityHealth)
                     victoryController.setEnemyRating(gameState.rating)
                     val result = victoryController.check()
+                    /*
                     if (result != "nothing") {
+
                         when (result) {
                             "victory" -> showNameInputView("Congratulations! You won!")
                             "lose" -> showNameInputView("Ooops... You lost!")
                             else -> showNameInputView("Hmmmm... It's a draw!")
                         }
-                    }
+                    }*/
                 }
             } else {
                 println("Failed to receive game state")
