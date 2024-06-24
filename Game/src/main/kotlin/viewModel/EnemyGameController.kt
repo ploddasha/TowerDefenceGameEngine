@@ -13,6 +13,7 @@ import tornadofx.Controller
 import tornadofx.alert
 import tornadofx.runLater
 import view.EnemyMapView
+import view.SaveRatingView
 
 
 class EnemyGameController(
@@ -98,20 +99,10 @@ class EnemyGameController(
                     victoryController.setEnemyRating(gameState.rating)
                     val result = victoryController.check()
                     if (result != "nothing") {
-                        runLater {
-                            when (result) {
-                                "victory" -> {
-                                    alert(Alert.AlertType.INFORMATION, "Congratulations!", "You won!")
-                                }
-
-                                "lose" -> {
-                                    alert(Alert.AlertType.INFORMATION, "Ooops...", "You lost!")
-                                }
-
-                                else -> {
-                                    alert(Alert.AlertType.INFORMATION, "Hmmmm...", "It's a draw!")
-                                }
-                            }
+                        when (result) {
+                            "victory" -> showNameInputView("Congratulations! You won!")
+                            "lose" -> showNameInputView("Ooops... You lost!")
+                            else -> showNameInputView("Hmmmm... It's a draw!")
                         }
                     }
                 }
@@ -119,6 +110,29 @@ class EnemyGameController(
                 println("Failed to receive game state")
             }
 
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun showNameInputView(message: String) {
+        val totalMoneySpent = moneyController.getMoneySpent()
+
+        find<SaveRatingView>().apply {
+            setResultMessage("$message\nTotal Money Spent: $totalMoneySpent")
+            this.onSave = { name ->
+                GlobalScope.launch {
+                    networkClient.addToRating(
+                        name = "Cool",
+                        result = ratingController.getRating(),
+                        player = name
+                    )
+                }
+                find<SaveRatingView>().apply {
+                    setResultMessage("$message\nTotal Money Spent: $totalMoneySpent\nRating saved for $name.")
+                }
+            }
+
+            openModal(block = true)
         }
     }
 
