@@ -111,11 +111,18 @@ class RatingMenuView(
 
         for ((index, line) in lines.withIndex()) {
             val parts = line.split(" ")
-            val newLine = "${index + 1}) ${parts[0]}     ${parts[1]}"
 
-            result.append(newLine).append("\n")
+            // Ensure there are at least two parts
+            if (parts.size >= 2) {
+                val newLine = "${index + 1}) ${parts[0]}     ${parts[1]}"
+                result.append(newLine).append("\n")
+            } else {
+                // Handle lines with insufficient parts
+                result.append("${index + 1}) ${line.trim()}").append("\n")
+            }
         }
 
         this.currRating = result.toString()
     }
+
 }

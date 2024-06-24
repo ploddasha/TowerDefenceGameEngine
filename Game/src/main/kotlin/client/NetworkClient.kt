@@ -3,6 +3,7 @@ package client
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.http.*
@@ -22,6 +23,11 @@ class NetworkClient {
     private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
             json()
+        }
+        install(HttpTimeout) {
+            requestTimeoutMillis = 5000 // 5 seconds timeout
+            connectTimeoutMillis = 5000
+            socketTimeoutMillis = 5000
         }
     }
 

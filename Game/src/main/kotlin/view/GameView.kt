@@ -28,8 +28,9 @@ class GameView(
     private val flyingTowerController = FlyingTowerController()
     private val cityModel = CityModel()
     private val ratingController = RatingController()
+    private val waveController = WaveController()
 
-    private val gameController = GameController(moneyController, cityController, ratingController, cityModel, false, victoryController)
+    private val gameController = GameController(moneyController, cityController, ratingController, cityModel, false, victoryController, waveController)
 
     private val mapView = MapView(gameController)
     private val allGamesView: AllGamesView by inject()
@@ -93,6 +94,23 @@ class GameView(
         alignment = Pos.CENTER
     }
 
+    private val waveLabel = label() {
+        style {
+            fontWeight = FontWeight.BOLD
+        }
+    }
+    val waveBackground = stackpane {
+        rectangle {
+            width = 100.0
+            height = 30.0
+            fill = Color.WHITE
+            arcWidth = 20.0
+            arcHeight = 20.0
+        }
+        add(waveLabel)
+        alignment = Pos.CENTER
+    }
+
     init {
         moneyIcon.fitWidth = 35.0
         moneyIcon.fitHeight = 35.0
@@ -105,6 +123,8 @@ class GameView(
         starIcon.fitWidth = 30.0
         starIcon.fitHeight = 30.0
         ratingLabel.textProperty().bind(ratingController.ratingProperty().asString("Rating: %d"))
+
+        waveLabel.textProperty().bind(waveController.currentWaveProperty().asString("Wave %d of ").concat(waveController.totalWavesProperty.asString("%d")))
 
     }
     data class GameTile(val x: Int, val y: Int, val width: Double, val height: Double, val tileType: TileType)
@@ -297,6 +317,11 @@ class GameView(
                     hbox {
                         add(starIcon)
                         add(ratingBackground)
+                        alignment = Pos.TOP_RIGHT
+                    }
+
+                    hbox {
+                        add(waveBackground)
                         alignment = Pos.TOP_RIGHT
                     }
                 }

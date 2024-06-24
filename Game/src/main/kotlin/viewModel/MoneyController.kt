@@ -10,6 +10,12 @@ class MoneyController {
     private val moneyAmountProperty = SimpleIntegerProperty(wallet.getMoneyAmount())
     fun moneyAmountProperty() = moneyAmountProperty
 
+    private var moneySpent = 0
+
+    fun getMoneySpent(): Int {
+        return moneySpent
+    }
+
 
     fun getCurrentMoneyAmount(): Int {
         return moneyAmountProperty.get()
@@ -23,7 +29,7 @@ class MoneyController {
 
     fun writeOffMoney(amount: Int) {
         moneyAmountProperty.set(moneyAmountProperty.get() - amount)
-
+        moneySpent += amount
     }
 
     fun setMoney(moneyAmount: Int) {

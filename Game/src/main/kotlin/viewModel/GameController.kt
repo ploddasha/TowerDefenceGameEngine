@@ -40,7 +40,8 @@ class GameController(
     private val ratingController: RatingController,
     private val cityModel: CityModel,
     private val doSendGameState: Boolean,
-    private val victoryController: VictoryController
+    private val victoryController: VictoryController,
+    private val waveController: WaveController
 ) : Controller() {
 
     private var mapView: MapView? = null
@@ -63,6 +64,7 @@ class GameController(
     private var gameId = 1
 
     private var currentWave = 0
+
 
 
     init {
@@ -110,6 +112,10 @@ class GameController(
                 }
             }.toMutableList()
         }.toMutableList()
+
+        runLater {
+            waveController.setTotalWaves(waves.size)
+        }
     }
 
 
@@ -194,7 +200,7 @@ class GameController(
                                 runLater {
                                     fireTowers() // вызываем fireTowers после каждого перемещения моба
                                 }
-                                delay(500) // задержка в 0.5 секунды между движениями моба
+                                delay(1000) // задержка в 0.5 секунды между движениями моба
 
                                 if (mob.health <= 0) {
                                     alive = false
@@ -209,6 +215,9 @@ class GameController(
                     jobs.joinAll() // Ждем завершения всех корутин
 
                     currentWave++
+                    runLater {
+                        waveController.setNextWave()
+                    }
                     checkVictory()
                 } else {
                     //checkVictory()
@@ -250,8 +259,10 @@ class GameController(
     }
 
     private fun showNameInputView(message: String) {
+        val totalMoneySpent = moneyController.getMoneySpent()
+
         find<SaveRatingView>().apply {
-            setResultMessage(message)
+            setResultMessage("$message\nTotal Money Spent: $totalMoneySpent")
             this.onSave = { name ->
                 GlobalScope.launch {
                     networkClient.addToRating(
@@ -261,7 +272,7 @@ class GameController(
                     )
                 }
                 find<SaveRatingView>().apply {
-                    setResultMessage("$message\nRating saved for $name.")
+                    setResultMessage("$message\nTotal Money Spent: $totalMoneySpent\nRating saved for $name.")
                 }
             }
 

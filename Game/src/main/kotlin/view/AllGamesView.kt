@@ -16,6 +16,9 @@ class AllGamesView : View("") {
     private lateinit var rating: String
     //private lateinit var ratingMenuView: RatingMenuView
 
+    private val defaultGame = Game(id = 1, gameName = "Cool Game")
+
+
     override val root = stackpane {
         addClass("all-games-stack-pane")
 
@@ -110,9 +113,14 @@ class AllGamesView : View("") {
 
     private fun loadGames() {
         GlobalScope.launch {
-            val result = networkClient.getAllGames()
+            val result = runCatching {
+                networkClient.getAllGames()
+            }.getOrElse {
+                emptyList()
+            }
+
             runLater {
-                games = result
+                games = if (result.isEmpty()) listOf(defaultGame) else result
                 updateUI()
                 saveGamesToJSON()
             }
