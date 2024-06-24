@@ -4,7 +4,7 @@ import javafx.beans.property.IntegerProperty
 import javafx.beans.property.SimpleIntegerProperty
 
 class WaveController {
-    private val currentWaveProperty = SimpleIntegerProperty(1)
+    private val currentWaveProperty = SimpleIntegerProperty(0)
     fun currentWaveProperty() = currentWaveProperty
 
     val totalWavesProperty: IntegerProperty = SimpleIntegerProperty(0)

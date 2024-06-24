@@ -3,6 +3,7 @@ package viewModel
 import client.NetworkClient
 import javafx.application.Platform
 import javafx.scene.control.Alert
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -36,6 +37,7 @@ class EnemyGameController(
     private var isGameOn = true
 
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun startPeriodicGameStateUpdates() {
         isGameOn = true
 
@@ -53,6 +55,7 @@ class EnemyGameController(
 
 
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun receiveGameState() {
         GlobalScope.launch {
             val gameState = networkClient.getOpponentState()
@@ -118,7 +121,6 @@ class EnemyGameController(
 
         }
     }
-
 
 
 

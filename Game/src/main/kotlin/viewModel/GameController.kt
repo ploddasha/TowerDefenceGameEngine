@@ -5,11 +5,7 @@ import app.loadFiles.createMobModel
 import client.NetworkClient
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.value.ObservableValue
-import javafx.scene.control.Alert
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import model.CityModel
@@ -18,7 +14,6 @@ import model.data.InitConfig
 import model.fromEditing.MobsModel
 import model.tower.Tower
 import tornadofx.*
-import view.GameView
 import view.MapView
 import viewModel.real.RealMob
 import viewModel.real.RealTower
@@ -29,8 +24,6 @@ import viewModel.towerControllers.parseWalk
 import viewModel.towerControllers.parseFly
 import java.io.File
 import java.util.*
-import javafx.scene.control.Button
-import view.GameTwoMapsView
 import view.SaveRatingView
 
 
@@ -47,7 +40,6 @@ class GameController(
     private var mapView: MapView? = null
 
     private val mobsModel: MobsModel by inject()
-    private var timer: Timer? = null
     private var waves: MutableList<MutableList<RealMob>> = mutableListOf()
     private val mobs = mutableListOf<RealMob>()
     private val towers = mutableListOf<RealTower>()
@@ -139,6 +131,7 @@ class GameController(
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun startPeriodicGameStateUpdates() {
 
         if (doSendGameState) {
@@ -152,6 +145,7 @@ class GameController(
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun sendGameState() {
         GlobalScope.launch {
             if (currentWave < waves.size) {
@@ -183,6 +177,7 @@ class GameController(
 
 
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun startGameWithWaves() {
         println("START WAVE")
         //startPeriodicGameStateUpdates() For competitive
@@ -258,6 +253,7 @@ class GameController(
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun showNameInputView(message: String) {
         val totalMoneySpent = moneyController.getMoneySpent()
 
@@ -351,19 +347,16 @@ class GameController(
     }
 
     fun createRealFlyingTower(tower: Tower, col: Int, row: Int) {
-        //TODO а что за speed у башен?
         towers.add(RealTower(row * 20 + col, row, col, TowerType.FlyingTower,
             tower.health, 100, tower.damage, tower.range))
     }
 
     fun createRealGroundTower(tower: Tower, col: Int, row: Int) {
-        //TODO а что за speed у башен?
         towers.add(RealTower(row * 20 + col, row, col, TowerType.GroundTower,
             tower.health, 100, tower.damage, tower.range))
     }
 
     fun createRealBothTower(tower: Tower, col: Int, row: Int) {
-        //TODO а что за speed у башен?
         towers.add(RealTower(row * 20 + col, row, col, TowerType.BothTower,
             tower.health, 100, tower.damage, tower.range))
     }
