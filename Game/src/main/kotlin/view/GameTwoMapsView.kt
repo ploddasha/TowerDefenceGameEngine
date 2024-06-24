@@ -27,6 +27,7 @@ class GameTwoMapsView(
     private val enemyCityController = CityController()
     private val enemyRatingController = RatingController()
     private val victoryController = VictoryController()
+    private val waveController = WaveController()
 
 
     private val groundTowerController = GroundTowerController()
@@ -36,7 +37,7 @@ class GameTwoMapsView(
     private val enemyCityModel = CityModel()
 
 
-    private val gameController = GameController(moneyController, cityController, ratingController, cityModel, true, victoryController)
+    private val gameController = GameController(moneyController, cityController, ratingController, cityModel, true, victoryController, waveController)
     private val enemyGameController = EnemyGameController(enemyMoneyController, enemyCityController, enemyRatingController, enemyCityModel, victoryController)
 
 
@@ -158,6 +159,24 @@ class GameTwoMapsView(
         alignment = Pos.CENTER
     }
 
+    private val waveLabel = label() {
+        style {
+            fontWeight = FontWeight.BOLD
+        }
+    }
+    val waveBackground = stackpane {
+        rectangle {
+            width = 100.0
+            height = 30.0
+            fill = Color.WHITE
+            arcWidth = 20.0
+            arcHeight = 20.0
+        }
+        add(waveLabel)
+        alignment = Pos.CENTER
+    }
+
+
     //private val musicController: MusicController  by inject()
 
     init {
@@ -192,6 +211,8 @@ class GameTwoMapsView(
         enemyStarIcon.fitHeight = 30.0
         enemyRatingLabel.textProperty().bind(
             enemyRatingController.ratingProperty().asString("Erating: %d"))
+
+        waveLabel.textProperty().bind(waveController.currentWaveProperty().asString("Wave %d of ").concat(waveController.totalWavesProperty.asString("%d")))
 
         startStartGame()
     }
@@ -409,6 +430,11 @@ class GameTwoMapsView(
                     hbox {
                         add(enemyStarIcon)
                         add(enemyRatingBackground)
+                        alignment = Pos.TOP_RIGHT
+                    }
+
+                    hbox {
+                        add(waveBackground)
                         alignment = Pos.TOP_RIGHT
                     }
                 }
