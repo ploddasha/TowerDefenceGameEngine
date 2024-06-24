@@ -145,7 +145,7 @@ class GameController(
             GlobalScope.launch {
                 while (!victoryController.getFinished()) {
                     sendGameState()
-                    delay(200)
+                    delay(400)
                 }
             }
             sendGameState()

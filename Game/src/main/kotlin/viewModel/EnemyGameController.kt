@@ -42,7 +42,7 @@ class EnemyGameController(
         GlobalScope.launch {
             while (!victoryController.getFinished()) {
                 receiveGameState()
-                delay(200)
+                delay(400)
             }
             receiveGameState()
 
