@@ -1,2 +1,2 @@
-Games have been played: 3
+Games have been played: 9
 The number of unique games: 2

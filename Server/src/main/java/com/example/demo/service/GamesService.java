@@ -88,9 +88,10 @@ public class GamesService {
             list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
 
             try (PrintWriter out = new PrintWriter("src/main/resources/" + name + ".txt")) {
-                for (Map.Entry<String, Integer> entry : list) {
-                    out.println(entry.getKey() + " " + entry.getValue());
+                for (int i = 0; i < list.size() - 1; i++) {
+                    out.println(list.get(i).getKey() + " " + list.get(i).getValue());
                 }
+                out.print(list.get(list.size()-1).getKey() + " " + list.get(list.size()-1).getValue());
             } catch (FileNotFoundException e) {
                 System.err.println("Файл не найден: " + e.getMessage());
             }
@@ -106,9 +107,11 @@ public class GamesService {
         games.add(gameName + ", " + time + ", " + score);
         int gamesCnt = games.size();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/" + player + "Games.txt"))) {
-            for (String line : games) {
-                writer.write(line);
-                writer.newLine();
+            for (int i = 0; i < games.size(); i++) {
+                writer.write(games.get(i));
+                if (i < games.size() - 1) {
+                    writer.newLine();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -134,9 +137,11 @@ public class GamesService {
         List<Map.Entry<String, Integer>> list = new ArrayList<>(scores.entrySet());
         list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/" + player + "Scores.txt"))) {
-            for (Map.Entry<String, Integer> entry : list) {
-                writer.write(entry.getKey() + " " + entry.getValue());
-                writer.newLine();
+            for (int i = 0; i < list.size(); i++) {
+                writer.write(list.get(i).getKey() + " " + list.get(i).getValue());
+                if (i < list.size() - 1) {
+                    writer.newLine();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -145,7 +150,6 @@ public class GamesService {
             writer.write("Games have been played: " + gamesCnt);
             writer.newLine();
             writer.write("The number of unique games: " + scoresCnt);
-            writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -159,9 +163,14 @@ public class GamesService {
         }
         players.add(player);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/players.txt"))) {
-            for (String line : players) {
-                writer.write(line);
-                writer.newLine();
+            int size = players.size();
+            int cnt = 1;
+            for (String pl : players) {
+                writer.write(pl);
+                if (cnt < size) {
+                    writer.newLine();
+                }
+                cnt++;
             }
         } catch (IOException e) {
             e.printStackTrace();
